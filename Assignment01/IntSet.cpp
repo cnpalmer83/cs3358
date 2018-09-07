@@ -97,20 +97,15 @@ void IntSet::DumpData(ostream& out) const
 
 IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 {
-   IntSet unionSet;
-   unionSet = otherIntSet;
+   IntSet unionSet = otherIntSet;
+   assert(size() + (otherIntSet.subtract(*this)).size() <= MAX_SIZE);
 
-   //if (size() + (otherIntSet.subtract(*this)).size() <= MAX_SIZE)
-   if ((size() + otherIntSet.size()) <= MAX_SIZE)
+   for (int index = 0; index < size(); index++)
    {
-      for (int index = 0; index < size(); index++)
-      {
-         if (!unionSet.contains(data[index]))
+      if (!unionSet.contains(data[index]))
             unionSet.add(data[index]);
-      }
-      return unionSet;
    }
-   return *this;
+   return unionSet;
 }
 
 IntSet IntSet::intersect(const IntSet& otherIntSet) const
@@ -142,13 +137,16 @@ void IntSet::reset()
 
 bool IntSet::add(int anInt)
 {
-   if ((used < MAX_SIZE) && !contains(anInt))
+   assert(contains(anInt) ? size() <= MAX_SIZE : size() < MAX_SIZE);
+
+   if (contains(anInt))
+      return false;
+   else
    {
       data[used] = anInt;
       used++;
       return true;
    }
-   return false;
 }
 
 bool IntSet::remove(int anInt)
@@ -171,20 +169,6 @@ bool IntSet::remove(int anInt)
    }
    else
       return false;
-   /*
-   if (contains(anInt))
-   {
-      int lastElement = data[used - 1];
-      for (int index = 0; index < used; index++)
-      {
-         if (data[index] == anInt)
-            data[index] = lastElement;
-      }
-      used--;
-      return true;
-   }
-   return false;
-   */
 }
 
 bool equal(const IntSet& is1, const IntSet& is2)
