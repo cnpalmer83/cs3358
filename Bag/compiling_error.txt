@@ -1,0 +1,23 @@
+In file included from /home/chad/Documents/dataStructures/Bag/main.cpp:4:0:
+/home/chad/Documents/dataStructures/Bag/bag.cpp:16:19: error: prototype for ‘c_palmer_bag1::Bag::size_type c_palmer_bag1::Bag::count(const value_type&) const’ does not match any in class ‘c_palmer_bag1::Bag’
+    Bag::size_type Bag::count(const value_type& target) const
+                   ^~~
+In file included from /home/chad/Documents/dataStructures/Bag/main.cpp:3:0:
+/home/chad/Documents/dataStructures/Bag/bag1.h:19:17: error: candidate is: c_palmer_bag1::Bag::size_type c_palmer_bag1::Bag::count(const value_type&)
+       size_type count(const value_type& target);      // returns number of copies of specific item in bag
+                 ^~~~~
+In file included from /home/chad/Documents/dataStructures/Bag/main.cpp:4:0:
+/home/chad/Documents/dataStructures/Bag/bag.cpp: In member function ‘void c_palmer_bag1::Bag::operator+=(const c_palmer_bag1::Bag&)’:
+/home/chad/Documents/dataStructures/Bag/bag.cpp:64:7: error: ‘copy’ was not declared in this scope
+       copy(addend.data, addend.data + addend.used, data + used);  // Perform the copy procedure
+       ^~~~
+/home/chad/Documents/dataStructures/Bag/bag.cpp:64:7: note: suggested alternative:
+In file included from /usr/include/c++/7/bits/locale_facets.h:48:0,
+                 from /usr/include/c++/7/bits/basic_ios.h:37,
+                 from /usr/include/c++/7/ios:44,
+                 from /usr/include/c++/7/ostream:38,
+                 from /usr/include/c++/7/iostream:39,
+                 from /home/chad/Documents/dataStructures/Bag/main.cpp:1:
+/usr/include/c++/7/bits/streambuf_iterator.h:293:5: note:   ‘std::copy’
+     copy(istreambuf_iterator<_CharT> __first,
+     ^~~~
