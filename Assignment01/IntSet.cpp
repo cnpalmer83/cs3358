@@ -48,7 +48,6 @@ using namespace std;
 
 IntSet::IntSet()
 {
-   data[MAX_SIZE];
    used = 0;
 }
 
@@ -160,12 +159,14 @@ bool IntSet::remove(int anInt)
       for (int index = 0; index < MAX_SIZE; index++)
       {
          if (anInt == data[index])
-            foundAt == index;
+            foundAt = index;
       }
       while (foundAt < used)
       {
-         data[foundAt] = data[foundAt + 1]
+         data[foundAt] = data[foundAt + 1];
+         foundAt++;
       }
+      used--;
       return true;
    }
    else
