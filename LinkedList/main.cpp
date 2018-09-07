@@ -1,9 +1,3 @@
-/*
-   This fucking linked list doesn't work because of my failed attempt
-   to implement templates.  Want it to work?  Remove the templates.
-*/
-
-
 #include <cstdlib>
 #include "linkedlist.h"
 #include "linkedlist.cpp"

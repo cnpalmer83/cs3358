@@ -156,6 +156,23 @@ bool IntSet::remove(int anInt)
 {
    if (contains(anInt))
    {
+      int foundAt;
+      for (int index = 0; index < MAX_SIZE; index++)
+      {
+         if (anInt == data[index])
+            foundAt == index;
+      }
+      while (foundAt < used)
+      {
+         data[foundAt] = data[foundAt + 1]
+      }
+      return true;
+   }
+   else
+      return false;
+   /*
+   if (contains(anInt))
+   {
       int lastElement = data[used - 1];
       for (int index = 0; index < used; index++)
       {
@@ -166,6 +183,7 @@ bool IntSet::remove(int anInt)
       return true;
    }
    return false;
+   */
 }
 
 bool equal(const IntSet& is1, const IntSet& is2)
