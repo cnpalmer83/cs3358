@@ -186,7 +186,7 @@ Enter choice: d read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
    is1: 8  1  2  5  0  7  4  -1
    is2: 4  9  3  5  2  6
-   is3: 4  9  3  5  2  6
+   is3: 4  5  2  9  3  6
 Enter choice: e read.
 Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 32 read.
 is3 is equal to is2
@@ -208,7 +208,7 @@ Enter choice: d read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
    is1: 8  1  2  5  0  7  4  -1
    is2: 4  9  3  5  2  6
-   is3: 4  9  3  5  2  6
+   is3: 4  5  2  9  3  6
 Enter choice: s read.
 Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 31 read.
 is1 has been subtracted from is3
@@ -244,7 +244,7 @@ Enter choice: d read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
    is1: 8  1  2  5  0  7  4  -1
    is2: 4  5  2
-   is3: 8  1  2  5  0  7  4  -1  9  3
+   is3: 9  3  8  1  2  5  0  7  4  -1
 Enter choice: z read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
    is1 has 8 items
@@ -263,7 +263,7 @@ Enter choice: d read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
    is1: 8  1  2  5  0  7  4  -1
    is2: (empty)
-   is3: 8  1  2  5  0  7  4  -1  9  3
+   is3: 9  3  8  1  2  5  0  7  4  -1
 Enter choice: z read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
    is1 has 8 items
@@ -275,8 +275,8 @@ is2 has been unioned with is3
 Enter choice: d read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
    is1: 8  1  2  5  0  7  4  -1
-   is2: 8  1  2  5  0  7  4  -1  9  3
-   is3: 8  1  2  5  0  7  4  -1  9  3
+   is2: 9  3  8  1  2  5  0  7  4  -1
+   is3: 9  3  8  1  2  5  0  7  4  -1
 Enter choice: s read.
 Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 21 read.
 is1 has been subtracted from is2
@@ -284,15 +284,15 @@ Enter choice: d read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
    is1: 8  1  2  5  0  7  4  -1
    is2: 9  3
-   is3: 8  1  2  5  0  7  4  -1  9  3
+   is3: 9  3  8  1  2  5  0  7  4  -1
 Enter choice: u read.
 Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 12 read.
 is1 has been unioned with is2
 Enter choice: d read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
-   is1: 9  3  8  1  2  5  0  7  4  -1
+   is1: 8  1  2  5  0  7  4  -1  9  3
    is2: 9  3
-   is3: 8  1  2  5  0  7  4  -1  9  3
+   is3: 9  3  8  1  2  5  0  7  4  -1
 Enter choice: e read.
 Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 12 read.
 is1 is not equal to is2
