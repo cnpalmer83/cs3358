@@ -98,12 +98,12 @@ void IntSet::DumpData(ostream& out) const
 IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 {
    assert(size() + (otherIntSet.subtract(*this)).size() <= MAX_SIZE);
-   IntSet unionSet = otherIntSet;
+   IntSet unionSet = *this;
    
-   for (int index = 0; index < size(); index++)
+   for (int index = 0; index < otherIntSet.size(); index++)
    {
-      if (!unionSet.contains(data[index]))
-            unionSet.add(data[index]);
+      if (!unionSet.contains(otherIntSet.data[index]))
+         unionSet.add(otherIntSet.data[index]);
    }
    return unionSet;
 }
