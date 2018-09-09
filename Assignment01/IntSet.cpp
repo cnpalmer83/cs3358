@@ -64,12 +64,13 @@ bool IntSet::isEmpty() const
       return false;
 }
 
+
 bool IntSet::contains(int anInt) const
 {
    for (int index = 0; index < used; ++index)
    {
-      if (data[index] == anInt)        // If anInt is found,
-         return true;                  // terminate search & return true
+      if (data[index] == anInt)                                      // If anInt is found,
+         return true;                                                // terminate search & return true.
    }
    return false;
 }
@@ -78,8 +79,8 @@ bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
 {
    for (int index = 0; index < size(); ++index)
    {
-      if (!otherIntSet.contains(data[index]))  // If otherIntSet missing element
-         return false;                         // from *this, then not a subset.
+      if (!otherIntSet.contains(data[index]))                        // If otherIntSet missing element
+         return false;                                               // from *this, then not a subset.
    }
    return true;
 }
@@ -101,9 +102,9 @@ IntSet IntSet::unionWith(const IntSet& otherIntSet) const
    IntSet unionSet = *this;
    for (int index = 0; index < otherIntSet.size(); ++index)
    {
-      if (!unionSet.contains(otherIntSet.data[index]))  // Elements not present
-         unionSet.add(otherIntSet.data[index]);         // in unionSet are added
-   }                                                    // from otherIntSet
+      if (!unionSet.contains(otherIntSet.data[index]))               // Elements not present
+         unionSet.add(otherIntSet.data[index]);                      // in unionSet are added
+   }                                                                 // from otherIntSet.
    return unionSet;
 }
 
@@ -112,9 +113,9 @@ IntSet IntSet::intersect(const IntSet& otherIntSet) const
    IntSet intersect;
    for (int index = 0; index < size(); ++index)
    {
-      if (otherIntSet.contains(data[index]))       // Populates 'intersect' with
-         intersect.add(data[index]);               // elements found in *this
-   }                                               // AND otherIntSet
+      if (otherIntSet.contains(data[index]))                         // Populates 'intersect' with
+         intersect.add(data[index]);                                 // elements found in *this
+   }                                                                 // AND otherIntSet.
    return intersect;
 }
 
@@ -122,9 +123,9 @@ IntSet IntSet::subtract(const IntSet& otherIntSet) const
 {
    IntSet difference = *this;
    for (int index = 0; index < size(); ++index)
-   {                                               // 'difference' elements
-      if (otherIntSet.contains(data[index]))       // found in otherIntSet
-         difference.remove(data[index]);           // are removed
+   {                                                                 // 'difference' elements
+      if (otherIntSet.contains(data[index]))                         // found in otherIntSet
+         difference.remove(data[index]);                             // are removed.
    }
    return difference;
 }
@@ -141,9 +142,9 @@ bool IntSet::add(int anInt)
    if (contains(anInt))
       return false;
    else
-   {                             // If anInt is not in *this set,
-      data[used] = anInt;        // add it to end of set and increment
-      ++used;                    // used to account for new size
+   {                                                                 // If anInt is not in *this set,
+      data[used] = anInt;                                            // add it to end of set and increment
+      ++used;                                                        // used to account for new size.
       return true;
    }
 }
@@ -155,14 +156,14 @@ bool IntSet::remove(int anInt)
       int foundAt;
       for (int index = 0; index < MAX_SIZE; ++index)
       {
-         if (anInt == data[index])           // If anInt exists in
-            foundAt = index;                 // *this set, find it.
+         if (anInt == data[index])                                   // If anInt exists in
+            foundAt = index;                                         // *this set, find it.
       }
       while (foundAt < used)
       {
-         data[foundAt] = data[foundAt + 1];  // Then shift trailing elements
-         ++foundAt;                          // left by one position to retain
-      }                                      // element order of entry.
+         data[foundAt] = data[foundAt + 1];                          // Then shift trailing elements
+         ++foundAt;                                                  // left by one position to retain
+      }                                                              // element order of entry.
       --used;
       return true;
    }
@@ -172,8 +173,8 @@ bool IntSet::remove(int anInt)
 
 bool equal(const IntSet& is1, const IntSet& is2)
 {
-   if (is1.isSubsetOf(is2) && is2.isSubsetOf(is1)) // if is1 and is2 are
-      return true;                                 // subsets of each other,
-   else                                            // they are equal.
+   if (is1.isSubsetOf(is2) && is2.isSubsetOf(is1))                   // If is1 and is2 are
+      return true;                                                   // subsets of each other,
+   else                                                              // they are equal.
       return false;
 }
