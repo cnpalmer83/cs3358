@@ -12,9 +12,88 @@ Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
 Enter integer value 3 read.
 3 added to is1
 Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 1 read.
+1 added to is2
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 2 read.
+2 added to is2
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 3 read.
+3 added to is2
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 4 read.
+4 added to is2
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: 1  2  3
+   is2: 1  2  3  4
+   is3: (empty)
+Enter choice: b read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 12 read.
+is1 is subset of is2
+Enter choice: b read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 21 read.
+is2 is not subset of is1
+Enter choice: z read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1 has 3 items
+   is2 has 4 items
+   is3 has 0 items
+Enter choice: c read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 2 read.
+2 is in is1
+Enter choice: c read.
 Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
 Enter integer value 4 read.
-4 added to is1
+4 is not in is1
+Enter choice: c read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 4 read.
+4 is in is2
+Enter choice: k read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 1 read.
+1 removed from is1
+Enter choice: z read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1 has 2 items
+   is2 has 4 items
+   is3 has 0 items
+Enter choice: c read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 1 read.
+1 is not in is1
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: 2  3
+   is2: 1  2  3  4
+   is3: (empty)
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 1 read.
+1 added to is1
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 1 read.
+1 not added to is1
+Enter choice: z read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1 has 3 items
+   is2 has 4 items
+   is3 has 0 items
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: 2  3  1
+   is2: 1  2  3  4
+   is3: (empty)
+Enter choice: u read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 12 read.
+is1 has been unioned with is2
 Enter choice: a read.
 Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
 Enter integer value 5 read.
@@ -39,65 +118,213 @@ Enter choice: a read.
 Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
 Enter integer value 10 read.
 10 added to is1
-Enter choice: a read.
-Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
-Enter integer value 20 read.
-20 added to is2
-Enter choice: a read.
-Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
-Enter integer value 40 read.
-40 added to is2
-Enter choice: a read.
-Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
-Enter integer value 60 read.
-60 added to is2
-Enter choice: a read.
-Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
-Enter integer value 80 read.
-80 added to is2
-Enter choice: a read.
-Enter object # (1 = is1, 2 = is2, 3 = is3) 3 read.
-Enter integer value 30 read.
-30 added to is3
-Enter choice: a read.
-Enter object # (1 = is1, 2 = is2, 3 = is3) 3 read.
-Enter integer value 50 read.
-50 added to is3
-Enter choice: a read.
-Enter object # (1 = is1, 2 = is2, 3 = is3) 3 read.
-Enter integer value 70 read.
-70 added to is3
-Enter choice: a read.
-Enter object # (1 = is1, 2 = is2, 3 = is3) 3 read.
-Enter integer value 90 read.
-90 added to is3
 Enter choice: d read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
-   is1: 1  2  3  4  5  6  7  8  9  10
-   is2: 20  40  60  80
-   is3: 30  50  70  90
+   is1: 2  3  1  4  5  6  7  8  9  10
+   is2: 1  2  3  4
+   is3: (empty)
+Enter choice: s read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 12 read.
+is2 has been subtracted from is1
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: 5  6  7  8  9  10
+   is2: 1  2  3  4
+   is3: (empty)
+Enter choice: u read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 21 read.
+is2 has been unioned with is1
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: 5  6  7  8  9  10
+   is2: 1  2  3  4  5  6  7  8  9  10
+   is3: (empty)
+Enter choice: b read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 12 read.
+is1 is subset of is2
+Enter choice: b read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 21 read.
+is2 is not subset of is1
+Enter choice: m read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1 is not empty
+   is2 is not empty
+   is3 is empty
+Enter choice: r read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1 has been reset and is now empty
+   is2 has been reset and is now empty
+   is3 has been reset and is now empty
+Enter choice: m read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1 is empty
+   is2 is empty
+   is3 is empty
+Enter choice: z read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1 has 0 items
+   is2 has 0 items
+   is3 has 0 items
+Enter choice: e read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 13 read.
+is1 is equal to is3
+Enter choice: e read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 21 read.
+is2 is equal to is1
+Enter choice: s read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 31 read.
+is1 has been subtracted from is3
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: (empty)
+   is2: (empty)
+   is3: (empty)
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 20 read.
+20 added to is1
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 30 read.
+30 added to is1
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 40 read.
+40 added to is1
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 50 read.
+50 added to is1
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 60 read.
+60 added to is1
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 70 read.
+70 added to is1
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 5 read.
+5 added to is2
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 30 read.
+30 added to is2
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 7 read.
+7 added to is2
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 50 read.
+50 added to is2
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 9 read.
+9 added to is2
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 12 read.
+12 added to is2
+Enter choice: a read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 2 read.
+Enter integer value 13 read.
+13 added to is2
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: 20  30  40  50  60  70
+   is2: 5  30  7  50  9  12  13
+   is3: (empty)
+Enter choice: s read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 12 read.
+is2 has been subtracted from is1
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: 20  40  60  70
+   is2: 5  30  7  50  9  12  13
+   is3: (empty)
+Enter choice: u read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 31 read.
+is3 has been unioned with is1
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: 20  40  60  70
+   is2: 5  30  7  50  9  12  13
+   is3: 20  40  60  70
+Enter choice: s read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 31 read.
+is1 has been subtracted from is3
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: 20  40  60  70
+   is2: 5  30  7  50  9  12  13
+   is3: (empty)
+Enter choice: k read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 20 read.
+20 removed from is1
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 1 read.
+   is1: 40  60  70
+Enter choice: k read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 40 read.
+40 removed from is1
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 1 read.
+   is1: 60  70
+Enter choice: k read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 60 read.
+60 removed from is1
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 1 read.
+   is1: 70
+Enter choice: k read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 70 read.
+70 removed from is1
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 12 read.
+   is1: (empty)
+   is2: 5  30  7  50  9  12  13
+Enter choice: e read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 31 read.
+is3 is equal to is1
+Enter choice: u read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 12 read.
+is1 has been unioned with is2
+Enter choice: d read.
+Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
+   is1: 5  30  7  50  9  12  13
+   is2: 5  30  7  50  9  12  13
+   is3: (empty)
+Enter choice: k read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 30 read.
+30 removed from is1
+Enter choice: k read.
+Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
+Enter integer value 13 read.
+13 removed from is1
 Enter choice: k read.
 Enter object # (1 = is1, 2 = is2, 3 = is3) 1 read.
 Enter integer value 5 read.
 5 removed from is1
 Enter choice: d read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
-   is1: 1  2  3  4  6  7  8  9  10
-   is2: 20  40  60  80
-   is3: 30  50  70  90
-Enter choice: u read.
-Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 32 read.
-is3 has been unioned with is2
+   is1: 7  50  9  12
+   is2: 5  30  7  50  9  12  13
+   is3: (empty)
+Enter choice: i read.
+Enter object_pair # (12 for is1.OP(is2), 32 for is3.OP(is2),...) 12 read.
+is1 has been intersected with is2
 Enter choice: d read.
 Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
-   is1: 1  2  3  4  6  7  8  9  10
-   is2: 20  40  60  80
-   is3: 20  40  60  80  30  50  70  90
-Enter choice: z read.
-Enter hybrid # (1 for is1, 23 for is2 and is3, 123 for is1, is2 and is3,...) 123 read.
-   is1 has 9 items
-   is2 has 4 items
-   is3 has 8 items
+   is1: 7  50  9  12
+   is2: 5  30  7  50  9  12  13
+   is3: (empty)
 Enter choice: q read.
 Quit option selected...bye
 Press Enter or Return when ready...
