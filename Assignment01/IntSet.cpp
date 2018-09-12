@@ -110,22 +110,13 @@ IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 
 IntSet IntSet::intersect(const IntSet& otherIntSet) const
 {
-   IntSet intersect = *this;
-   for (int index = 0; index < size(); ++index)
-   {
-      if (!otherIntSet.contains(data[index]))
+   IntSet intersect = *this;                                         // Populates 'intersect' with
+   for (int index = 0; index < size(); ++index)                      // elements found in *this,
+   {                                                                 // then removes unique elements
+      if (!otherIntSet.contains(data[index]))                        // only present in otherIntSet.
          intersect.remove(data[index]);
    }
    return intersect;
-   /*
-   IntSet intersect;
-   for (int index = 0; index < size(); ++index)
-   {
-      if (otherIntSet.contains(data[index]))                         // Populates 'intersect' with
-         intersect.add(data[index]);                                 // elements found in *this
-   }                                                                 // AND otherIntSet.
-   return intersect;
-   */
 }
 
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
