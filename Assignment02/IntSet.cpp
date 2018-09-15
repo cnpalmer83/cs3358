@@ -78,7 +78,16 @@ using namespace std;
 
 void IntSet::resize(int new_capacity)
 {
-   cout << "resize() is not implemented yet..." << endl;
+   if (new_capacity < 1)
+      new_capacity = DEFAULT_CAPACITY;
+   if (new_capacity < used)
+      new_capacity = used;
+   capacity = new_capacity;
+   int *newData = new int[capacity];
+   for (int i = 0; i < used; ++i)
+      newData[i] = data[i];
+   delete [] data;
+   data = newData;
 }
 
 IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
@@ -120,8 +129,12 @@ bool IntSet::isEmpty() const
 
 bool IntSet::contains(int anInt) const
 {
-   cout << "contains() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   for (int i = 0; i < used; ++i)
+   {
+      if (*(data + i) == anInt)
+         return true;
+   }
+   return false;
 }
 
 bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
@@ -163,8 +176,16 @@ void IntSet::reset()
    cout << "reset() is not implemented yet..." << endl;
 }
 
-bool IntSet::add(int anInt)
+bool IntSet::add(int anInt)   // PARTIALLY IMPLEMENTED, NEEDS RESIZE()
 {
+   if (contains(anInt))
+      return false;
+   else
+   {
+      *(data + used) = anInt;
+      ++used;
+      return true;
+   }
    cout << "add() is not implemented yet..." << endl;
    return false; // dummy value returned
 }

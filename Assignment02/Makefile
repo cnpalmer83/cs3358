@@ -5,7 +5,7 @@ IntSet.o: IntSet.cpp IntSet.h
 Assign02.o: Assign02.cpp IntSet.h
 	g++ -Wall -ansi -pedantic -std=c++11 -c Assign02.cpp
 clean:
-	@rm a2 *.o
+	rm *.o a2
 cleanall:
 	@rm a2 *.o
 test:
