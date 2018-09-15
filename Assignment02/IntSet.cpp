@@ -78,6 +78,7 @@ using namespace std;
 
 void IntSet::resize(int new_capacity)
 {
+   cout << "Resize called." << endl;      // REMOVE WHEN COMPLETE
    if (new_capacity < 1)
       new_capacity = DEFAULT_CAPACITY;
    if (new_capacity < used)
@@ -117,8 +118,7 @@ IntSet& IntSet::operator=(const IntSet& rhs)
 
 int IntSet::size() const
 {
-   cout << "size() is not implemented yet..." << endl;
-   return 0; // dummy value returned
+   return used;
 }
 
 bool IntSet::isEmpty() const
@@ -182,7 +182,9 @@ bool IntSet::add(int anInt)   // PARTIALLY IMPLEMENTED, NEEDS RESIZE()
       return false;
    else
    {
-      *(data + used) = anInt;
+      if (used == capacity)
+         resize(capacity + 5);
+      data[used] = anInt;
       ++used;
       return true;
    }
@@ -192,8 +194,24 @@ bool IntSet::add(int anInt)   // PARTIALLY IMPLEMENTED, NEEDS RESIZE()
 
 bool IntSet::remove(int anInt)
 {
-   cout << "remove() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   if (contains(anInt))
+   {
+      int foundAt;
+      for (int i = 0; i < used; ++i)
+      {
+         if (anInt == data[i])
+            foundAt = i;
+      }
+      while (foundAt < used)
+      {
+         data[foundAt] = data[foundAt + 1];
+         ++foundAt;
+      }
+      --used;
+      return true;
+   }
+   else
+      return false;
 }
 
 bool operator==(const IntSet& is1, const IntSet& is2)
