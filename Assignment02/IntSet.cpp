@@ -112,7 +112,11 @@ IntSet::~IntSet()
 
 IntSet& IntSet::operator=(const IntSet& rhs)
 {
-   cout << "operator=() is not implemented yet..." << endl;
+   int rhs_size = rhs.size();
+   reset();
+   resize(rhs_size);
+   for (int i = 0; i < rhs_size; ++i)
+      data[i] = rhs.data[i];
    return *this;
 }
 
@@ -123,8 +127,10 @@ int IntSet::size() const
 
 bool IntSet::isEmpty() const
 {
-   cout << "isEmpty() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   if (used == 0)
+      return true;
+   else
+      return false;
 }
 
 bool IntSet::contains(int anInt) const
@@ -173,10 +179,11 @@ IntSet IntSet::subtract(const IntSet& otherIntSet) const
 
 void IntSet::reset()
 {
-   cout << "reset() is not implemented yet..." << endl;
+   used = 0;
+   resize(DEFAULT_CAPACITY);
 }
 
-bool IntSet::add(int anInt)   // PARTIALLY IMPLEMENTED, NEEDS RESIZE()
+bool IntSet::add(int anInt)   // TODO: FINALIZE NEW CAPACITY SIZE
 {
    if (contains(anInt))
       return false;
@@ -188,8 +195,7 @@ bool IntSet::add(int anInt)   // PARTIALLY IMPLEMENTED, NEEDS RESIZE()
       ++used;
       return true;
    }
-   cout << "add() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   return false;
 }
 
 bool IntSet::remove(int anInt)
