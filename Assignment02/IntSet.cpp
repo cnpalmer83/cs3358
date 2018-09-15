@@ -81,20 +81,23 @@ void IntSet::resize(int new_capacity)
    cout << "resize() is not implemented yet..." << endl;
 }
 
-IntSet::IntSet(int initial_capacity)
+IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
 {
-   cout << "IntSet(...) is not implemented yet..." << endl;
+   if (capacity < 1)
+      capacity = DEFAULT_CAPACITY;
+   data = new int[capacity];
 }
 
-IntSet::IntSet(const IntSet& src)
+IntSet::IntSet(const IntSet& src) : capacity(src.capacity), used(src.used)
 {
-   cout << "copy constructor is not implemented yet..." << endl;
+   data = new int[capacity];
+   for (int i = 0; i < used; ++i)
+      data[i] = src.data[i];
 }
-
 
 IntSet::~IntSet()
 {
-   cout << "destructor is not implemented yet..." << endl;
+   delete [] data;
 }
 
 IntSet& IntSet::operator=(const IntSet& rhs)
