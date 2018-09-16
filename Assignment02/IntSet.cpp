@@ -177,8 +177,13 @@ IntSet IntSet::intersect(const IntSet& otherIntSet) const
 
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
 {
-   cout << "subtract() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+   IntSet difference = *this;
+   for (int i = 0; i < used; ++i)
+   {
+      if (otherIntSet.contains(data[i]))
+         difference.remove(data[i]);
+   }
+   return difference;
 }
 
 void IntSet::reset()
