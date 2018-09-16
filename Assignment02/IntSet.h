@@ -105,33 +105,33 @@
 
 #include <iostream>
 
-class IntSet
+class IntSet                                  // TODO: check code against class examples
 {
 public:
    static const int DEFAULT_CAPACITY = 1;
-   IntSet(int initial_capacity = DEFAULT_CAPACITY);
-   IntSet(const IntSet& src);
-   ~IntSet();
-   IntSet& operator=(const IntSet& rhs);
-   int size() const;
-   bool isEmpty() const;
-   bool contains(int anInt) const;
-   bool isSubsetOf(const IntSet& otherIntSet) const;
-   void DumpData(std::ostream& out) const;
+   IntSet(int initial_capacity = DEFAULT_CAPACITY);      // COMPLETE
+   IntSet(const IntSet& src);                            // COMPLETE
+   ~IntSet();                                            // COMPLETE
+   IntSet& operator=(const IntSet& rhs);                 // COMPLETE
+   int size() const;                                     // COMPLETE
+   bool isEmpty() const;                                 // COMPLETE
+   bool contains(int anInt) const;                       // COMPLETE
+   bool isSubsetOf(const IntSet& otherIntSet) const;     // COMPLETE
+   void DumpData(std::ostream& out) const;               // COMPLETE
    IntSet unionWith(const IntSet& otherIntSet) const;
    IntSet intersect(const IntSet& otherIntSet) const;
    IntSet subtract(const IntSet& otherIntSet) const;
-   void reset();
-   bool add(int anInt);
-   bool remove(int anInt);
+   void reset();                                         // COMPLETE
+   bool add(int anInt);                                  // COMPLETE
+   bool remove(int anInt);                               // COMPLETE
 
 private:
    int* data;
    int  capacity;
    int  used;
-   void resize(int new_capacity);
+   void resize(int new_capacity);                        // COMPLETE
 };
 
-bool operator==(const IntSet& is1, const IntSet& is2);
+bool operator==(const IntSet& is1, const IntSet& is2);   // COMPLETE
 
 #endif

@@ -145,8 +145,12 @@ bool IntSet::contains(int anInt) const
 
 bool IntSet::isSubsetOf(const IntSet& otherIntSet) const
 {
-   cout << "isSubsetOf() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   for (int i = 0; i < used; ++i)
+   {
+      if (!otherIntSet.contains(data[i]))
+         return false;
+   }
+   return true;
 }
 
 void IntSet::DumpData(ostream& out) const
@@ -222,6 +226,8 @@ bool IntSet::remove(int anInt)
 
 bool operator==(const IntSet& is1, const IntSet& is2)
 {
-   cout << "operator==() is not implemented yet..." << endl;
-   return false; // dummy value returned
+   if (is1.isSubsetOf(is2) && is2.isSubsetOf(is1))
+      return true;
+   else
+      return false;
 }
