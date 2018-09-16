@@ -112,12 +112,23 @@ IntSet::~IntSet()
 
 IntSet& IntSet::operator=(const IntSet& rhs)
 {
+   if (this != &rhs)
+   {
+      int* newData = new int[rhs.capacity];
+      for (int i = 0; i < rhs.used; ++i)
+         newData[i] = rhs.data[i];
+      delete [] data;
+      data = newData;
+   }
+   return *this;
+   /*
    int rhs_size = rhs.size();
    reset();
    resize(rhs_size);
    for (int i = 0; i < rhs_size; ++i)
       data[i] = rhs.data[i];
    return *this;
+   */
 }
 
 int IntSet::size() const
@@ -178,11 +189,26 @@ IntSet IntSet::intersect(const IntSet& otherIntSet) const
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
 {
    IntSet difference = *this;
+//////////////////////////////////////////////////////////////////////
+   for (int i = 0; i < capacity; ++i)            // BREADCRUMB
+   {
+      cout << difference.data[i] << ".." << i << endl;
+   }
+//////////////////////////////////////////////////////////////////////
+
    for (int i = 0; i < used; ++i)
    {
       if (otherIntSet.contains(data[i]))
          difference.remove(data[i]);
    }
+
+//////////////////////////////////////////////////////////////////////
+   for (int i = 0; i < capacity; ++i)            // BREADCRUMB
+   {
+      cout << difference.data[i] << ".*." << i << endl;
+   }
+   cout << "Size: " << difference.size() << endl;
+//////////////////////////////////////////////////////////////////////
    return difference;
 }
 
