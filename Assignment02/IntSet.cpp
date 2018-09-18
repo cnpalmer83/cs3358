@@ -100,7 +100,7 @@ IntSet::IntSet(int initial_capacity) : capacity(initial_capacity), used(0)
 
 IntSet::IntSet(const IntSet& src) : capacity(src.capacity), used(src.used)
 {
-   data = new int[capacity];
+   data = new int[src.capacity];
    for (int i = 0; i < used; ++i)
       data[i] = src.data[i];
 }
@@ -119,16 +119,11 @@ IntSet& IntSet::operator=(const IntSet& rhs)
          newData[i] = rhs.data[i];
       delete [] data;
       data = newData;
+      capacity = rhs.capacity;
    }
+   used = rhs.used;
+   copy(rhs.data, rhs.data + used, data);
    return *this;
-   /*
-   int rhs_size = rhs.size();
-   reset();
-   resize(rhs_size);
-   for (int i = 0; i < rhs_size; ++i)
-      data[i] = rhs.data[i];
-   return *this;
-   */
 }
 
 int IntSet::size() const
@@ -189,26 +184,11 @@ IntSet IntSet::intersect(const IntSet& otherIntSet) const
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
 {
    IntSet difference = *this;
-//////////////////////////////////////////////////////////////////////
-   for (int i = 0; i < capacity; ++i)            // BREADCRUMB
-   {
-      cout << difference.data[i] << ".." << i << endl;
-   }
-//////////////////////////////////////////////////////////////////////
-
    for (int i = 0; i < used; ++i)
    {
       if (otherIntSet.contains(data[i]))
          difference.remove(data[i]);
    }
-
-//////////////////////////////////////////////////////////////////////
-   for (int i = 0; i < capacity; ++i)            // BREADCRUMB
-   {
-      cout << difference.data[i] << ".*." << i << endl;
-   }
-   cout << "Size: " << difference.size() << endl;
-//////////////////////////////////////////////////////////////////////
    return difference;
 }
 
