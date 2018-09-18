@@ -171,14 +171,24 @@ void IntSet::DumpData(ostream& out) const
 
 IntSet IntSet::unionWith(const IntSet& otherIntSet) const
 {
-   cout << "unionWith() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+   IntSet unionSet = *this;
+   for (int i = 0; i < otherIntSet.size(); ++i)
+   {
+      if (!unionSet.contains(otherIntSet.data[i]))
+         unionSet.add(otherIntSet.data[i]);
+   }
+   return unionSet;
 }
 
 IntSet IntSet::intersect(const IntSet& otherIntSet) const
 {
-   cout << "intersect() is not implemented yet..." << endl;
-   return IntSet(); // dummy IntSet object returned
+   IntSet intersect = *this;
+   for (int i = 0; i < size(); ++i)
+   {
+      if (!otherIntSet.contains(data[i]))
+         intersect.remove(data[i]);
+   }
+   return intersect;
 }
 
 IntSet IntSet::subtract(const IntSet& otherIntSet) const
