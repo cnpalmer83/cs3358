@@ -78,7 +78,7 @@ using namespace std;
 
 void IntSet::resize(int new_capacity)
 {
-   cout << "Resize called." << endl;      // REMOVE WHEN COMPLETE
+   cout << "resize called" << endl; //////////////////////////////
    if (new_capacity < 1)
       new_capacity = DEFAULT_CAPACITY;
    if (new_capacity < used)
@@ -208,14 +208,20 @@ void IntSet::reset()
    resize(DEFAULT_CAPACITY);
 }
 
-bool IntSet::add(int anInt)   // TODO: FINALIZE NEW CAPACITY SIZE
+bool IntSet::add(int anInt)
 {
    if (contains(anInt))
       return false;
    else
    {
       if (used == capacity)
-         resize(capacity + 5);
+      {
+         int newSize = (capacity * 1.5);
+         if (newSize == capacity)
+            resize(capacity + 1);
+         else
+            resize(newSize);
+      }
       data[used] = anInt;
       ++used;
       return true;
@@ -233,6 +239,8 @@ bool IntSet::remove(int anInt)
             copy(&data[i + 1], &data[used], &data[i]);
       }
       --used;
+      if ((capacity - used) > (used * 1.5))
+         resize(used);
       return true;
    }
    return false;
