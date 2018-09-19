@@ -81,7 +81,7 @@ void IntSet::resize(int new_capacity)
    if (new_capacity < 1)                                             // Resize to DEFAULT_CAPACITY if
       new_capacity = DEFAULT_CAPACITY;                               // new_capacity < 1 (invalid).
    if (new_capacity < used)                                          // Resize to used if new_capacity
-      new_capacity = used;                                           // is too small to store all elements.
+      new_capacity = used;                                           // too small to store all elements.
    capacity = new_capacity;
    int *newData = new int[capacity];                                 // Otherwise, resize to specified
    for (int i = 0; i < used; ++i)                                    // new_capacity.
