@@ -78,7 +78,6 @@ using namespace std;
 
 void IntSet::resize(int new_capacity)
 {
-   cout << "resize called" << endl; //////////////////////////////
    if (new_capacity < 1)
       new_capacity = DEFAULT_CAPACITY;
    if (new_capacity < used)
