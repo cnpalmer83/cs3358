@@ -227,22 +227,15 @@ bool IntSet::remove(int anInt)
 {
    if (contains(anInt))
    {
-      int foundAt;
-      for (int i = 0; i < used; ++i)
+      for (int i = 0; i <= used; ++i)
       {
-         if (anInt == data[i])
-            foundAt = i;
-      }
-      while (foundAt < used)
-      {
-         data[foundAt] = data[foundAt + 1];
-         ++foundAt;
+         if (anInt == data[i] && i < used)
+            copy(&data[i + 1], &data[used], &data[i]);
       }
       --used;
       return true;
    }
-   else
-      return false;
+   return false;
 }
 
 bool operator==(const IntSet& is1, const IntSet& is2)
