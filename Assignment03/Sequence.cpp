@@ -47,13 +47,21 @@ namespace CS3358_FA2018
 {
    // CONSTRUCTORS and DESTRUCTOR
    sequence::sequence(size_type initial_capacity)
+      : used(0), current_index(used), capacity(initial_capacity)
    {
-      cout << "sequence(size_type initial_capacity) not implemented yet" << endl;
+      if (capacity < 1)
+         capacity = DEFAULT_CAPACITY;
+      data = new value_type[capacity];
+      current_index = used;
+      // cout << "sequence(size_type initial_capacity) not implemented yet" << endl;
    }
 
    sequence::sequence(const sequence& source)
+      : used(source.used), current_index(source.current_index), capacity(source.capacity)
    {
-      cout << "sequence(const sequence& source) not implemented yet" << endl;
+      data = new value_type[source.capacity];
+      // USE size_t method to populate array instead of for loop!
+      // cout << "sequence(const sequence& source) not implemented yet" << endl;
    }
 
    sequence::~sequence()
@@ -117,4 +125,3 @@ namespace CS3358_FA2018
       return value_type(); // dummy value returned
    }
 }
-
