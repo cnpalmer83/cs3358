@@ -60,13 +60,17 @@ namespace CS3358_FA2018
       : used(source.used), current_index(source.current_index), capacity(source.capacity)
    {
       data = new value_type[source.capacity];
-      // USE size_t method to populate array instead of for loop!
+      // TODO: USE size_t method to populate array instead of for loop!
+      for (int i = 0; i < used; ++i)
+      {
+         data[i] = source.data[i];
+      }
       // cout << "sequence(const sequence& source) not implemented yet" << endl;
    }
 
    sequence::~sequence()
    {
-      cout << "~sequence() not implemented yet" << endl;
+      delete [] data;
    }
 
    // MODIFICATION MEMBER FUNCTIONS
