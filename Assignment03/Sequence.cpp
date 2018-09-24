@@ -61,10 +61,8 @@ namespace CS3358_FA2018
    {
       data = new value_type[source.capacity];
       // TODO: USE size_t method to populate array instead of for loop!
-      for (int i = 0; i < used; ++i)
-      {
+      for (size_type i = 0; i < used; ++i)
          data[i] = source.data[i];
-      }
       // cout << "sequence(const sequence& source) not implemented yet" << endl;
    }
 
@@ -106,8 +104,20 @@ namespace CS3358_FA2018
 
    sequence& sequence::operator=(const sequence& source)
    {
-      cout << "operator=(const sequence& source) not implemented yet" << endl;
+      if (this != &source)
+      {
+         value_type* newData = new value_type[source.capacity];
+         for (size_type i = 0; i < source.used; ++i)
+            newData[i] = source.data[i];
+         delete [] data;
+         data = newData;
+         capacity = source.capacity;
+      }
+      used = source.used;
+      copy(source.data, source.data + used, data);
       return *this;
+      // cout << "operator=(const sequence& source) not implemented yet" << endl;
+      // return *this;
    }
 
    // CONSTANT MEMBER FUNCTIONS
