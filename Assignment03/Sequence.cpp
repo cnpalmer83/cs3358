@@ -87,6 +87,8 @@ namespace CS3358_FA2018
          new_capacity = 1;
       if (new_capacity < used)
          new_capacity = used;
+      if (new_capacity == used)
+         new_capacity = new_capacity + 1;
       capacity = new_capacity;
       value_type *newData = new value_type[capacity];
       for (size_type i = 0; i < used; ++i)
@@ -127,7 +129,7 @@ namespace CS3358_FA2018
       if (used == capacity)
          resize(capacity * 1.25);
       copy(&data[current_index], &data[used], &data[current_index + 1]);
-      data [current_index] = entry;
+      data[current_index] = entry;
       //cout << "insert(const value_type& entry) not implemented yet" << endl;
    }
 
@@ -139,6 +141,10 @@ namespace CS3358_FA2018
       //      entry has been attached to the end of the sequence. In either
       //      case, the newly inserted item is now the current item of the
       //      sequence.
+      if (used == capacity)
+         resize(capacity * 1.25);
+      copy(&data[current_index + 1], &data[used], &data[current_index + 2]);
+      data[current_index + 1] = entry;
       cout << "attach(const value_type& entry) not implemented yet" << endl;
    }
 
@@ -168,8 +174,9 @@ namespace CS3358_FA2018
    // CONSTANT MEMBER FUNCTIONS
    sequence::size_type sequence::size() const
    {
-      cout << "size() not implemented yet" << endl;
-      return 0; // dummy value returned
+      return used;
+      //cout << "size() not implemented yet" << endl;
+      //return 0; // dummy value returned
    }
 
    bool sequence::is_item() const
