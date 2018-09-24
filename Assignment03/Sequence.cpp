@@ -103,13 +103,17 @@ namespace CS3358_FA2018
       //    Pre:  none
       //    Post: The first item on the sequence becomes the current item
       //      (but if the sequence is empty, then there is no current item).
-
-      cout << "start() not implemented yet" << endl;
+      current_index = data[0];
+      //cout << "start() not implemented yet" << endl;
    }
 
    void sequence::advance()
    {
-      cout << "advance() not implemented yet" << endl;
+      if (is_item())
+      {
+         current_index = data[current_index + 1];
+      }
+      //cout << "advance() not implemented yet" << endl;
    }
 
    void sequence::insert(const value_type& entry)
