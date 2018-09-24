@@ -118,11 +118,27 @@ namespace CS3358_FA2018
 
    void sequence::insert(const value_type& entry)
    {
-      cout << "insert(const value_type& entry) not implemented yet" << endl;
+      //    Pre:  none
+      //    Post: A new copy of entry has been inserted in the sequence
+      //      before the current item. If there was no current item, then
+      //      the new entry has been inserted at the front of the sequence.
+      //      In either case, the newly inserted item is now the current item
+      //      of the sequence.
+      if (used == capacity)
+         resize(capacity * 1.25);
+      copy(&data[current_index], &data[used], &data[current_index + 1]);
+      data [current_index] = entry;
+      //cout << "insert(const value_type& entry) not implemented yet" << endl;
    }
 
    void sequence::attach(const value_type& entry)
    {
+      //    Pre:  none
+      //    Post: A new copy of entry has been inserted in the sequence after
+      //      the current item. If there was no current item, then the new
+      //      entry has been attached to the end of the sequence. In either
+      //      case, the newly inserted item is now the current item of the
+      //      sequence.
       cout << "attach(const value_type& entry) not implemented yet" << endl;
    }
 
@@ -163,9 +179,12 @@ namespace CS3358_FA2018
       //      "current" item that may be retrieved by activating the current
       //      member function (listed below). A false return value indicates
       //      that there is no valid current item.
-
-      cout << "is_item() not implemented yet" << endl;
-      return false; // dummy value returned
+      if (current_index == used)
+         return false;
+      else
+         return true;
+      //cout << "is_item() not implemented yet" << endl;
+      //return false; // dummy value returned
    }
 
    sequence::value_type sequence::current() const
