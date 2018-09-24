@@ -111,10 +111,14 @@ namespace CS3358_FA2018
 
    void sequence::advance()
    {
+      //    Pre:  is_item returns true.
+      //    Post: If the current item was already the last item in the
+      //      sequence, then there is no longer any current item. Otherwise,
+      //      the new current item is the item immediately after the original
+      //      current item.
+
       if (is_item())
-      {
-         current_index = data[current_index + 1];
-      }
+         ++current_index;
       //cout << "advance() not implemented yet" << endl;
    }
 
@@ -130,6 +134,7 @@ namespace CS3358_FA2018
          resize(capacity * 1.25);
       copy(&data[current_index], &data[used], &data[current_index + 1]);
       data[current_index] = entry;
+      ++used;
       //cout << "insert(const value_type& entry) not implemented yet" << endl;
    }
 
@@ -145,7 +150,8 @@ namespace CS3358_FA2018
          resize(capacity * 1.25);
       copy(&data[current_index + 1], &data[used], &data[current_index + 2]);
       data[current_index + 1] = entry;
-      cout << "attach(const value_type& entry) not implemented yet" << endl;
+      ++used;
+      //cout << "attach(const value_type& entry) not implemented yet" << endl;
    }
 
    void sequence::remove_current()
@@ -181,15 +187,16 @@ namespace CS3358_FA2018
 
    bool sequence::is_item() const
    {
+      // TODO: correct infinite loop caused by Assign03::show_sequence && improper iteration.
       //    Pre:  none
       //    Post: A true return value indicates that there is a valid
       //      "current" item that may be retrieved by activating the current
       //      member function (listed below). A false return value indicates
       //      that there is no valid current item.
-      if (current_index == used)
-         return false;
-      else
+      if (current_index < used)
          return true;
+      else
+         return false;
       //cout << "is_item() not implemented yet" << endl;
       //return false; // dummy value returned
    }
