@@ -74,11 +74,36 @@ namespace CS3358_FA2018
    // MODIFICATION MEMBER FUNCTIONS
    void sequence::resize(size_type new_capacity)
    {
-      cout << "resize(size_type new_capacity) not implemented yet" << endl;
+      //   void resize(size_type new_capacity)
+      //    Pre:  new_capacity > 0
+      //    Post: The sequence's current capacity is changed to new_capacity
+      //      (but not less that the number of items already on the sequence).
+      //      The insert/attach functions will work efficiently (without
+      //      allocating new memory) until this new capacity is reached.
+      //    Note: If new_capacity is less than used, it will be made equal to
+      //      to used (in order to preserve existing data). Thereafter, if Pre
+      //      is not met, new_capacity will be adjusted to 1.
+      if (new_capacity < 1)
+         new_capacity = 1;
+      if (new_capacity < used)
+         new_capacity = used;
+      capacity = new_capacity;
+      value_type *newData = new value_type[capacity];
+      for (size_type i = 0; i < used; ++i)
+         newData[i] = data[i];
+      delete [] data;
+      data = newData;
+
+      //cout << "resize(size_type new_capacity) not implemented yet" << endl;
    }
 
    void sequence::start()
    {
+      //   void start()
+      //    Pre:  none
+      //    Post: The first item on the sequence becomes the current item
+      //      (but if the sequence is empty, then there is no current item).
+
       cout << "start() not implemented yet" << endl;
    }
 
@@ -129,13 +154,23 @@ namespace CS3358_FA2018
 
    bool sequence::is_item() const
    {
+      //    Pre:  none
+      //    Post: A true return value indicates that there is a valid
+      //      "current" item that may be retrieved by activating the current
+      //      member function (listed below). A false return value indicates
+      //      that there is no valid current item.
+
       cout << "is_item() not implemented yet" << endl;
       return false; // dummy value returned
    }
 
    sequence::value_type sequence::current() const
    {
-      cout << "current() not implemented yet" << endl;
-      return value_type(); // dummy value returned
+      //   value_type current() const
+      //    Pre:  is_item() returns true.
+      //    Post: The item returned is the current item in the sequence.
+      return data[current_index];
+      //cout << "current() not implemented yet" << endl;
+      //return value_type(); // dummy value returned
    }
 }
