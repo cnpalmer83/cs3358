@@ -105,8 +105,7 @@ namespace CS3358_FA2018
       //    Pre:  none
       //    Post: The first item on the sequence becomes the current item
       //      (but if the sequence is empty, then there is no current item).
-      current_index = data[0];
-      //cout << "start() not implemented yet" << endl;
+      current_index = 0;
    }
 
    void sequence::advance()
@@ -116,10 +115,8 @@ namespace CS3358_FA2018
       //      sequence, then there is no longer any current item. Otherwise,
       //      the new current item is the item immediately after the original
       //      current item.
-
       if (is_item())
          ++current_index;
-      //cout << "advance() not implemented yet" << endl;
    }
 
    void sequence::insert(const value_type& entry)
@@ -135,7 +132,6 @@ namespace CS3358_FA2018
       copy(&data[current_index], &data[used], &data[current_index + 1]);
       data[current_index] = entry;
       ++used;
-      //cout << "insert(const value_type& entry) not implemented yet" << endl;
    }
 
    void sequence::attach(const value_type& entry)
@@ -148,33 +144,49 @@ namespace CS3358_FA2018
       //      sequence.
       if (used == capacity)
          resize(capacity * 1.25);
-      copy(&data[current_index + 1], &data[used], &data[current_index + 2]);
-      data[current_index + 1] = entry;
+      advance();
+      copy(&data[current_index], &data[used], &data[current_index + 1]);
+      data[current_index] = entry;
       ++used;
-      //cout << "attach(const value_type& entry) not implemented yet" << endl;
    }
 
    void sequence::remove_current()
    {
-      cout << "remove_current() not implemented yet" << endl;
+      //    Pre:  is_item returns true.
+      //    Post: The current item has been removed from the sequence, and
+      //      the item after this (if there is one) is now the new current
+      //      item. If the current item was already the last item in the
+      //      sequence, then there is no longer any current item.
+      if (is_item())
+      {
+         if (current_index == used)
+            start();
+         else
+            copy(&data[current_index + 1], &data[used], &data[current_index]);
+         --used;
+      }
    }
 
    sequence& sequence::operator=(const sequence& source)
    {
+      cout << "entered copy constructor" << endl;           // BREADCRUMB ////////////////////
       if (this != &source)
       {
+         cout << "obj calling copy constructor != to source" << endl;   // BREADCRUMB ////////
          value_type* newData = new value_type[source.capacity];
-         for (size_type i = 0; i < source.used; ++i)
-            newData[i] = source.data[i];
+         copy(source.data, source.data + used, newData);
+         //for (size_type i = 0; i < source.used; ++i)
+         //   newData[i] = source.data[i];
          delete [] data;
          data = newData;
          capacity = source.capacity;
       }
+      cout << "passed copy constructor if statement" << endl;           // BREADCRUMB /////////
       used = source.used;
+      cout << "before copy statement" << endl;
       copy(source.data, source.data + used, data);
+      cout << "after copy statement" << endl;
       return *this;
-      // cout << "operator=(const sequence& source) not implemented yet" << endl;
-      // return *this;
    }
 
    // CONSTANT MEMBER FUNCTIONS
