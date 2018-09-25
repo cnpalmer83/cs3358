@@ -277,9 +277,15 @@ int test2()
     // Note that the first attach should attach to the end of the sequence.
     cout << "Calling attach to put the numbers 40, 50, 60 ...";
     cout << test.DEFAULT_CAPACITY*10 << " at the sequence's end." << endl;
+    ////////////////////////////////////BREADCRUMB//////////////////////////////vvv
+    for ( test.start(); test.is_item(); test.advance() )
+      cout << test.current() << endl;
+   ////////////////////////////////////BREADCRUMB////////////////////////////////^^^
     for (i = 4; i <= test.DEFAULT_CAPACITY; i++)
         test.attach(i*10);
-
+   cout << "-----------------" << endl;
+   for ( test.start(); test.is_item(); test.advance() )
+     cout << test.current() << endl;
     // Test that the sequence is correctly filled.
     cout << "Now I will test that the sequence has 10, 20, 30, ...";
     cout << test.DEFAULT_CAPACITY*10 << "." << endl;
@@ -288,6 +294,8 @@ int test2()
     {
         if ((!test.is_item()) || test.current() != i*10)
         {
+           if (!test.is_item()) {cout << "!test.is_item()" << endl;}    // BREADCRUMB ////////////
+           if (test.current() != i*10) {cout << "test.current() equals: " << test.current() << " should = " << i*10 << endl;}
             cout << "    Test failed to find " << i*10 << endl;
             return 0;
         }
@@ -742,8 +750,6 @@ int run_a_test(int number, const char message[], int test_function(), int max)
 
     return result;
 }
-
-
 // **************************************************************************
 // int main()
 //   The main program calls all tests and prints the sum of all points

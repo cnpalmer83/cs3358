@@ -172,6 +172,20 @@ namespace CS3358_FA2018
       cout << "entered copy constructor" << endl;           // BREADCRUMB ////////////////////
       if (this != &source)
       {
+         value_type* newData = new value_type[source.capacity];
+         for (size_type i = 0; i < source.used; ++i)
+         {
+            newData[i] = source.data[i];
+         }
+         delete [] data;
+         data = newData;
+         used = source.size();
+         current_index = source.current_index;
+         capacity = source.capacity;
+      }
+      return *this;
+      /*
+      {
          cout << "obj calling copy constructor != to source" << endl;   // BREADCRUMB ////////
          value_type* newData = new value_type[source.capacity];
          copy(source.data, source.data + used, newData);
@@ -187,6 +201,7 @@ namespace CS3358_FA2018
       copy(source.data, source.data + used, data);
       cout << "after copy statement" << endl;
       return *this;
+      */
    }
 
    // CONSTANT MEMBER FUNCTIONS
