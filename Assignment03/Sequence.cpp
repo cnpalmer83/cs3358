@@ -50,9 +50,8 @@ namespace CS3358_FA2018
       : used(0), current_index(used), capacity(initial_capacity)
    {
       if (capacity < 1)
-         capacity = DEFAULT_CAPACITY;
+         capacity = 1;
       data = new value_type[capacity];
-      current_index = used;
    }
 
    sequence::sequence(const sequence& source)
@@ -71,11 +70,11 @@ namespace CS3358_FA2018
    // MODIFICATION MEMBER FUNCTIONS
    void sequence::resize(size_type new_capacity)
    {
-      if (new_capacity < 1)
-         new_capacity = 1;
-      if (new_capacity < used)
-         new_capacity = used;
-      capacity = new_capacity;
+      if (new_capacity < 1)                                          // Resize to 1 if new_capacity < 1
+         new_capacity = 1;                                           // (invalid). Resize to used if
+      if (new_capacity < used)                                       // new_capacity too small to store
+         new_capacity = used;                                        // all elements. Otherwise, resize to
+      capacity = new_capacity;                                       // specified new_capacity.
       value_type *newData = new value_type[capacity];
       for (size_type i = 0; i < used; ++i)
          newData[i] = data[i];
@@ -94,10 +93,10 @@ namespace CS3358_FA2018
          ++current_index;
    }
 
-   void sequence::insert(const value_type& entry)
-   {
-      if (used == capacity)
-      {
+   void sequence::insert(const value_type& entry)                    // Resize by ~+25% if insufficient
+   {                                                                 // elements exist for new entry.
+      if (used == capacity)                                          // Insert entry before current_index
+      {                                                              // or first element if end of list.
          size_type newSize = capacity * 1.25;
          (newSize == capacity) ? resize(capacity + 1) : resize(newSize);
       }
@@ -108,10 +107,10 @@ namespace CS3358_FA2018
       ++used;
    }
 
-   void sequence::attach(const value_type& entry)
-   {
-      if (used == capacity)
-      {
+   void sequence::attach(const value_type& entry)                    // Resize by ~+25% if insufficient
+   {                                                                 // elements exist for new entry.
+      if (used == capacity)                                          // Insert entry after current_index
+      {                                                              // or last element if end of list.
          size_type newSize = capacity * 1.25;
          (newSize == capacity) ? resize(capacity + 1) : resize(newSize);
       }
@@ -121,9 +120,9 @@ namespace CS3358_FA2018
       ++used;
    }
 
-   void sequence::remove_current()
-   {
-      if (!is_item())
+   void sequence::remove_current()                                   // If item exists at current_index,
+   {                                                                 // remove it. Resize list to used if
+      if (!is_item())                                                // capacity > 25% larger than used.
          return;
       copy(&data[current_index + 1], &data[used], &data[current_index]);
       --used;
@@ -136,11 +135,11 @@ namespace CS3358_FA2018
       if (this != &source)
       {
          value_type* newData = new value_type[source.capacity];
-         for (size_type i = 0; i < source.used; ++i)
-            newData[i] = source.data[i];
-         delete [] data;
-         data = newData;
-         used = source.size();
+         for (size_type i = 0; i < source.used; ++i)                 // Allocate new list and fill with
+            newData[i] = source.data[i];                             // elements in source list. Point
+         delete [] data;                                             // *data to new list. Define the
+         data = newData;                                             // remaining variables to equal
+         used = source.size();                                       // source variable values.
          current_index = source.current_index;
          capacity = source.capacity;
       }
