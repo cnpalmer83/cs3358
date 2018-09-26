@@ -71,21 +71,10 @@ namespace CS3358_FA2018
    // MODIFICATION MEMBER FUNCTIONS
    void sequence::resize(size_type new_capacity)
    {
-      //   void resize(size_type new_capacity)
-      //    Pre:  new_capacity > 0
-      //    Post: The sequence's current capacity is changed to new_capacity
-      //      (but not less that the number of items already on the sequence).
-      //      The insert/attach functions will work efficiently (without
-      //      allocating new memory) until this new capacity is reached.
-      //    Note: If new_capacity is less than used, it will be made equal to
-      //      to used (in order to preserve existing data). Thereafter, if Pre
-      //      is not met, new_capacity will be adjusted to 1.
       if (new_capacity < 1)
          new_capacity = 1;
       if (new_capacity < used)
          new_capacity = used;
-      if (new_capacity == used)
-         new_capacity = new_capacity + 1;
       capacity = new_capacity;
       value_type *newData = new value_type[capacity];
       for (size_type i = 0; i < used; ++i)
@@ -108,7 +97,10 @@ namespace CS3358_FA2018
    void sequence::insert(const value_type& entry)
    {
       if (used == capacity)
-         resize(capacity * 1.25);
+      {
+         size_type newSize = capacity * 1.25;
+         (newSize == capacity) ? resize(capacity + 1) : resize(newSize);
+      }
       if (!is_item())
          start();
       copy(&data[current_index], &data[used], &data[current_index + 1]);
@@ -119,7 +111,10 @@ namespace CS3358_FA2018
    void sequence::attach(const value_type& entry)
    {
       if (used == capacity)
-         resize(capacity * 1.25);
+      {
+         size_type newSize = capacity * 1.25;
+         (newSize == capacity) ? resize(capacity + 1) : resize(newSize);
+      }
       advance();
       copy(&data[current_index], &data[used], &data[current_index + 1]);
       data[current_index] = entry;
@@ -128,19 +123,12 @@ namespace CS3358_FA2018
 
    void sequence::remove_current()
    {
-      //    Pre:  is_item returns true.
-      //    Post: The current item has been removed from the sequence, and
-      //      the item after this (if there is one) is now the new current
-      //      item. If the current item was already the last item in the
-      //      sequence, then there is no longer any current item.
-      if (is_item())
-      {
-         if (current_index == used)
-            start();
-         else
-            copy(&data[current_index + 1], &data[used], &data[current_index]);
-         --used;
-      }
+      if (!is_item())
+         return;
+      copy(&data[current_index + 1], &data[used], &data[current_index]);
+      --used;
+      if (capacity > used * 1.25)
+         resize(used);
    }
 
    sequence& sequence::operator=(const sequence& source)
@@ -149,9 +137,7 @@ namespace CS3358_FA2018
       {
          value_type* newData = new value_type[source.capacity];
          for (size_type i = 0; i < source.used; ++i)
-         {
             newData[i] = source.data[i];
-         }
          delete [] data;
          data = newData;
          used = source.size();
@@ -177,9 +163,9 @@ namespace CS3358_FA2018
 
    sequence::value_type sequence::current() const
    {
-      //   value_type current() const
-      //    Pre:  is_item() returns true.
-      //    Post: The item returned is the current item in the sequence.
-      return data[current_index];
+      if (is_item())
+         return data[current_index];
+      else
+         return data[used];
    }
 }
