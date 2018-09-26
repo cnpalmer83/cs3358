@@ -53,17 +53,14 @@ namespace CS3358_FA2018
          capacity = DEFAULT_CAPACITY;
       data = new value_type[capacity];
       current_index = used;
-      // cout << "sequence(size_type initial_capacity) not implemented yet" << endl;
    }
 
    sequence::sequence(const sequence& source)
       : used(source.used), current_index(source.current_index), capacity(source.capacity)
    {
       data = new value_type[source.capacity];
-      // TODO: USE size_t method to populate array instead of for loop!
       for (size_type i = 0; i < used; ++i)
          data[i] = source.data[i];
-      // cout << "sequence(const sequence& source) not implemented yet" << endl;
    }
 
    sequence::~sequence()
@@ -95,40 +92,25 @@ namespace CS3358_FA2018
          newData[i] = data[i];
       delete [] data;
       data = newData;
-
-      //cout << "resize(size_type new_capacity) not implemented yet" << endl;
    }
 
    void sequence::start()
    {
-      //   void start()
-      //    Pre:  none
-      //    Post: The first item on the sequence becomes the current item
-      //      (but if the sequence is empty, then there is no current item).
       current_index = 0;
    }
 
    void sequence::advance()
    {
-      //    Pre:  is_item returns true.
-      //    Post: If the current item was already the last item in the
-      //      sequence, then there is no longer any current item. Otherwise,
-      //      the new current item is the item immediately after the original
-      //      current item.
       if (is_item())
          ++current_index;
    }
 
    void sequence::insert(const value_type& entry)
    {
-      //    Pre:  none
-      //    Post: A new copy of entry has been inserted in the sequence
-      //      before the current item. If there was no current item, then
-      //      the new entry has been inserted at the front of the sequence.
-      //      In either case, the newly inserted item is now the current item
-      //      of the sequence.
       if (used == capacity)
          resize(capacity * 1.25);
+      if (!is_item())
+         start();
       copy(&data[current_index], &data[used], &data[current_index + 1]);
       data[current_index] = entry;
       ++used;
@@ -136,12 +118,6 @@ namespace CS3358_FA2018
 
    void sequence::attach(const value_type& entry)
    {
-      //    Pre:  none
-      //    Post: A new copy of entry has been inserted in the sequence after
-      //      the current item. If there was no current item, then the new
-      //      entry has been attached to the end of the sequence. In either
-      //      case, the newly inserted item is now the current item of the
-      //      sequence.
       if (used == capacity)
          resize(capacity * 1.25);
       advance();
@@ -169,7 +145,6 @@ namespace CS3358_FA2018
 
    sequence& sequence::operator=(const sequence& source)
    {
-      cout << "entered copy constructor" << endl;           // BREADCRUMB ////////////////////
       if (this != &source)
       {
          value_type* newData = new value_type[source.capacity];
@@ -184,48 +159,20 @@ namespace CS3358_FA2018
          capacity = source.capacity;
       }
       return *this;
-      /*
-      {
-         cout << "obj calling copy constructor != to source" << endl;   // BREADCRUMB ////////
-         value_type* newData = new value_type[source.capacity];
-         copy(source.data, source.data + used, newData);
-         //for (size_type i = 0; i < source.used; ++i)
-         //   newData[i] = source.data[i];
-         delete [] data;
-         data = newData;
-         capacity = source.capacity;
-      }
-      cout << "passed copy constructor if statement" << endl;           // BREADCRUMB /////////
-      used = source.used;
-      cout << "before copy statement" << endl;
-      copy(source.data, source.data + used, data);
-      cout << "after copy statement" << endl;
-      return *this;
-      */
    }
 
    // CONSTANT MEMBER FUNCTIONS
    sequence::size_type sequence::size() const
    {
       return used;
-      //cout << "size() not implemented yet" << endl;
-      //return 0; // dummy value returned
    }
 
    bool sequence::is_item() const
    {
-      // TODO: correct infinite loop caused by Assign03::show_sequence && improper iteration.
-      //    Pre:  none
-      //    Post: A true return value indicates that there is a valid
-      //      "current" item that may be retrieved by activating the current
-      //      member function (listed below). A false return value indicates
-      //      that there is no valid current item.
       if (current_index < used)
          return true;
       else
          return false;
-      //cout << "is_item() not implemented yet" << endl;
-      //return false; // dummy value returned
    }
 
    sequence::value_type sequence::current() const
@@ -234,7 +181,5 @@ namespace CS3358_FA2018
       //    Pre:  is_item() returns true.
       //    Post: The item returned is the current item in the sequence.
       return data[current_index];
-      //cout << "current() not implemented yet" << endl;
-      //return value_type(); // dummy value returned
    }
 }
