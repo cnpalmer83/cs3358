@@ -31,7 +31,7 @@ namespace c_palmer_bag1
 
    // NONMEMBER FUNCTIONS for the Bag class
    Bag operator +(const Bag& b1, const Bag& b2);   // overloads '+' to allow adding of type bag
-   
-} // END NAMESPACE GROUPING
 
+} // END NAMESPACE GROUPING
+#include "bag.cpp"
 #endif // BAG_H

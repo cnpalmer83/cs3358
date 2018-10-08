@@ -42,7 +42,7 @@
 #include <cassert>
 #include "sequence.h"
 
-namespace CS3358_FA2018_A04_sequenceOfNum
+namespace CS3358_FA2018_A04_sequenceOfItem
 {
    template <class Item>
    sequence<Item>::sequence() : used(0), current_index(0) { }

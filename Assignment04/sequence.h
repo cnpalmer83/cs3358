@@ -82,7 +82,7 @@
 
 #include <cstdlib>  // provides size_t
 
-namespace CS3358_FA2018_A04_sequenceOfNum
+namespace CS3358_FA2018_A04_sequenceOfItem
 {
    template <class Item>
    class sequence
@@ -113,4 +113,5 @@ namespace CS3358_FA2018_A04_sequenceOfNum
    };
 }
 
+#include "sequence.cpp"
 #endif
