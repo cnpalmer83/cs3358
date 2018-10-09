@@ -18,10 +18,16 @@ char get_user_command();
 // Post: The user is prompted to enter a one character command.
 //       The next character is read (skipping blanks and newline
 //       characters), and this character is returned.
+/*
 void show_list(sequence<double> src);
 // Pre: (none)
 // Post: The items of src are printed to cout (one per line).
 void show_list(sequence<char> src);
+// Pre: (none)
+// Post: The items of src are printed to cout (one per line).
+*/
+template <class Item>                                          // A template substitute for show_list
+void show_list(sequence<Item> src);
 // Pre: (none)
 // Post: The items of src are printed to cout (one per line).
 int get_object_num();
@@ -59,7 +65,7 @@ int main(int argc, char *argv[])
    cout << "An empty sequence of real numbers (s1) and\n"
         << "an empty sequence of characters (s2) have been created."
         << endl;
-/*
+
    do
    {
       if (argc == 1)
@@ -259,7 +265,7 @@ int main(int argc, char *argv[])
    cin.ignore(999, '\n');
    cout << "Press Enter or Return when ready...";
    cin.get();
-   */
+
    return EXIT_SUCCESS;
 }
 
@@ -292,13 +298,8 @@ char get_user_command()
    return command;
 }
 
-void show_list(sequence<double> src)
-{
-   for ( src.start(); src.is_item(); src.advance() )
-      cout << src.current() << "  ";
-}
-
-void show_list(sequence<char> src)
+template <class Item>
+void show_list(sequence<Item> src)
 {
    for ( src.start(); src.is_item(); src.advance() )
       cout << src.current() << "  ";
