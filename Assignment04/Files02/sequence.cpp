@@ -43,20 +43,25 @@
 
 namespace CS3358_FA2018_A04
 {
-   seqDouble::seqDouble() : used(0), current_index(0) { }
+   template <class Item>
+   sequence<Item>::sequence() : used(0), current_index(0) { }
 
-   void seqDouble::start() { current_index = 0; }
+   template <class Item>
+   void sequence<Item>::start() { current_index = 0; }
 
-   void seqDouble::end()
+   template <class Item>
+   void sequence<Item>::end()
    { current_index = (used > 0) ? used - 1 : 0; }
 
-   void seqDouble::advance()
+   template <class Item>
+   void sequence<Item>::advance()
    {
       assert( is_item() );
       ++current_index;
    }
 
-   void seqDouble::move_back()
+   template <class Item>
+   void sequence<Item>::move_back()
    {
       assert( is_item() );
       if (current_index == 0)
@@ -65,7 +70,8 @@ namespace CS3358_FA2018_A04
          --current_index;
    }
 
-   void seqDouble::add(const value_type& entry)
+   template <class Item>
+   void sequence<Item>::add(const value_type& entry)
    {
       assert( size() < CAPACITY );
 
@@ -89,7 +95,8 @@ namespace CS3358_FA2018_A04
       ++used;
    }
 
-   void seqDouble::remove_current()
+   template <class Item>
+   void sequence<Item>::remove_current()
    {
       assert( is_item() );
 
@@ -100,86 +107,17 @@ namespace CS3358_FA2018_A04
       --used;
    }
 
-   seqDouble::size_type seqDouble::size() const { return used; }
+   template <class Item>
+   typename sequence<Item>::size_type sequence<Item>::size() const { return used; }
 
-   bool seqDouble::is_item() const { return (current_index < used); }
+   template <class Item>
+   bool sequence<Item>::is_item() const { return (current_index < used); }
 
-   seqDouble::value_type seqDouble::current() const
+   template <class Item>
+   typename sequence<Item>::value_type sequence<Item>::current() const
    {
       assert( is_item() );
 
       return data[current_index];
    }
 }
-
-namespace CS3358_FA2018_A04
-{
-   seqChar::seqChar() : used(0), current_index(0) { }
-
-   void seqChar::start() { current_index = 0; }
-
-   void seqChar::end()
-   { current_index = (used > 0) ? used - 1 : 0; }
-
-   void seqChar::advance()
-   {
-      assert( is_item() );
-      ++current_index;
-   }
-
-   void seqChar::move_back()
-   {
-      assert( is_item() );
-      if (current_index == 0)
-         current_index = used;
-      else
-         --current_index;
-   }
-
-   void seqChar::add(const value_type& entry)
-   {
-      assert( size() < CAPACITY );
-
-      size_type i;
-
-      if ( ! is_item() )
-      {
-         if (used > 0)
-            for (i = used; i >= 1; --i)
-               data[i] = data[i - 1];
-         data[0] = entry;
-         current_index = 0;
-      }
-      else
-      {
-         ++current_index;
-         for (i = used; i > current_index; --i)
-            data[i] = data[i - 1];
-         data[current_index] = entry;
-      }
-      ++used;
-   }
-
-   void seqChar::remove_current()
-   {
-      assert( is_item() );
-
-      size_type i;
-
-      for (i = current_index + 1; i < used; ++i)
-         data[i - 1] = data[i];
-      --used;
-   }
-
-   seqChar::size_type seqChar::size() const { return used; }
-
-   bool seqChar::is_item() const { return (current_index < used); }
-
-   seqChar::value_type seqChar::current() const
-   {
-      assert( is_item() );
-
-      return data[current_index];
-   }
-}
-
