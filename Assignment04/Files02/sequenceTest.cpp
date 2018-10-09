@@ -18,15 +18,7 @@ char get_user_command();
 // Post: The user is prompted to enter a one character command.
 //       The next character is read (skipping blanks and newline
 //       characters), and this character is returned.
-/*
-void show_list(sequence<double> src);
-// Pre: (none)
-// Post: The items of src are printed to cout (one per line).
-void show_list(sequence<char> src);
-// Pre: (none)
-// Post: The items of src are printed to cout (one per line).
-*/
-template <class Item>                                          // A template substitute for show_list
+template <class Item>
 void show_list(sequence<Item> src);
 // Pre: (none)
 // Post: The items of src are printed to cout (one per line).
