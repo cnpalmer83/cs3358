@@ -5,23 +5,50 @@
 #include <iostream>    // provides cout and cin
 #include <cstdlib>     // provides EXIT_SUCCESS
 #include "sequence.h"
-namespace seqOfItem  = CS3358_FA2018_A04_sequenceOfItem;
-
 using namespace std;
+using namespace CS3358_FA2018_A04;
 
 // PROTOTYPES for functions used by this test program:
 
 void print_menu();
+// Pre:  (none)
+// Post: A menu of choices for this program is written to cout.
 char get_user_command();
-void show_list(seqOfItem::sequence<Item> src);
+// Pre:  (none)
+// Post: The user is prompted to enter a one character command.
+//       The next character is read (skipping blanks and newline
+//       characters), and this character is returned.
+template <class Item>
+void show_list(sequence<Item> src);
+// Pre: (none)
+// Post: The items of src are printed to cout (one per line).
 int get_object_num();
+// Pre:  (none)
+// Post: The user is prompted to enter either 1 or 2. The
+//       prompt is repeated until a valid integer can be read
+//       and the integer's value is either 1 or 2. The valid
+//       integer read is returned. The input buffer is cleared
+//       of any extra input until and including the first
+//       newline character.
 double get_number();
+// Pre:  (none)
+// Post: The user is prompted to enter a real number. The prompt
+//       is repeated until a valid real number can be read. The
+//       valid real number read is returned. The input buffer is
+//       cleared of any extra input until and including the
+//       first newline character.
 char get_character();
+// Pre:  (none)
+// Post: The user is prompted to enter a non-whitespace character.
+//       The prompt is repeated until a non-whitespace character
+//       can be read. The non-whitespace character read is returned.
+//       The input buffer is cleared of any extra input until and
+//       including the first newline character.
 
 int main(int argc, char *argv[])
 {
-   seqOfItem::sequence<Item> s1;  // A sequence of double for testing
-   seqOfItem::sequence<Item> s2; // A sequence of char for testing
+   sequence<double> s1;     // A sequence of double for testing
+   sequence<char> s2;       // A sequence of char for testing
    int objectNum;    // A number to indicate selection of s1 or s2
    double numHold;   // Holder for a real number
    char charHold;    // Holder for a character
@@ -230,6 +257,7 @@ int main(int argc, char *argv[])
    cin.ignore(999, '\n');
    cout << "Press Enter or Return when ready...";
    cin.get();
+
    return EXIT_SUCCESS;
 }
 
@@ -262,11 +290,13 @@ char get_user_command()
    return command;
 }
 
+template <class Item>
 void show_list(sequence<Item> src)
 {
    for ( src.start(); src.is_item(); src.advance() )
       cout << src.current() << "  ";
 }
+
 
 int get_object_num()
 {
