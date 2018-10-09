@@ -86,42 +86,16 @@
 
 namespace CS3358_FA2018_A04
 {
-   class seqDouble
+   template <class Item>
+   class sequence
    {
    public:
       // TYPEDEFS and MEMBER CONSTANTS
-      typedef double value_type;
+      typedef Item value_type;
       typedef size_t size_type;
       static const size_type CAPACITY = 10;
       // CONSTRUCTOR
-      seqDouble();
-      // MODIFICATION MEMBER FUNCTIONS
-      void start();
-      void end();
-      void advance();
-      void move_back();
-      void add(const value_type& entry);
-      void remove_current();
-      // CONSTANT MEMBER FUNCTIONS
-      size_type size() const;
-      bool is_item() const;
-      value_type current() const;
-
-   private:
-      value_type data[CAPACITY];
-      size_type used;
-      size_type current_index;
-   };
-
-   class seqChar
-   {
-   public:
-      // TYPEDEFS and MEMBER CONSTANTS
-      typedef char value_type;
-      typedef size_t size_type;
-      static const size_type CAPACITY = 10;
-      // CONSTRUCTOR
-      seqChar();
+      sequence();
       // MODIFICATION MEMBER FUNCTIONS
       void start();
       void end();
@@ -140,5 +114,6 @@ namespace CS3358_FA2018_A04
       size_type current_index;
    };
 }
+#include "sequence.cpp"
 
 #endif
