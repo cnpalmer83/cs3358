@@ -12,38 +12,11 @@ using namespace std;
 // PROTOTYPES for functions used by this test program:
 
 void print_menu();
-// Pre:  (none)
-// Post: A menu of choices for this program is written to cout.
 char get_user_command();
-// Pre:  (none)
-// Post: The user is prompted to enter a one character command.
-//       The next character is read (skipping blanks and newline
-//       characters), and this character is returned.
 void show_list(seqOfItem::sequence<Item> src);
-// Pre: (none)
-// Post: The items of src are printed to cout (one per line).
 int get_object_num();
-// Pre:  (none)
-// Post: The user is prompted to enter either 1 or 2. The
-//       prompt is repeated until a valid integer can be read
-//       and the integer's value is either 1 or 2. The valid
-//       integer read is returned. The input buffer is cleared
-//       of any extra input until and including the first
-//       newline character.
 double get_number();
-// Pre:  (none)
-// Post: The user is prompted to enter a real number. The prompt
-//       is repeated until a valid real number can be read. The
-//       valid real number read is returned. The input buffer is
-//       cleared of any extra input until and including the
-//       first newline character.
 char get_character();
-// Pre:  (none)
-// Post: The user is prompted to enter a non-whitespace character.
-//       The prompt is repeated until a non-whitespace character
-//       can be read. The non-whitespace character read is returned.
-//       The input buffer is cleared of any extra input until and
-//       including the first newline character.
 
 int main(int argc, char *argv[])
 {

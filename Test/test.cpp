@@ -1,14 +1,14 @@
 #include <iostream>
 #include <cstdlib>
 #include "something.h"
-//#include "something.cpp"
+namespace nameTest = someKindOfLongNamespaceForNoReason;
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-   something<char> obj;
-   something<int> obj2;
-   something<string> obj3;
+   nameTest::something<char> obj;
+   nameTest::something<int> obj2;
+   nameTest::something<string> obj3;
 
    obj.setSomething('M');
    obj2.setSomething(3);

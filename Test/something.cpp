@@ -1,16 +1,19 @@
 #include "something.h"
 
-template <class T>
-something<T>::something() {}
-
-template <class T>
-void something<T>::setSomething(const T& src)
+namespace someKindOfLongNamespaceForNoReason
 {
-   someData = src;
-}
+   template <class T>
+   something<T>::something() {}
 
-template <class T>
-T something<T>::getSomething()
-{
-   return someData;
+   template <class T>
+   void something<T>::setSomething(const T& src)
+   {
+      someData = src;
+   }
+
+   template <class T>
+   T something<T>::getSomething()
+   {
+      return someData;
+   }
 }
