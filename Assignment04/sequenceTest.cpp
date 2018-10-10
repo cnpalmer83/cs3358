@@ -312,7 +312,6 @@ int get_object_num()
       cout << "Re-enter object # (1 = s1, 2 = s2) ";
       cin  >> result;
    }
-   // cin.ignore(999, '\n');
 
    while (result != 1 && result != 2)
    {
@@ -328,7 +327,6 @@ int get_object_num()
          cout << "Re-enter object # (1 = s1, 2 = s2) ";
          cin  >> result;
       }
-      // cin.ignore(999, '\n');
    }
 
    cout << "You entered ";
@@ -350,7 +348,6 @@ double get_number()
       cout << "Re-enter a real number ";
       cin  >> result;
    }
-   // cin.ignore(999, '\n');
 
    cout << "You entered ";
    cout << result << endl;
@@ -370,7 +367,6 @@ char get_character()
       cout << "Re-enter a non-whitespace character: ";
       cin  >> result;
    }
-   // cin.ignore(999, '\n');
 
    cout << "You entered ";
    cout << result << endl;
