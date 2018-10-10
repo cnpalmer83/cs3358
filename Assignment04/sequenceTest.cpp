@@ -297,7 +297,6 @@ void show_list(sequence<Item> src)
       cout << src.current() << "  ";
 }
 
-
 int get_object_num()
 {
    int result;

@@ -1,11 +1,4 @@
 // FILE: sequence.h
-///////////////////////////////////////////////////////////////////////
-// NOTE: Two specialized versions of sequence (seqDouble for a sequence
-//       of real numbers and seqChar for a sequence of characters) are
-//       specified in this header file. For both versions, the same
-//       documentation applies; simply replace sequence in the
-//       documentation with seqDouble or seqChar as appropriate.
-///////////////////////////////////////////////////////////////////////
 // CLASS PROVIDED: sequence (a container class for a list of items,
 //                 where each list may have a designated item called
 //                 the current item)
