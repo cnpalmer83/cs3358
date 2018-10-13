@@ -244,3 +244,50 @@ void ListClear(Node*& headPtr, int noMsg)
 }
 
 // definition of MakeDistinctPairs of Assignment 5 Part 1
+void MakeDistinctPairs(Node*& headPtr)
+{
+   if (headPtr == 0)                                        // Case for empty list
+      return;
+   if (headPtr->link == 0)                                  // Case for 1 node list
+   {
+      // TODO: Create a new node
+      //       Set new node data equal to head data
+      //       Set head link to point to the new node
+      return;
+   }
+   else                                                     // Case for 2 or more nodes
+   {
+      bool targetEndOfList, keyEndOfList, match, pair = false;
+      Node* preKey, temp = 0;
+      Node* key, preTarget = headPtr;
+      Node* target = head->link;
+
+      if (key->data == target->data)                        // First evaluation
+      {
+         // TODO: set pair to true
+         //       check for end of list condition
+         //       increment key and target pointers if needed
+         //       set keyEndOfList if needed
+      }
+      while (!keyEndOfList)
+      {
+         switch (match)                                     // Check key data against target data
+         {
+         case 0:  // Match is false
+            // TODO: if (pair == true)
+            //          do this...
+            //       else
+            //          do that...
+            break;
+         case 1;  // Match is true
+            // TODO: if (pair == true)
+            //          do this...
+            //       else
+            //          do that...
+            break;
+         }
+         // TODO: ensure all flags properly set, especially keyEndOfList
+      }
+   }
+
+}
