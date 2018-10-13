@@ -250,19 +250,23 @@ void MakeDistinctPairs(Node*& headPtr)
       return;
    if (headPtr->link == 0)                                  // Case for 1 node list
    {
-      // TODO: Create a new node
-      //       Set new node data equal to head data
-      //       Set head link to point to the new node
+      Node* newNodePtr = new Node;
+      newNodePtr->data = headPtr->data;
+      newNodePtr->link = 0;
+      headPtr->link = newNodePtr;
       return;
    }
    else                                                     // Case for 2 or more nodes
    {
-      bool targetEndOfList, keyEndOfList, match, pair = false;
-      Node* preKey, temp = 0;
-      Node* key, preTarget = headPtr;
+      Node* preKey, temp = 0;                               // Stage pointers for comparison
+      Node* key, preTarget = headPtr;                       // of first two nodes
       Node* target = head->link;
+      bool targetEndOfList, keyEndOfList, pair = false;
+      bool match = (key->data == target->data);             // First evaluation
 
-      if (key->data == target->data)                        // First evaluation
+      if (match && target->link == 0)                       // Case for exactly 2 matching nodes
+         return;
+      else if (pair)
       {
          // TODO: set pair to true
          //       check for end of list condition
