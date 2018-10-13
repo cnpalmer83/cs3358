@@ -301,21 +301,60 @@ void MakeDistinctPairs(Node*& headPtr)
       {
          targetEndOfList = (target->link == 0);          // Set targetEndOfList flag
          match = (key->data == target->data);            // Set match flag
-         switch (match)
+
+         if (targetEndOfList)
          {
-         case 1:  // Match is true
-            // TODO: if (pair == true)
-            //          do this...
-            //       else
-            //          do that...
-            break;
-         case 0;  // Match is false
-            // TODO: if (pair == true)
-            //          do this...
-            //       else
-            //          do that...
-            break;
+            switch (pair)
+            {
+            case 1:
+               if (match)
+               {
+                  // TODO: targetEndOfList AND pair AND match.
+               }
+               else
+               {
+                  // TODO: targetEndOfList AND pair but no match
+               }
+               break;
+            case 0:
+               if (match)
+               {
+                  // TODO: targetEndOfList AND no pair exists AND there is a match.
+               }
+               else
+               {
+                  // TODO: targetEndOfList AND no pair exists AND there is NOT a match.
+               }
+               break;
+            }
          }
+         else if (!targetEndOfList)
+         {
+            switch (pair)
+            {
+            case 1:
+               if (match)
+               {
+                  // TODO: !targetEndOfList AND pair AND match.
+               }
+               else
+               {
+                  // TODO: !targetEndOfList AND pair but no match
+               }
+               break;
+            case 0:
+               if (match)
+               {
+                  // TODO: !targetEndOfList AND no pair exists AND there is a match.
+               }
+               else
+               {
+                  // TODO: !targetEndOfList AND no pair exists AND there is NOT a match.
+               }
+               break;
+            }
+         }
+
          // TODO: ensure all flags properly set, especially keyEndOfList
       }
    }
