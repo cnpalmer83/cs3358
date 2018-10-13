@@ -265,30 +265,51 @@ void MakeDistinctPairs(Node*& headPtr)
       bool targetEndOfList = (target->link == 0);
       bool match = (key->data == target->data);             // First evaluation
 
-      if (match && targetEndOfList)                         // Case for exactly 2 matching nodes
-         return;
-      else if (targetEndOfList)                             // Case for exactly 2 non-matching nodes
+      switch (targetEndOfList)
       {
-         
-      }
-      else if (match)                                       // Case for 3 or more nodes.
-      {
-         // TODO: set pair to true
-         //       check for end of list condition
-         //       increment key and target pointers if needed
-         //       set keyEndOfList if needed
+         case 1:                                            // exactly two nodes
+            if (!match)                                     // the two nodes are not a pair
+            {                                               // Do nothing if two nodes already match
+               Node* newNodePtr1 = new Node;
+               Node* newNodePtr2 = new Node;
+               newNodePtr1->data = key->data;
+               newNodePtr2->data = target->data;
+               newNodePtr1->link = target;
+               newNodePtr2->link = 0;
+               key->link = newNodePtr1;
+               target->link = newNodePtr2;
+            }
+            return;
+         case 0:                                            // more than two nodes
+            if (match)                                      // first two nodes are the same
+            {
+               // Just increment pointers
+               pair = true;
+               preKey = key;
+               preTarget = target;
+               key = target;
+               target = target->link;
+            }
+            else                                            // first two nodes are not the same
+            {
+               preTarget = target;
+               target = target->link;
+            }
+            break;
       }
       while (!keyEndOfList)
       {
-         switch (match)                                     // Check key data against target data
+         targetEndOfList = (target->link == 0);          // Set targetEndOfList flag
+         match = (key->data == target->data);            // Set match flag
+         switch (match)
          {
-         case 0:  // Match is false
+         case 1:  // Match is true
             // TODO: if (pair == true)
             //          do this...
             //       else
             //          do that...
             break;
-         case 1;  // Match is true
+         case 0;  // Match is false
             // TODO: if (pair == true)
             //          do this...
             //       else
