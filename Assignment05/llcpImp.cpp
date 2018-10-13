@@ -261,12 +261,17 @@ void MakeDistinctPairs(Node*& headPtr)
       Node* preKey, temp = 0;                               // Stage pointers for comparison
       Node* key, preTarget = headPtr;                       // of first two nodes
       Node* target = head->link;
-      bool targetEndOfList, keyEndOfList, pair = false;
+      bool keyEndOfList, pair = false;
+      bool targetEndOfList = (target->link == 0);
       bool match = (key->data == target->data);             // First evaluation
 
-      if (match && target->link == 0)                       // Case for exactly 2 matching nodes
+      if (match && targetEndOfList)                         // Case for exactly 2 matching nodes
          return;
-      else if (pair)
+      else if (targetEndOfList)                             // Case for exactly 2 non-matching nodes
+      {
+         
+      }
+      else if (match)                                       // Case for 3 or more nodes.
       {
          // TODO: set pair to true
          //       check for end of list condition
