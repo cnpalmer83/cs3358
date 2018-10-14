@@ -369,21 +369,48 @@ void MakeDistinctPairs(Node*& headPtr)
             case 1:
                if (match)
                {
-                  // TODO: !targetEndOfList AND pair AND match.
+                  // !targetEndOfList AND pair AND match.
+                  temp = target;
+                  target = target->link;
+                  preTarget->link = target;
+                  delete temp;
+                  temp = 0;
                }
                else
                {
-                  // TODO: !targetEndOfList AND pair but no match
+                  // !targetEndOfList AND pair but no match
+                  preTarget = target;
+                  target = target->link;
                }
                break;
             case 0:
                if (match)
                {
-                  // TODO: !targetEndOfList AND no pair exists AND there is a match.
+                  // !targetEndOfList AND no pair exists AND there is a match.
+                  if (key->link == target)
+                  {
+                     key = target;
+                     preKey = preTarget;
+                     target = target->link;
+                     preTarget = key;
+                  }
+                  else
+                  {
+                     temp = target->link;
+                     target->link = key->link;
+                     key->link = target;
+                     preTarget->link = temp;
+                     target = temp;
+                     temp = 0;
+                     key = key->link;
+                  }
+                  pair = true;
                }
                else
                {
-                  // TODO: !targetEndOfList AND no pair exists AND there is NOT a match.
+                  // !targetEndOfList AND no pair exists AND there is NOT a match.
+                  preTarget = target;
+                  target = target->link;
                }
                break;
             }
@@ -393,5 +420,4 @@ void MakeDistinctPairs(Node*& headPtr)
          keyEndOfList = (key->link == 0);
       }
    }
-
 }
