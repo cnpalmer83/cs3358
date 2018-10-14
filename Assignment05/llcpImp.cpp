@@ -258,11 +258,15 @@ void MakeDistinctPairs(Node*& headPtr)
    }
    else                                                     // Case for 2 or more nodes
    {
-      Node* preKey, temp = 0;                               // Stage pointers for comparison
-      Node* key, preTarget = headPtr;                       // of first two nodes
-      Node* target = head->link;
-      bool keyEndOfList, pair = false;
+      Node* preKey = 0;                                     // Stage pointers for comparison
+      Node* temp = 0;                                       // of first two nodes
+      Node* key = headPtr;
+      Node* preTarget = headPtr;
+      Node* target = headPtr->link;
+      bool keyEndOfList = false;
+      bool pair = false;
       bool targetEndOfList = (target->link == 0);
+      cout << targetEndOfList << " <-- should be false" << endl;
       bool match = (key->data == target->data);             // First evaluation
 
       switch (targetEndOfList)
@@ -292,13 +296,17 @@ void MakeDistinctPairs(Node*& headPtr)
             }
             else                                            // first two nodes are not the same
             {
+               cout << "In pre-switch statement" << endl;
                preTarget = target;
                target = target->link;
             }
             break;
       }
+      cout << "Before while loop" << endl;
+      cout << "keyEndOfList = " << keyEndOfList << endl;
       while (!keyEndOfList)
       {
+         cout << "In while loop (top)" << endl;
          targetEndOfList = (target->link == 0);          // Set targetEndOfList flag
          match = (key->data == target->data);            // Set match flag
 
