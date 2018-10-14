@@ -309,11 +309,27 @@ void MakeDistinctPairs(Node*& headPtr)
             case 1:
                if (match)
                {
-                  // TODO: targetEndOfList AND pair AND match.
+                  // targetEndOfList AND pair AND match.
+                  if (key->link == target)
+                  {
+                     delete target;
+                     key->link = 0;
+                     target = 0;
+                  }
+                  else
+                  {
+                     key = key->link;
+                     delete target;
+                     (key->link == 0) ? target = 0 : target = key->link;
+                  }
                }
                else
                {
-                  // TODO: targetEndOfList AND pair but no match
+                  // targetEndOfList AND pair but no match
+                  key = key->link;
+                  preTarget = key;
+                  target = key->link;
+                  pair = false;
                }
                break;
             case 0:
@@ -354,8 +370,9 @@ void MakeDistinctPairs(Node*& headPtr)
                break;
             }
          }
-
          // TODO: ensure all flags properly set, especially keyEndOfList
+         //       pair should have been set in one of the 8 possible conditions above
+         keyEndOfList = (key->link == 0);
       }
    }
 
