@@ -335,11 +335,29 @@ void MakeDistinctPairs(Node*& headPtr)
             case 0:
                if (match)
                {
-                  // TODO: targetEndOfList AND no pair exists AND there is a match.
+                  // targetEndOfList AND no pair exists AND there is a match.
+                  if (key->link == target)
+                     key = target;
+                  else
+                  {
+                     preTarget->link = 0;
+                     target->link = key->link;
+                     key->link = target;
+                     key = key->link;
+                     target = key->link;
+                  }
+                  pair = true;
                }
                else
                {
-                  // TODO: targetEndOfList AND no pair exists AND there is NOT a match.
+                  // targetEndOfList AND no pair exists AND there is NOT a match.
+                  Node* newNodePtr = new Node;
+                  newNodePtr->data = key->data;
+                  newNodePtr->link = key->link;
+                  key->link = newNodePtr;
+                  key = key->link;
+                  target = key->link;
+                  pair = true;
                }
                break;
             }
