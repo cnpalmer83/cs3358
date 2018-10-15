@@ -246,186 +246,91 @@ void ListClear(Node*& headPtr, int noMsg)
 // definition of MakeDistinctPairs of Assignment 5 Part 1
 void MakeDistinctPairs(Node*& headPtr)
 {
-   if (headPtr == 0)                                        // Case for empty list
-      return;
-   if (headPtr->link == 0)                                  // Case for 1 node list
+   Node* key = headPtr;
+   Node* cur = headPtr;
+   Node* preCur = 0;
+   Node* preKey = 0;
+   Node* prePreKey = 0;
+   Node* temp = 0;
+   bool keyEnd = false;
+   bool curEnd = false;
+   bool pair = false;
+   bool match = false;
+   int length = 0;
+
+   while (cur != 0)                                // Get length for proper entry
    {
-      Node* newNodePtr = new Node;
-      newNodePtr->data = headPtr->data;
-      newNodePtr->link = 0;
-      headPtr->link = newNodePtr;
+      ++length;
+      cur = cur->link;
+   }
+   if (length == 0)                                // Case for empty list
+      return;
+   if (length == 1)                                // Case for single node
+   {
+      // TODO: add node equal to headPtr
       return;
    }
-   else                                                     // Case for 2 or more nodes
+   if (length == 2)                                // Case for exactly two nodes
    {
-      Node* preKey = 0;                                     // Stage pointers for comparison
-      Node* temp = 0;                                       // of first two nodes
-      Node* key = headPtr;
-      Node* preTarget = headPtr;
-      Node* target = headPtr->link;
-      bool keyEndOfList = false;
-      bool pair = false;
-      bool targetEndOfList = (target->link == 0);
-      cout << targetEndOfList << " <-- should be false" << endl;
-      bool match = (key->data == target->data);             // First evaluation
+      // TODO: check for match
+      //       if match, return
+      //       else, make two nodes
+      return;
+   }
+   // List is 3 or more nodes
+   preKey = headPtr;                               // Stage pointer variables
+   key = preKey->link;
+   preCur = key;
+   cur = preCur->link;
 
-      switch (targetEndOfList)
+   while (!keyEnd)                                 // Process the list
+   {
+      curEnd = (cur->link == 0);                   // Set flags for logic control
+      keyEnd = (curEnd && (key->link == cur));     // keyEnd initial value == false
+      match  = (key == target);
+      pair   = (preKey == key);
+
+      if (keyEnd)                                  // 3 nodes or final operation
       {
-         case 1:                                            // exactly two nodes
-            if (!match)                                     // the two nodes are not a pair
-            {                                               // Do nothing if two nodes already match
-               Node* newNodePtr1 = new Node;
-               Node* newNodePtr2 = new Node;
-               newNodePtr1->data = key->data;
-               newNodePtr2->data = target->data;
-               newNodePtr1->link = target;
-               newNodePtr2->link = 0;
-               key->link = newNodePtr1;
-               target->link = newNodePtr2;
-            }
-            return;
-         case 0:                                            // more than two nodes
-            if (match)                                      // first two nodes are the same
-            {
-               // Just increment pointers
-               pair = true;
-               preKey = key;
-               preTarget = target;
-               key = target;
-               target = target->link;
-            }
-            else                                            // first two nodes are not the same
-            {
-               cout << "In pre-switch statement" << endl;
-               preTarget = target;
-               target = target->link;
-            }
-            break;
+         if (match && pair)
+            // TODO: Define condition A from truth table
+         if (!match && pair)
+            // TODO: Define condition C from truth table
+         if (!match && !pair)
+            // TODO: Define condition D from truth table
+         return;
       }
-      cout << "Before while loop" << endl;
-      cout << "keyEndOfList = " << keyEndOfList << endl;
-      while (!keyEndOfList)
+      if (curEnd)
       {
-         cout << "In while loop (top)" << endl;
-         targetEndOfList = (target->link == 0);          // Set targetEndOfList flag
-         match = (key->data == target->data);            // Set match flag
-
-         if (targetEndOfList)
-         {
-            switch (pair)
-            {
-            case 1:
-               if (match)
-               {
-                  // targetEndOfList AND pair AND match.
-                  if (key->link == target)
-                  {
-                     delete target;
-                     key->link = 0;
-                     target = 0;
-                  }
-                  else
-                  {
-                     key = key->link;
-                     delete target;
-                     (key->link == 0) ? target = 0 : target = key->link;
-                  }
-               }
-               else
-               {
-                  // targetEndOfList AND pair but no match
-                  key = key->link;
-                  preTarget = key;
-                  target = key->link;
-                  pair = false;
-               }
-               break;
-            case 0:
-               if (match)
-               {
-                  // targetEndOfList AND no pair exists AND there is a match.
-                  if (key->link == target)
-                     key = target;
-                  else
-                  {
-                     preTarget->link = 0;
-                     target->link = key->link;
-                     key->link = target;
-                     key = key->link;
-                     target = key->link;
-                  }
-                  pair = true;
-               }
-               else
-               {
-                  // targetEndOfList AND no pair exists AND there is NOT a match.
-                  Node* newNodePtr = new Node;
-                  newNodePtr->data = key->data;
-                  newNodePtr->link = key->link;
-                  key->link = newNodePtr;
-                  key = key->link;
-                  target = key->link;
-                  pair = true;
-               }
-               break;
-            }
-         }
-         else if (!targetEndOfList)
-         {
-            switch (pair)
-            {
-            case 1:
-               if (match)
-               {
-                  // !targetEndOfList AND pair AND match.
-                  temp = target;
-                  target = target->link;
-                  preTarget->link = target;
-                  delete temp;
-                  temp = 0;
-               }
-               else
-               {
-                  // !targetEndOfList AND pair but no match
-                  preTarget = target;
-                  target = target->link;
-               }
-               break;
-            case 0:
-               if (match)
-               {
-                  // !targetEndOfList AND no pair exists AND there is a match.
-                  if (key->link == target)
-                  {
-                     key = target;
-                     preKey = preTarget;
-                     target = target->link;
-                     preTarget = key;
-                  }
-                  else
-                  {
-                     temp = target->link;
-                     target->link = key->link;
-                     key->link = target;
-                     preTarget->link = temp;
-                     target = temp;
-                     temp = 0;
-                     key = key->link;
-                  }
-                  pair = true;
-               }
-               else
-               {
-                  // !targetEndOfList AND no pair exists AND there is NOT a match.
-                  preTarget = target;
-                  target = target->link;
-               }
-               break;
-            }
-         }
-         // TODO: ensure all flags properly set, especially keyEndOfList
-         //       pair should have been set in one of the 8 possible conditions above
-         keyEndOfList = (key->link == 0);
+         if (match && pair)
+            // TODO: Define condition E from truth table
+         if (match && !pair)
+            // TODO: Define condition F from truth table
+         if (!match && pair)
+            // TODO: Define condition G from truth table
+         if (!match && !pair)
+            // TODO: Define condition H from truth table
+      }
+      // TODO: FIX LOGIC SHORT CIRCUIT THAT BEGINS HERE!
+      //       EX: condition E will drop into condition I
+      //           causing two operations in one loop.
+      //           Reset flags or explicitly define remaining
+      //           conditions.
+      if (match && pair)
+      {
+         // TODO: Define condition I from truth table
+      }
+      if (match && !pair)
+      {
+         // TODO: Define condition J from truth table
+      }
+      if (!match)
+      {
+         // TODO: Define conditions K & L from truth table
+         //       Both should just increment current pointers
+         //       to evaluate next node.
       }
    }
+
+
 }
