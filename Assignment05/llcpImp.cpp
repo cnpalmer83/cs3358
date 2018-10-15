@@ -300,7 +300,7 @@ void MakeDistinctPairs(Node*& headPtr)
             // TODO: Define condition D from truth table
          return;
       }
-      if (curEnd)
+      if (curEnd)                                  // cur resets after this operation
       {
          if (match && pair)
             // TODO: Define condition E from truth table
@@ -311,26 +311,22 @@ void MakeDistinctPairs(Node*& headPtr)
          if (!match && !pair)
             // TODO: Define condition H from truth table
       }
-      // TODO: FIX LOGIC SHORT CIRCUIT THAT BEGINS HERE!
-      //       EX: condition E will drop into condition I
-      //           causing two operations in one loop.
-      //           Reset flags or explicitly define remaining
-      //           conditions.
-      if (match && pair)
+      else                                         // Not keyEnd or curEnd
       {
-         // TODO: Define condition I from truth table
-      }
-      if (match && !pair)
-      {
-         // TODO: Define condition J from truth table
-      }
-      if (!match)
-      {
-         // TODO: Define conditions K & L from truth table
-         //       Both should just increment current pointers
-         //       to evaluate next node.
+         if (match && pair)
+         {
+            // TODO: Define condition I from truth table
+         }
+         if (match && !pair)
+         {
+            // TODO: Define condition J from truth table
+         }
+         if (!match)
+         {
+            // TODO: Define conditions K & L from truth table
+            //       Both should just increment current pointers
+            //       to evaluate next node.
+         }
       }
    }
-
-
 }
