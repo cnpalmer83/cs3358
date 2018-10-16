@@ -305,11 +305,37 @@ void MakeDistinctPairs(Node*& headPtr)
       if (keyEnd)                                  // 3 nodes or final operation
       {
          if (match && pair)
-            // TODO: Define condition A from truth table
+         {
+            key->link = 0;
+            delete cur;
+            cur = 0;
+         }
          if (!match && pair)
-            // TODO: Define condition C from truth table
+         {
+            Node* newNodeCur = new Node;
+            newNodeCur->data = cur->data;
+            newNodeCur->link = 0;
+            cur->link = newNodeCur;
+         }
          if (!match && !pair)
-            // TODO: Define condition D from truth table
+         {
+            Node* newNodeKey = new Node;
+            Node* newNodeCur = new Node;
+            newNodeKey->data = key->data;
+            newNodeCur->data = cur->data;
+            newNodeKey->link = cur;
+            newNodeCur->link = 0;
+            key->link = newNodeKey;
+            cur->link = newNodeCur;
+
+            if (length == 3)
+            {
+               Node* newNodePreKey = new Node;
+               newNodePreKey->data = preKey->data;
+               newNodePreKey->link = preKey->link;
+               preKey->link = newNodePreKey;
+            }
+         }
          return;
       }
       if (curEnd)                                  // cur resets after this operation
@@ -335,9 +361,8 @@ void MakeDistinctPairs(Node*& headPtr)
          }
          if (!match)
          {
-            // TODO: Define conditions K & L from truth table
-            //       Both should just increment current pointers
-            //       to evaluate next node.
+            preCur = cur;                          // Increment cur for next comparison
+            cur = cur->link;
          }
       }
    }
