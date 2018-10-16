@@ -294,6 +294,7 @@ void MakeDistinctPairs(Node*& headPtr)
    key = preKey->link;
    preCur = key;
    cur = preCur->link;
+   curEnd = (cur->link == 0);
 
    while (!keyEnd)                                 // Process the list
    {
@@ -307,8 +308,8 @@ void MakeDistinctPairs(Node*& headPtr)
            << keyEnd << " " << curEnd << " " << match << " " << pair
            << " -- key->link == cur: " << (key->link == cur) << endl << endl;
 
-      curEnd = (cur->link == 0);                   // Set flags for logic control
       keyEnd = (curEnd && key->link == cur);
+      curEnd = (cur->link == 0);                   // Set flags for logic control
       match  = (key == cur);
       pair   = (preKey == key);
 
@@ -393,6 +394,8 @@ void MakeDistinctPairs(Node*& headPtr)
                preKey->link = newNodePreKey;
                preKey = preKey->link;
                newNodePreKey = 0;
+               preCur = key;
+               cur = preCur->link;
             }
             else
             {
@@ -402,7 +405,7 @@ void MakeDistinctPairs(Node*& headPtr)
                key->link = newNodeKey;
                preKey = key;
                key = key->link;
-               preCur = key;
+               preCur = key;                       // Latest fix (still losing last node)
                cur = preCur->link;
             }
          }
@@ -444,6 +447,6 @@ void MakeDistinctPairs(Node*& headPtr)
             cur = cur->link;
          }
       }
-      keyEnd = (curEnd && key->link == cur);
+      //keyEnd = (curEnd && key->link == cur);
    }
 }
