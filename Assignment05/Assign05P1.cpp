@@ -85,6 +85,8 @@ int main()
             ShowArray(intArr0, used0);
             cout << "#expected: " << used2 << endl;
             cout << "#returned: " << FindListLength(head1) << endl;
+            cout << "BREADCRUMB LIST: ";
+            ShowAll(cout, head1);
          }
          else
          {

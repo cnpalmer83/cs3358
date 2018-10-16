@@ -250,7 +250,6 @@ void MakeDistinctPairs(Node*& headPtr)
    Node* cur = headPtr;
    Node* preCur = 0;
    Node* preKey = 0;
-   Node* prePreKey = 0;
    Node* temp = 0;
    bool keyEnd = false;
    bool curEnd = false;
@@ -258,11 +257,12 @@ void MakeDistinctPairs(Node*& headPtr)
    bool match = false;
    int length = 0;
 
-   while (cur != 0 || length < 4)                  // Get length for proper entry
+   while (cur != 0)                  // Get length for proper entry
    {
       ++length;
       cur = cur->link;
    }
+
    if (length == 0)                                // Case for empty list
       return;
    if (length == 1)                                // Case for single node
@@ -297,10 +297,25 @@ void MakeDistinctPairs(Node*& headPtr)
 
    while (!keyEnd)                                 // Process the list
    {
+      cout << "--------------------------------------------\n";
+      cout << "preKeyPtr, keyPtr, preCurPtr, curPtr: "
+           << preKey->data << " " << key->data << " " << preCur->data << " " << cur->data << endl;
+      cout << headPtr->data << "--" << headPtr->link->data << "--" << headPtr->link->link->data << "--"
+           << headPtr->link->link->link->data << "--" << endl;
+      cout << "BEFORE\n";
+      cout << "keyEnd, curEnd, match, pair: "
+           << keyEnd << " " << curEnd << " " << match << " " << pair
+           << " -- key->link == cur: " << (key->link == cur) << endl << endl;
+
       curEnd = (cur->link == 0);                   // Set flags for logic control
-      keyEnd = (curEnd && (key->link == cur));
-      match  = (key == target);
+      keyEnd = (curEnd && key->link == cur);
+      match  = (key == cur);
       pair   = (preKey == key);
+
+      cout << "AFTER\n";
+      cout << "keyEnd, curEnd, match, pair: "
+           << keyEnd << " " << curEnd << " " << match << " " << pair
+           << " -- key->link == cur: " << (key->link == cur) << endl;
 
       if (keyEnd)                                  // 3 nodes or final operation
       {
@@ -370,14 +385,26 @@ void MakeDistinctPairs(Node*& headPtr)
          }
          if (!match && !pair)                      // Condition H: 0 1 0 0
          {
-            Node* newNodeKey = new Node;
-            newNodeKey->data = key->data;
-            newNodeKey->link = key->link;
-            key->link = newNodeKey;
-            preKey = key;
-            key = key->link;
-            preCur = key;
-            cur = preCur->link;
+            if (preKey == headPtr)
+            {
+               Node* newNodePreKey = new Node;
+               newNodePreKey->data = preKey->data;
+               newNodePreKey->link = preKey->link;
+               preKey->link = newNodePreKey;
+               preKey = preKey->link;
+               newNodePreKey = 0;
+            }
+            else
+            {
+               Node* newNodeKey = new Node;
+               newNodeKey->data = key->data;
+               newNodeKey->link = key->link;
+               key->link = newNodeKey;
+               preKey = key;
+               key = key->link;
+               preCur = key;
+               cur = preCur->link;
+            }
          }
       }
       else                                         // Not keyEnd or curEnd
@@ -413,9 +440,10 @@ void MakeDistinctPairs(Node*& headPtr)
          }
          if (!match)                               // Condition K & L: 0 0 0 1
          {                                         //                  0 0 0 0
-            preCur = cur;                          
+            preCur = cur;
             cur = cur->link;
          }
       }
+      keyEnd = (curEnd && key->link == cur);
    }
 }
