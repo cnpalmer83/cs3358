@@ -267,17 +267,29 @@ void MakeDistinctPairs(Node*& headPtr)
       return;
    if (length == 1)                                // Case for single node
    {
-      // TODO: add node equal to headPtr
+      Node* newNode = new Node;
+      newNode->data = key->data;
+      newNode->link = 0;
+      key->link = newNode;
       return;
    }
    if (length == 2)                                // Case for exactly two nodes
    {
-      // TODO: check for match
-      //       if match, return
-      //       else, make two nodes
+      cur = cur->link;                             // If both nodes match, do nothing.
+      if (key->data != cur->data)                  // Otherwise, make each node a pair.
+      {
+         Node* newNodeKey = new Node;
+         Node* newNodeCur = new Node;
+         newNodeKey->data = key->data;
+         newNodeCur->data = cur->data;
+         newNodeKey->link = cur;
+         newNodeCur->link = 0;
+         key->link = newNodeKey;
+         cur->link = newNodeCur;
+      }
       return;
    }
-   // List is 3 or more nodes
+                                                   // List is 3 or more nodes
    preKey = headPtr;                               // Stage pointer variables
    key = preKey->link;
    preCur = key;
@@ -286,7 +298,7 @@ void MakeDistinctPairs(Node*& headPtr)
    while (!keyEnd)                                 // Process the list
    {
       curEnd = (cur->link == 0);                   // Set flags for logic control
-      keyEnd = (curEnd && (key->link == cur));     // keyEnd initial value == false
+      keyEnd = (curEnd && (key->link == cur));
       match  = (key == target);
       pair   = (preKey == key);
 
