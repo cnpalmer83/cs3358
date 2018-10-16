@@ -361,25 +361,59 @@ void MakeDistinctPairs(Node*& headPtr)
             cur = preCur->link;
             temp = 0;
          }
-            // TODO: Define condition F from truth table
          if (!match && pair)
-            // TODO: Define condition G from truth table
-         if (!match && !pair)
-            // TODO: Define condition H from truth table
+         {
+            preKey = key;
+            key = key->link;
+            preCur = key;
+            cur = preCur->link;
+         }
+         if (!match && !pair)                      // Condition H: 0 1 0 0
+         {
+            Node* newNodeKey = new Node;
+            newNodeKey->data = key->data;
+            newNodeKey->link = key->link;
+            key->link = newNodeKey;
+            preKey = key;
+            key = key->link;
+            preCur = key;
+            cur = preCur->link;
+         }
       }
       else                                         // Not keyEnd or curEnd
       {
-         if (match && pair)
+         if (match && pair)                        // Condition I: 0 0 1 1
          {
-            // TODO: Define condition I from truth table
+            temp = cur;
+            cur = cur->link;
+            preCur->link = cur;
+            delete temp;
+            temp = 0;
          }
-         if (match && !pair)
+         if (match && !pair)                       // Condition J: 0 0 1 0
          {
-            // TODO: Define condition J from truth table
+            if (key->link == cur)
+            {
+               preKey = key;
+               key = key->link;
+               preCur = cur;
+               cur = cur->link;
+            }
+            else
+            {
+               temp = cur->link;
+               cur->link = key->link;
+               key->link = cur;
+               preCur->link = temp;
+               preKey = key;
+               key = key->link;
+               cur = temp;
+               temp = 0;
+            }
          }
-         if (!match)
-         {
-            preCur = cur;                          // Increment cur for next comparison
+         if (!match)                               // Condition K & L: 0 0 0 1
+         {                                         //                  0 0 0 0
+            preCur = cur;                          
             cur = cur->link;
          }
       }
