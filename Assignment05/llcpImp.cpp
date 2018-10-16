@@ -258,7 +258,7 @@ void MakeDistinctPairs(Node*& headPtr)
    bool match = false;
    int length = 0;
 
-   while (cur != 0)                                // Get length for proper entry
+   while (cur != 0 || length < 4)                  // Get length for proper entry
    {
       ++length;
       cur = cur->link;
@@ -341,8 +341,26 @@ void MakeDistinctPairs(Node*& headPtr)
       if (curEnd)                                  // cur resets after this operation
       {
          if (match && pair)
-            // TODO: Define condition E from truth table
+         {
+            preKey = key;
+            key = key->link;
+            preCur->link = 0;
+            preCur = key;
+            delete cur;
+            cur = preCur->link;
+         }
          if (match && !pair)
+         {
+            temp = key->link;
+            cur->link = temp;
+            key->link = cur;
+            preCur->link = 0;
+            preKey = key;
+            key = key->link;
+            preCur = key;
+            cur = preCur->link;
+            temp = 0;
+         }
             // TODO: Define condition F from truth table
          if (!match && pair)
             // TODO: Define condition G from truth table
