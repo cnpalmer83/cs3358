@@ -368,7 +368,21 @@ void MakeDistinctPairs(Node*& headPtr)
                {
                   switch (pair) {
                      case 1:
+                        preKey = key;
+                        key = key->link;
+                        precur = key;
+                        cur = precur->link;
+                        break;
                      case 0:
+                        Node* newNode = new Node;
+                        newNode->data = key->data;
+                        newNode->link = key->link;
+                        key->link = newNode;
+                        preKey = key;
+                        key = key->link;
+                        preCur = key;
+                        cur = preCur->link;
+                        newNode = 0;
                   }
                }
             }
