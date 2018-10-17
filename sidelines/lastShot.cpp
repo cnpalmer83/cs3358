@@ -246,10 +246,10 @@ void ListClear(Node*& headPtr, int noMsg)
 // definition of MakeDistinctPairs of Assignment 5 Part 1
 void MakeDistinctPairs(Node*& headPtr)
 {
-   // Case for empty list
-   // Case for 1 node
-   // Case for 2 nodes
-   // Case for 3 nodes
+   // TODO: Case for empty list
+   // TODO: Case for 1 node
+   // TODO: Case for 2 nodes
+   // TODO: Case for 3 nodes
 
    // Case for 4+ nodes
 
@@ -262,86 +262,33 @@ void MakeDistinctPairs(Node*& headPtr)
    bool finished = (key->link == 0);
    bool curEnd = (cur->link = 0);
    bool match = (key->data == cur->data);
-   bool pair = match;                              // initial test of first 2 nodes
-   if (pair)
-   {
-      preKey = key;
-      key = key->link;
-      preCur = key;
-      cur = preCur->link;
-   }
+   bool pair = false;
 
-   while (!finished)
+   while (!finished)                              // Key has not reached the last node yet
    {
-      if (preKey != 0)
-         pair = (preKey->data == key->data);
-      finished = (key->link == 0);
+       finished = (key->link == 0)
+       if (finished)                              // Key is at end, handle last node
+       {
+          switch (pair)
+          {
 
-      if (finished)
-      {
-         switch (pair)
-         {
-            case 1:
+             case 1:                            // Nothing to do
                break;
-            case 0:
+             case 0:                            // Last node solo, make it a pair
                Node* newNodePtr = new Node;
                newNodePtr->data = key->data;
                newNodePtr->link = 0;
                key->link = newNodePtr;
                break;
-         }
-         return;
-      }
+          }
+          return;
+       }
 
-      else
-      {
-         if (preKey != 0)
-            pair = (preKey->data == key->data);
-         match = (key->data == cur->data);
-         curEnd = false;                           // dealt with in curEnd loop
+       else
+       {
+          if (preKey != 0)
 
-         while (!curEnd)
-         {
-            match = (key->data == cur->data);
-            curEnd = (cur->link == 0);
 
-            if (!curEnd)
-            {
-               if (match)                          // !curEnd, match
-               {
-                  switch (pair) {
-                     case 1:
-                     case 0:
-                  }
-               }
-               else                                // !curEnd, !match
-               {
-                  switch (pair) {
-                     case 1:
-                     case 0:
-                  }
-               }
-            }
-
-            else
-            {
-               if (match)                          // curEnd, match
-               {
-                  switch (pair) {
-                     case 1:
-                     case 0:
-                  }
-               }
-               else                                // curEnd, !match
-               {
-                  switch (pair) {
-                     case 1:
-                     case 0:
-                  }
-               }
-            }
-            
-         }
-      }
+       }
    }
 }
