@@ -22,6 +22,5 @@ double FindAverage(Node* headPtr);
 void   ListClear(Node*& headPtr, int noMsg = 0);
 
 // prototype of MakeDistinctPairs of Assignment 5 Part 1
-
+void MakeDistinctPairs(Node*& headPtr);
 #endif
-

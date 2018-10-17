@@ -246,23 +246,64 @@ void ListClear(Node*& headPtr, int noMsg)
 // definition of MakeDistinctPairs of Assignment 5 Part 1
 void MakeDistinctPairs(Node*& headPtr)
 {
-   // Case for empty list
-   // Case for 1 node
-   // Case for 2 nodes
-   // Case for 3 nodes
+   Node* key = headPtr;
+   Node* preKey = 0;
+   Node* preCur = 0;
+   Node* cur = 0;
+   Node* temp = 0;
+   bool finished = false;
+   bool curEnd = false;
+   bool pair = false;
+   bool match = false;
+   int length = 0;
 
-   // Case for 4+ nodes
+   while (cur != 0)
+   {
+      ++length;
+      cur = cur->link;
+   }
+   // Case for empty list
+   if (length == 0)
+      return;
+
+   // Case for 1 node
+   if (length == 1)
+   {
+      Node* newNode = new Node;
+      newNode->data = headPtr->data;
+      newNode->link = 0;
+      headPtr->link = newNode;
+      return;
+   }
+   // Case for 2 nodes
+   if (length == 2)
+   {
+      key = headPtr->link;
+      if (headPtr->data != key->data)
+      {
+         Node* newNode1 = new Node;
+         Node* newNode2 = new Node;
+         newNode1->data = headPtr->data;
+         newNode1->link = headPtr->link;
+         newNode2->data = key->data;
+         newNode2->link = 0;
+         headPtr->link = newNode1;
+         key->link = newNode2;
+      }
+      return;
+   }
+   // Case for 3+ nodes
 
    // Initialize all pointers and bool variables
-   Node* preKey = 0;
-   Node* key = headPtr;
-   Node* preCur = key;
-   Node* cur = preCur->link;
+   preKey = 0;
+   key = headPtr;
+   preCur = key;
+   cur = preCur->link;
+   finished = (key->link == 0);
+   curEnd = (cur->link = 0);
+   match = (key->data == cur->data);
+   pair = match;                              // initial test of first 2 nodes
 
-   bool finished = (key->link == 0);
-   bool curEnd = (cur->link = 0);
-   bool match = (key->data == cur->data);
-   bool pair = match;                              // initial test of first 2 nodes
    if (pair)
    {
       preKey = key;
@@ -370,8 +411,8 @@ void MakeDistinctPairs(Node*& headPtr)
                      case 1:
                         preKey = key;
                         key = key->link;
-                        precur = key;
-                        cur = precur->link;
+                        preCur = key;
+                        cur = preCur->link;
                         break;
                      case 0:
                         Node* newNode = new Node;
@@ -383,13 +424,12 @@ void MakeDistinctPairs(Node*& headPtr)
                         preCur = key;
                         cur = preCur->link;
                         newNode = 0;
+                        break;
                   }
                }
             }
             pair = (preKey->data == key->data);    // Maybe don't need this....
          }
-
-
       }
    }
 }
