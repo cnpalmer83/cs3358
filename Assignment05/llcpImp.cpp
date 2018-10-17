@@ -311,15 +311,32 @@ void MakeDistinctPairs(Node*& headPtr)
                {
                   switch (pair) {
                      case 1:
+                        preCur->link = cur->link;
+                        delete cur;
+                        cur = preCur->link;
+                        break;
                      case 0:
+                        temp = cur->link;
+                        cur->link = key->link;
+                        key->link = cur;
+                        preCur->link = temp;
+                        preKey = key;
+                        key = key->link;
+                        cur = temp;
+                        temp = 0;
+                        break;
                   }
                }
                else                                // !curEnd, !match
                {
-                  switch (pair) {
-                     case 1:
-                     case 0:
+                  preCur = cur;
+                  cur = cur->link;
+                  /*
+                  switch (pair) {                  // TODO: remove switch if not needed.
+                     case 1:                       //       both cases should only require ++cur
+                     case 0:                       //       but left behind just in case.
                   }
+                  */
                }
             }
 
@@ -329,7 +346,22 @@ void MakeDistinctPairs(Node*& headPtr)
                {
                   switch (pair) {
                      case 1:
+                        preKey = key;
+                        key = key->link;
+                        preCur->link = 0;
+                        preCur = key;
+                        delete cur;
+                        cur = preCur->link;        // 0 if key has moved to end of list
+                        break;
                      case 0:
+                        preCur->link = 0;
+                        cur->link = key->link;
+                        key->link = cur;
+                        preKey = key;
+                        key = key->link;
+                        preCur = key;
+                        cur = cur->link;
+                        break;
                   }
                }
                else                                // curEnd, !match
@@ -340,8 +372,10 @@ void MakeDistinctPairs(Node*& headPtr)
                   }
                }
             }
-            
+            pair = (preKey->data == key->data);    // Maybe don't need this....
          }
+
+
       }
    }
 }
