@@ -297,7 +297,9 @@ void MakeDistinctPairs(Node*& headPtr)
    curEnd = (cur->link == 0);
 
    while (!keyEnd)                                 // Process the list
+   //while (cin.get() != 1)
    {
+/*
       cout << "--------------------------------------------\n";
       cout << "preKeyPtr, keyPtr, preCurPtr, curPtr: "
            << preKey->data << " " << key->data << " " << preCur->data << " " << cur->data << endl;
@@ -307,14 +309,17 @@ void MakeDistinctPairs(Node*& headPtr)
       cout << "keyEnd, curEnd, match, pair: "
            << keyEnd << " " << curEnd << " " << match << " " << pair
            << " -- key->link == cur: " << (key->link == cur) << endl << endl;
-
-      keyEnd = (curEnd && key->link == cur);
+*/
+      cout << "===========================================" << endl;
+      cout << "Top of loop";
+      keyEnd = (key->link == 0);
+      //keyEnd = (curEnd && key->link == cur);
       curEnd = (cur->link == 0);                   // Set flags for logic control
       match  = (key == cur);
       pair   = (preKey == key);
 
-      cout << "AFTER\n";
-      cout << "keyEnd, curEnd, match, pair: "
+      //cout << "AFTER\n";
+      cout << endl << "keyEnd, curEnd, match, pair: "
            << keyEnd << " " << curEnd << " " << match << " " << pair
            << " -- key->link == cur: " << (key->link == cur) << endl;
 
@@ -322,10 +327,12 @@ void MakeDistinctPairs(Node*& headPtr)
       {
          if (match && pair)
          {
+            cout << "Entering condition A" << endl;
             key->link = 0;
             delete cur;
             cur = 0;
          }
+         cout << "Entering condition C" << endl;
          if (!match && pair)
          {
             Node* newNodeCur = new Node;
@@ -335,6 +342,7 @@ void MakeDistinctPairs(Node*& headPtr)
          }
          if (!match && !pair)
          {
+            cout << "Entering condition D" << endl;
             Node* newNodeKey = new Node;
             Node* newNodeCur = new Node;
             newNodeKey->data = key->data;
@@ -358,6 +366,7 @@ void MakeDistinctPairs(Node*& headPtr)
       {
          if (match && pair)
          {
+            cout << "Entering condition E" << endl;
             preKey = key;
             key = key->link;
             preCur->link = 0;
@@ -367,6 +376,7 @@ void MakeDistinctPairs(Node*& headPtr)
          }
          if (match && !pair)
          {
+            cout << "Entering condition F" << endl;
             temp = key->link;
             cur->link = temp;
             key->link = cur;
@@ -379,6 +389,7 @@ void MakeDistinctPairs(Node*& headPtr)
          }
          if (!match && pair)
          {
+            cout << "Entering condition G" << endl;
             preKey = key;
             key = key->link;
             preCur = key;
@@ -386,8 +397,10 @@ void MakeDistinctPairs(Node*& headPtr)
          }
          if (!match && !pair)                      // Condition H: 0 1 0 0
          {
+            cout << "Entering condition H" << endl;
             if (preKey == headPtr)
             {
+               cout << "H.1" << endl;
                Node* newNodePreKey = new Node;
                newNodePreKey->data = preKey->data;
                newNodePreKey->link = preKey->link;
@@ -399,14 +412,23 @@ void MakeDistinctPairs(Node*& headPtr)
             }
             else
             {
-               Node* newNodeKey = new Node;
-               newNodeKey->data = key->data;
-               newNodeKey->link = key->link;
-               key->link = newNodeKey;
-               preKey = key;
-               key = key->link;
-               preCur = key;                       // Latest fix (still losing last node)
-               cur = preCur->link;
+               if (key->link == preCur)
+               {
+                  preKey = key;
+                  key = key->link;
+               }
+               else
+               {
+                  cout << "H.2" << endl;
+                  Node* newNodeKey = new Node;
+                  newNodeKey->data = key->data;
+                  newNodeKey->link = key->link;
+                  key->link = newNodeKey;
+                  preKey = key;
+                  key = key->link;
+                  preCur = key;                       // Latest fix (still losing last node)
+                  cur = preCur->link;
+               }
             }
          }
       }
@@ -414,6 +436,7 @@ void MakeDistinctPairs(Node*& headPtr)
       {
          if (match && pair)                        // Condition I: 0 0 1 1
          {
+            cout << "Entering condition I" << endl;
             temp = cur;
             cur = cur->link;
             preCur->link = cur;
@@ -422,6 +445,7 @@ void MakeDistinctPairs(Node*& headPtr)
          }
          if (match && !pair)                       // Condition J: 0 0 1 0
          {
+            cout << "Entering condition J" << endl;
             if (key->link == cur)
             {
                preKey = key;
@@ -443,10 +467,22 @@ void MakeDistinctPairs(Node*& headPtr)
          }
          if (!match)                               // Condition K & L: 0 0 0 1
          {                                         //                  0 0 0 0
+            cout << "Entering condition K or L" << endl;
             preCur = cur;
             cur = cur->link;
          }
       }
+
+      temp = headPtr;
+      while (temp != 0)
+      {
+         cout << temp->data << " ";
+         temp = temp->link;
+      }
+      cout << endl << "preKeyPtr, keyPtr, preCurPtr, curPtr: "
+           << preKey->data << " " << key->data << " " << preCur->data << " " << cur->data << endl;
+      cout << "End of loop" << endl;
+
       //keyEnd = (curEnd && key->link == cur);
    }
 }
