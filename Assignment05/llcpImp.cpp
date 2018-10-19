@@ -246,11 +246,9 @@ void ListClear(Node*& headPtr, int noMsg)
 // definition of MakeDistinctPairs of Assignment 5 Part 1
 void MakeDistinctPairs(Node*& headPtr)
 {
-
-
-   if (headPtr == 0)                               // Case for empty list
+   if (headPtr == 0)                                           // Case for empty list
       return;
-   if (headPtr->link == 0)                         // Case for 1 node
+   if (headPtr->link == 0)                                     // Case for 1 node
    {
       Node* newNode = new Node;
       newNode->data = headPtr->data;
@@ -262,27 +260,30 @@ void MakeDistinctPairs(Node*& headPtr)
    Node* leadKey = headPtr;
    Node* tailKey = headPtr;
    Node* preCur  = headPtr;
-   Node* cur     = key->link;
+   Node* cur     = leadKey->link;
    Node* temp    = 0;
+   //Node* test = headPtr;                                                   //REMOVE WHEN WORKING
+   int keyData   = leadKey->data;
 
-   int keyData = key->data;
    while (leadKey != 0)
    {
       keyData = leadKey->data;
       while (cur != 0)
       {
-         if (leadKey == tailKey)                   // There is no pair
+         cout << "cur loop entered\n";                                     //REMOVE WHEN WORKING
+         if (leadKey == tailKey)                               // There is no pair
          {
-            if (cur->data == keyData && cur->link != 0)  // match and cur not at end
+            if (cur->data == keyData && cur->link != 0)        // match and cur not at end
             {
                temp = cur->link;
                cur->link = leadKey->link;
                leadKey->link = cur;
                cur = temp;
                preCur->link = cur;
+               leadKey = leadKey->link;
                temp = 0;
             }
-            else if (cur->data == keyData && cur->link == 0)  // match and cur at the end
+            else if (cur->data == keyData && cur->link == 0)   // match and cur at the end
             {
                cur->link = leadKey->link;
                leadKey->link = cur;
@@ -290,20 +291,41 @@ void MakeDistinctPairs(Node*& headPtr)
                leadKey = leadKey->link;
                cur = 0;
             }
-            else  // no match, increment cur if not at end
+            else                                               // no match, increment cur if not at end
             {
                if (cur->link != 0)
                {
+                  cout << "no pair or match, increment cur\n";                        //REMOVE WHEN WORKING
                   preCur = cur;
                   cur = cur->link;
                }
                else
-                  cur = 0;
+               {
+                  cout << "no pair or match, create node and attach key to it\n";     //REMOVE WHEN WORKING
+                  Node* newNode = new Node;
+                  newNode->data = leadKey->data;
+                  newNode->link = leadKey->link;
+                  leadKey->link = newNode;
+                  leadKey = leadKey->link;
+                  if (leadKey->link == cur && cur->link == 0)
+                  {
+                     if (cur->data == keyData)
+                        delete cur;
+                     else
+                     {
+                        Node* newNode = new Node;
+                        newNode->data = cur->data;
+                        newNode->link = 0;
+                        leadKey->link = newNode;
+                        return;
+                     }
+                  }
+               }
             }
          }
-         else                                      // There is a pair
+         else                                                  // There is a pair
          {
-            if (cur->data == keyData && cur->link != 0)  // match and cur not at end
+            if (cur->data == keyData && cur->link != 0)        // match and cur not at end
             {
                temp = cur->link;
                delete cur;
@@ -311,7 +333,7 @@ void MakeDistinctPairs(Node*& headPtr)
                preCur->link = cur;
                temp = 0;
             }
-            else if (cur->data == keyData && cur->link == 0)  // match and cur at the end
+            else if (cur->data == keyData && cur->link == 0)   // match and cur at the end
             {
                delete cur;
                cur = 0;
@@ -320,24 +342,65 @@ void MakeDistinctPairs(Node*& headPtr)
             {
                if (cur->link != 0)
                {
+                  cout << "is a pair but no match, cur incrememnted\n";
                   preCur = cur;
                   cur = cur->link;
                }
                else
-                  cur = 0;
+               {
+                  Node* newNode = new Node;
+                  newNode->data = cur->data;
+                  newNode->link = 0;
+                  cur->link = newNode;
+                  preCur = cur;
+                  cur = cur->link;
+                  cout << (cur->link == 0) << endl;
+               }
             }
          }
       }
-
       if (leadKey->link == 0)
-         leadKey == 0;
+         leadKey = 0;
       else
       {
+         cout << "key incremented\n";                          //REMOVE WHEN WORKING
          leadKey = leadKey->link;
          tailKey = leadKey;
+         preCur = leadKey;
+         cur = preCur->link;
       }
+      cout << "key->link is cur: " << (leadKey->link == cur) << endl;
+      cout << "cur->link is 0  : " << (cur->link == 0) << endl;
+      /*
+      if (leadKey->link == cur && cur->link == 0)
+      {
+         if (leadKey == tailKey && cur->data != keyData) // no match/pair exists, make final node at tail
+         {
+            cout << "1\n";
+            Node* newNode = new Node;
+            newNode->data = cur->data;
+            newNode->link = cur->link;
+            cur->link = newNode;
+            return;
+         }
+         //else if (leadKey == tailKey && cur->data == keyData) // new pair, do nothing
+         else if (leadKey != tailKey && cur->data != keyData) // make final node on tail
+         {
+            cout << "2\n";
+            Node* newNode = new Node;
+            newNode->data = cur->data;
+            newNode->link = cur->link;
+            cur->link = newNode;
+            return;
+         }
+         else if (leadKey != tailKey && cur->data == keyData) // delete cur
+         {
+            cout << "3\n";
+            delete cur;
+            return;
+         }
+         return;
+      }
+      */
    }
-
-
-
 }
