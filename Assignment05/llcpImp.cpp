@@ -246,29 +246,11 @@ void ListClear(Node*& headPtr, int noMsg)
 // definition of MakeDistinctPairs of Assignment 5 Part 1
 void MakeDistinctPairs(Node*& headPtr)
 {
-   Node* key = headPtr;
-   Node* preKey = 0;
-   Node* preCur = 0;
-   Node* cur = 0;
-   Node* temp = 0;
-   Node* test = headPtr;               // REMOVE WHEN DONE TESTING
-   bool finished = false;
-   bool curEnd = false;
-   bool pair = false;
-   bool match = false;
-   int length = 0;
 
-   while (key != 0)
-   {
-      ++length;
-      key = key->link;
-   }
-   // Case for empty list
-   if (length == 0)
+
+   if (headPtr == 0)                               // Case for empty list
       return;
-
-   // Case for 1 node
-   if (length == 1)
+   if (headPtr->link == 0)                         // Case for 1 node
    {
       Node* newNode = new Node;
       newNode->data = headPtr->data;
@@ -276,173 +258,64 @@ void MakeDistinctPairs(Node*& headPtr)
       headPtr->link = newNode;
       return;
    }
-   // Case for 2 nodes
-   if (length == 2)
+
+   Node* leadKey = headPtr;
+   Node* tailKey = headPtr;
+   Node* preCur  = headPtr;
+   Node* cur     = key->link;
+   Node* temp    = 0;
+
+   int keyData = key->data;
+   while (leadKey != 0)
    {
-      key = headPtr->link;
-      if (headPtr->data != key->data)
+      keyData = leadKey->data;
+      while (cur != 0)
       {
-         Node* newNode1 = new Node;
-         Node* newNode2 = new Node;
-         newNode1->data = headPtr->data;
-         newNode1->link = headPtr->link;
-         newNode2->data = key->data;
-         newNode2->link = 0;
-         headPtr->link = newNode1;
-         key->link = newNode2;
-      }
-      return;
-   }
-   // Case for 3+ nodes
-
-   // Initialize all pointers and bool variables
-   preKey = 0;
-   key = headPtr;
-   preCur = key;
-   cur = preCur->link;
-   finished = (key->link == 0);
-   curEnd = (cur->link == 0);
-   match = (key->data == cur->data);
-   pair = match;                              // initial test of first 2 nodes
-
-   if (pair)
-   {
-      preKey = key;
-      key = key->link;
-      preCur = key;
-      cur = preCur->link;
-   }
-
-   while (!finished)
-   {
-      cout << "in !finished\n";
-      if (preKey != 0)
-         pair = (preKey->data == key->data);
-      finished = (key->link == 0);
-
-      if (finished)
-      {
-         switch (pair)
+         if (leadKey == tailKey)                   // There is no pair
          {
-            case 1:
-               break;
-            case 0:
-               Node* newNodePtr = new Node;
-               newNodePtr->data = key->data;
-               newNodePtr->link = 0;
-               key->link = newNodePtr;
-               break;
+            if (cur->data == keyData && cur->link != 0)  // match and cur not at end
+            else if (cur->data == keyData && cur->link == 0)  // match and cur at the end
+            else
+               // no match, increment cur if not at end
+
          }
-         return;
-      }
-
-      else
-      {
-         if (preKey != 0)
-            pair = (preKey->data == key->data);
-         match = (key->data == cur->data);
-         curEnd = false;                           // dealt with in curEnd loop
-
-         while (!curEnd)
+         else                                      // There is a pair
          {
-            cout << "in curEnd\n";
-            match = (key->data == cur->data);
-            curEnd = (cur->link == 0);
-
-            if (!curEnd)
+            if (cur->data == keyData && cur->link != 0)  // match and cur not at end
             {
-               if (match)                          // !curEnd, match
+               temp = cur->link;
+               delete cur;
+               cur = temp;
+               preCur->link = cur;
+               temp = 0;
+            }
+            else if (cur->data == keyData && cur->link == 0)  // match and cur at the end
+            {
+               delete cur;
+               cur = 0;
+            }
+            else  // There is no match
+            {
+               if (cur->link != 0)
                {
-                  switch (pair) {
-                     case 1:
-                        cout << "A\n";
-                        preCur->link = cur->link;
-                        delete cur;
-                        cur = preCur->link;
-                        break;
-                     case 0:
-                        cout << "B\n";
-                        temp = cur->link;
-                        cur->link = key->link;
-                        key->link = cur;
-                        preCur->link = temp;
-                        preKey = key;
-                        key = key->link;
-                        cur = temp;
-                        temp = 0;
-                        break;
-                  }
-               }
-               else                                // !curEnd, !match
-               {
-                  cout << "C & D\n";
-                  cout << key->data << preCur->data << cur->data << cur->link->data << endl;
                   preCur = cur;
                   cur = cur->link;
-                  /*
-                  switch (pair) {                  // TODO: remove switch if not needed.
-                     case 1:                       //       both cases should only require ++cur
-                     case 0:                       //       but left behind just in case.
-                  }
-                  */
                }
+               else
+                  cur = 0;
             }
-
-            else
-            {
-               if (match)                          // curEnd, match
-               {
-                  switch (pair) {
-                     case 1:
-                        cout << "E\n";
-                        preKey = key;
-                        key = key->link;
-                        preCur->link = 0;
-                        preCur = key;
-                        delete cur;
-                        cur = preCur->link;        // 0 if key has moved to end of list
-                        break;
-                     case 0:
-                        cout << "F\n";
-                        preCur->link = 0;
-                        cur->link = key->link;
-                        key->link = cur;
-                        preKey = key;
-                        key = key->link;
-                        preCur = key;
-                        cur = cur->link;
-                        break;
-                  }
-               }
-               else                                // curEnd, !match
-               {
-                  switch (pair) {
-                     case 1:
-                        cout << "G\n";
-                        preKey = key;
-                        key = key->link;
-                        preCur = key;
-                        cur = preCur->link;
-                        break;
-                     case 0:
-                        cout << "H\n";
-                        Node* newNode = new Node;
-                        newNode->data = key->data;
-                        newNode->link = key->link;
-                        key->link = newNode;
-                        preKey = key;
-                        key = key->link;
-                        preCur = key;
-                        cur = preCur->link;
-                        newNode = 0;
-                        break;
-                  }
-               }
-            }
-            cout << "bottom of curEnd loop\n";
-            cout << key->data << preCur->data << cur->data << cur->link->data << endl;
-            pair = (preKey->data == key->data);    // Maybe don't need this....
          }
       }
+
+      if (leadKey->link == 0)
+         leadKey == 0;
+      else
+      {
+         leadKey = leadKey->link;
+         tailKey = leadKey;
+      }
    }
+
+
+
 }
