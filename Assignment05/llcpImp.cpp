@@ -274,10 +274,32 @@ void MakeDistinctPairs(Node*& headPtr)
          if (leadKey == tailKey)                   // There is no pair
          {
             if (cur->data == keyData && cur->link != 0)  // match and cur not at end
+            {
+               temp = cur->link;
+               cur->link = leadKey->link;
+               leadKey->link = cur;
+               cur = temp;
+               preCur->link = cur;
+               temp = 0;
+            }
             else if (cur->data == keyData && cur->link == 0)  // match and cur at the end
-            else
-               // no match, increment cur if not at end
-
+            {
+               cur->link = leadKey->link;
+               leadKey->link = cur;
+               preCur->link = 0;
+               leadKey = leadKey->link;
+               cur = 0;
+            }
+            else  // no match, increment cur if not at end
+            {
+               if (cur->link != 0)
+               {
+                  preCur = cur;
+                  cur = cur->link;
+               }
+               else
+                  cur = 0;
+            }
          }
          else                                      // There is a pair
          {
