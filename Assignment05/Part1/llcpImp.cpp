@@ -316,10 +316,11 @@ void MakeDistinctPairs(Node*& headPtr)
                         Node* newNode = new Node;
                         newNode->data = cur->data;
                         newNode->link = 0;
-                        leadKey->link = newNode;
-                        return;
+                        cur->link = newNode;
+                        cur = 0;
                      }
                   }
+                  cur = 0;
                }
             }
          }
@@ -358,9 +359,20 @@ void MakeDistinctPairs(Node*& headPtr)
                }
             }
          }
+         cout << "cur == 0: " << (cur == 0) << endl;
+         cin.get();
       }
       if (leadKey->link == 0)
          leadKey = 0;
+/*
+      if (leadKey->link == cur)
+      {
+         leadKey = leadKey->link;
+         tailKey = leadKey;
+         preCur = leadKey;
+         cur = 0;
+      }
+*/
       else
       {
          cout << "key incremented\n";                          //REMOVE WHEN WORKING
