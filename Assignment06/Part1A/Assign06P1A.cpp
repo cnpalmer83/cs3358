@@ -5,7 +5,7 @@
 using namespace std;
 
 // prototype for LowIndexMinNeg (to be filled in - part of exercise)
-
+int LowIndexMinNeg (const int a[], int n);
 
 void SeedRand();
 int BoundedRandomInt(int lowerBound, int upperBound);
@@ -131,3 +131,17 @@ void DebugShowCase(int whichCase, int totalCasesToDo,
 }
 
 // definition for LowIndexMinNeg (to be filled in - part of exercise)
+int LowIndexMinNeg (const int a[], int n)
+{
+   if (n == 0)
+      return -999;
+   if (n == 1)
+      return (a[0] < 0) ? 0 : -999;
+
+   int minIndex = LowIndexMinNeg(a + 1, n - 1);
+
+   if (a[0] <= a[minIndex + 1] && a[0] < 0)
+      return 0;
+   else
+      return (a[minIndex + 1] < 0) ? 1 + minIndex : -999;
+}
