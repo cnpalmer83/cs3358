@@ -4,9 +4,7 @@
 #include <ctime>
 using namespace std;
 
-// prototype for LowIndexMinNeg (to be filled in - part of exercise)
 int LowIndexMinNeg (const int a[], int n);
-
 void SeedRand();
 int BoundedRandomInt(int lowerBound, int upperBound);
 void ShowArray(const int a[], int size);
@@ -130,18 +128,17 @@ void DebugShowCase(int whichCase, int totalCasesToDo,
    ShowArray(caseValues, caseSize);
 }
 
-// definition for LowIndexMinNeg (to be filled in - part of exercise)
 int LowIndexMinNeg (const int a[], int n)
 {
-   if (n == 0)
+   if (n == 0)                                     // Base case (array is empty)
       return -999;
-   if (n == 1)
-      return (a[0] < 0) ? 0 : -999;
+   if (n == 1)                                     // Base case (array has one element)
+      return (a[0] < 0) ? 0 : -999;                // return index 0 if element is negative.
 
-   int minIndex = LowIndexMinNeg(a + 1, n - 1);
+   int minIndex = LowIndexMinNeg(a + 1, n - 1);    // Inductive step
 
-   if (a[0] <= a[minIndex + 1] && a[0] < 0)
-      return 0;
+   if (a[0] <= a[minIndex + 1] && a[0] < 0)        // Condition 1: first element of sub-array
+      return 0;                                    // smaller and less than zero (negative)
    else
-      return (a[minIndex + 1] < 0) ? 1 + minIndex : -999;
-}
+      return (a[minIndex + 1] < 0) ? 1 + minIndex : -999;   // Condition 2: Compared element smaller than
+}                                                           // first element of sub-array and negative

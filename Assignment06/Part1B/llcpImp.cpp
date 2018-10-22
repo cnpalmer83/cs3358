@@ -243,46 +243,37 @@ void ListClear(Node*& headPtr, int noMsg)
         << endl;
 }
 
-// definition of SortedMergeRecur
 void SortedMergeRecur (Node* &x, Node* &y, Node* &z)
 {
-   bool takeFromX = false;
-   if (x == 0) {
-      if (y == 0) {
-         // base case, end of the line
-         return;
-      } else {
-         // x is non-empty, but y is empty.  nothing needs to get re-pointed
-         //cout << "x is empty, y is not empty\n";
-         takeFromX = false;
+   if (x == 0 && y == 0)                           // Base case
+      return;
+   else                                            // Inductive step
+   {
+      Node* next = 0;
+      if (x == 0)                                  // Condition 1: List X is empty
+      {
+         SortedMergeRecur(x, y->link, next);
+         z = y;
+         y = 0;
       }
-   } else {
-      if (y == 0) {
-         // x is empty, but y is non-empty.  nothing needs to get re-pointed
-         //cout << "x is not empty, y is\n";
-         takeFromX = true;
-      } else {
-         // both x & y are non-empty.  do the compare
-         if (x->data <= y->data) {
-            // x is less than y.  pick off the x, and re-point z
-            takeFromX = true;
-         }
-         else {
-            // y is the lesser number, pick it off
-            takeFromX = false;
-         }
+      else if (y == 0)                             // Condition 2: List Y is empty
+      {
+         SortedMergeRecur(x->link, y, next);
+         z = x;
+         x = 0;
       }
+      else if (x->data <= y->data)                 // Condition 3: X node < Y node
+      {
+         SortedMergeRecur(x->link, y, next);
+         z = x;
+         x = 0;
+      }
+      else                                         // Condition 4: Y node < X node
+      {
+         SortedMergeRecur(x, y->link, next);
+         z = y;
+         y = 0;
+      }
+      z->link = next;                              // Link Z nodes added from Lists X and Y
    }
-
-   Node* nextZ = 0;
-   if (takeFromX) {
-      SortedMergeRecur(x->link, y, nextZ);
-      z = x;
-      x = 0;
-   } else {
-      SortedMergeRecur(x, y->link, nextZ);
-      z = y;
-      y = 0;
-   }
-   z->link = nextZ;
 }
