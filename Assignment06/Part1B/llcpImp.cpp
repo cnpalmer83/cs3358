@@ -244,4 +244,23 @@ void ListClear(Node*& headPtr, int noMsg)
 }
 
 // definition of SortedMergeRecur
-
+void SortedMergeRecur(Node* &x, Node* &y, Node* &z)
+{
+   if (x == 0 && y == 0)
+      return;
+   if (x == 0)
+      // TODO: list Z gets next y node
+   if (y == 0)
+      // TODO: list Z get's next x node
+   else
+   {
+      Node* next= 0;
+      Node* start = 0;
+      if (x->data <= y->data)
+         // TODO: place x into z
+         // SortedMergeRecur(x->link, y, z)
+      else
+         // TODO: place y into z
+         // SortedMergeRecur(x, y->link, z)
+   }
+}

@@ -5,6 +5,7 @@ using namespace std;
 
 typedef std::size_t size_type;
 int recursionTest(const int a[], int n);
+void echo(const int a[], int n);
 
 int main(int argc, char* argv[])
 {
@@ -31,28 +32,15 @@ int recursionTest(const int a[], int n)
       return -999;
    if (n == 1 && a[0] < 0)
       return 0;
-   //else
-   //{
-      int min = recursionTest(a, n-1);
-      if (a[0] <= a[min+1])
-         return 0;
-      //if (a[n-1] < min && a[n-1] >= 0)
-      //   return -999;
-         //return a[n-1];
+
+   int min = recursionTest(a, n-1);
+   if (a[0] <= a[min+1])
+      return 0;
+   else
+   {
+      if (a[min + 1] >= 0)
+         return -999;
       else
-      {
-         //cout << "a[min + 1]: " << a[min + 1] << " ~";
-         if (a[min + 1] >= 0)
-            return -999;
-         else
-            //return (a[min + 1] >= 0) ? -999 : min+1;
-            return a[min+1];
-         //return 1+min;
-      }
-   //}
-
-
-
-   //cout << "index [" << n-1 << "] (n-1) has integer " << a[n-1] << endl;
-   //return recursionTest(a, n - 1);
+         return a[min+1];
+   }
 }
