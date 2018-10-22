@@ -4,9 +4,9 @@
 #include <ctime>
 using namespace std;
 
-int LowIndexMinNeg (const int a[], int n);
+int  LowIndexMinNeg (const int a[], int n);
 void SeedRand();
-int BoundedRandomInt(int lowerBound, int upperBound);
+int  BoundedRandomInt(int lowerBound, int upperBound);
 void ShowArray(const int a[], int size);
 void DebugShowCase(int whichCase, int totalCasesToDo,
                    const int caseValues[], int caseSize);
