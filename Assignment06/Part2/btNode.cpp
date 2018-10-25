@@ -31,8 +31,42 @@ int bst_size(btNode* bst_root)
 }
 
 // write definition for bst_insert here
+bool bst_insert(btNode* bst_root, int insInt)
+{
+   btNode newNode = new btNode;
+   newNode->data  = insInt;
+   newNode->left  = 0;
+   newNode->right = 0;
 
+   if (bst_root == 0)                              // tree is empty, insInt is now the root.
+   {
+      bst_root = newNode;
+      return true;
+   }
+   else
+   {
+      btNode* cur    = bst_root;
+      btNode* parent = bst_root;
+      while (cur->left != 0 && cur->right != 0)    // cursor is not a leaf, keep traversing
+      {
+         if (insInt == cur->data)
+         {
+            // TODO: handle matching condition
+         }
+         if (insInt < cur->data)
+         {
+            // TODO: traverse left
+         }
+         else
+         {
+            // TODO: insInt > cur->data.  traverse right
+         }
+         // TODO: traverse finished.  insert newNode here.
+         return true;                              // newNode successfully inserted
+      }
+      return false;                                // Insert failed
+   }
+}
 // write definition for bst_remove here
 
 // write definition for bst_remove_max here
-
