@@ -33,39 +33,52 @@ int bst_size(btNode* bst_root)
 // write definition for bst_insert here
 bool bst_insert(btNode* bst_root, int insInt)
 {
+   btNode* cur;                                          // placeholder for node insertion
+   bool insertLeft;
+   bool inPosition;
+
+   bst_root == 0 ? (cur = 0) : (cur = bst_root);         // check for an empty tree
+
+   if (cur == 0)                                         // if tree empty, cur placeholder is set
+      inPosition = true;
+
+   while (!inPosition)                                   // else, iterate tree until cur is positioned
+   {
+      if (cur->data == insInt)                           // if insInt == existing data, override data
+      {                                                  // and return true (no new node created)
+         cur->data = insInt;
+         return true;
+      }
+      else if (insInt < cur->data)
+      {
+         if (cur->left == 0)                             // if insInt < cur->data and there is a left
+         {                                               // child, go left. Otherwise, cur in position.
+            inPosition = true;
+            insertLeft = true;
+         }
+         else
+            cur = cur->left;
+      }
+      else                                               // if insInt > cur->data and there is a right
+         if (cur->right == 0)                            // child, go right. Otherwise, cur in position.
+         {
+            inPosition = true;
+            insertLeft = false;
+         }
+         else
+            cur = cur->right;
+   }
+
    btNode newNode = new btNode;
    newNode->data  = insInt;
    newNode->left  = 0;
    newNode->right = 0;
 
-   if (bst_root == 0)                              // tree is empty, insInt is now the root.
-   {
+   if (cur == 0)                                         // make newNode root if tree is empty
       bst_root = newNode;
-      return true;
-   }
-   else
-   {
-      btNode* cur    = bst_root;
-      btNode* parent = bst_root;
-      while (cur->left != 0 && cur->right != 0)    // cursor is not a leaf, keep traversing
-      {
-         if (insInt == cur->data)
-         {
-            // TODO: handle matching condition
-         }
-         if (insInt < cur->data)
-         {
-            // TODO: traverse left
-         }
-         else
-         {
-            // TODO: insInt > cur->data.  traverse right
-         }
-         // TODO: traverse finished.  insert newNode here.
-         return true;                              // newNode successfully inserted
-      }
-      return false;                                // Insert failed
-   }
+   else                                                  // Otherwise, insert as appropriate cur child.
+      insertLeft ? (newNode = cur->left) : (newNode = cur->right);
+
 }
 // write definition for bst_remove here
 

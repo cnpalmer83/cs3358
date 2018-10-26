@@ -37,7 +37,7 @@ int bst_size(btNode* bst_root);
 //       If a node with data equals insInt is found, the node's data field
 //       has been overwritten with insInt; no new node has been created.
 // write prototype for bst_insert here
-
+bool bst_insert(btNode* bst_root, int insInt);
 // pre:  bst_root is root pointer of a binary search tree (may be 0 for
 //       empty tree)
 // post: If remInt was in the tree, then remInt has been removed, bst_root
