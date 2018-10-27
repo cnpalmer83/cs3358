@@ -83,10 +83,26 @@ bool bst_insert(btNode* bst_root, const int& insInt)
 // write definition for bst_remove here
 bool bst_remove(btNode* bst_root, const int& remInt)
 {
-
+   if (bst_root == 0)
+      return false;
+   else if (remInt < bst_root->data)
+      bst_remove(bst_root->left, remInt);
+   else if (remInt > bst_root->data)
+      bst_remove(bst_root->right, remInt);
+   else                                                  // remInt == bst_root->data
+   {
+      if (bst_root->left == 0 || bst_root->right == 0)   // one or no children present
+      {
+         // TODO: remove node with one or no children
+      }
+      else                                               // node to remove has 2 children
+      {
+         // TODO: remove node with 2 children
+      }
+   }
 }
 // write definition for bst_remove_max here
 void bst_remove_max(btNode*& bst_root, int& removed)
 {
-   
+
 }
