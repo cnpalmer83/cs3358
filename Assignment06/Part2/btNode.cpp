@@ -31,7 +31,7 @@ int bst_size(btNode* bst_root)
 }
 
 // write definition for bst_insert here
-bool bst_insert(btNode* bst_root, int insInt)
+bool bst_insert(btNode* bst_root, const int& insInt)
 {
    btNode* cur;                                          // placeholder for node insertion
    bool insertLeft;
@@ -81,5 +81,12 @@ bool bst_insert(btNode* bst_root, int insInt)
 
 }
 // write definition for bst_remove here
+bool bst_remove(btNode* bst_root, const int& remInt)
+{
 
+}
 // write definition for bst_remove_max here
+void bst_remove_max(btNode*& bst_root, int& removed)
+{
+   
+}
