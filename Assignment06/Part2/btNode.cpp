@@ -31,54 +31,58 @@ int bst_size(btNode* bst_root)
 }
 
 // write definition for bst_insert here
-bool bst_insert(btNode* bst_root, const int& insInt)
+void bst_insert(btNode*& bst_root, const int& insInt)
 {
-   btNode* cur;                                          // placeholder for node insertion
-   bool insertLeft;
-   bool inPosition;
-
-   bst_root == 0 ? (cur = 0) : (cur = bst_root);         // check for an empty tree
-
-   if (cur == 0)                                         // if tree empty, cur placeholder is set
-      inPosition = true;
-
-   while (!inPosition)                                   // else, iterate tree until cur is positioned
+   if (bst_root == 0)
    {
-      if (cur->data == insInt)                           // if insInt == existing data, override data
-      {                                                  // and return true (no new node created)
-         cur->data = insInt;
-         return true;
-      }
-      else if (insInt < cur->data)
-      {
-         if (cur->left == 0)                             // if insInt < cur->data and there is a left
-         {                                               // child, go left. Otherwise, cur in position.
-            inPosition = true;
-            insertLeft = true;
-         }
-         else
-            cur = cur->left;
-      }
-      else                                               // if insInt > cur->data and there is a right
-         if (cur->right == 0)                            // child, go right. Otherwise, cur in position.
-         {
-            inPosition = true;
-            insertLeft = false;
-         }
-         else
-            cur = cur->right;
+      btNode* newNodePtr = new btNode;
+      newNodePtr->data   = insInt;
+      newNodePtr->left   = 0;
+      newNodePtr->right  = 0;
+      bst_root = newNodePtr;
+      return;
    }
+   else
+   {
+      btNode* cur = bst_root;
+      //bool searching = true;
+      while (true)
+      {
+         if (insInt < cur->data)
+         {
+            if (cur->left == 0)
+            {
+               cur->left = new btNode;
+               cur->left->data = insInt;
+               cur->left->left = 0;
+               cur->left->right = 0;
+               return;
+            }
+            else
+               cur = cur->left;
+         }
 
-   btNode* newNode;
-   newNode->data  = insInt;
-   newNode->left  = 0;
-   newNode->right = 0;
+         else if (insInt > cur->data)
+         {
+            if (cur->right == 0)
+            {
+               cur->right = new btNode;
+               cur->right->data = insInt;
+               cur->right->left = 0;
+               cur->right->right = 0;
+               return;
+            }
+            else
+               cur = cur->right;
+         }
 
-   if (cur == 0)                                         // make newNode root if tree is empty
-      bst_root = newNode;
-   else                                                  // Otherwise, insert as appropriate cur child.
-      insertLeft ? (newNode = cur->left) : (newNode = cur->right);
-   return true;
+         else //(insInt == cur->data)
+         {
+            cur->data = insInt;
+            return;
+         }
+      }
+   }
 }
 // write definition for bst_remove here
 bool bst_remove(btNode* bst_root, const int& remInt)
@@ -97,17 +101,19 @@ bool bst_remove(btNode* bst_root, const int& remInt)
          btNode* temp = bst_root;
          if (bst_root->left != 0)                        // there is a left child
             bst_root = bst_root->left;
-         if (bst_root->right != 0)                       // there is a right child
+         else if (bst_root->right != 0)                       // there is a right child
             bst_root = bst_root->right;
          else                                            // there are no children
             bst_root = 0;
 
          delete temp;
+         return true;
       }
       else                                               // node to remove has 2 children
       {
          // TODO: remove node with 2 children
          bst_remove_max(bst_root->left, bst_root->data);
+         return true;
       }
    }
 }
