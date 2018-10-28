@@ -69,7 +69,7 @@ bool bst_insert(btNode* bst_root, const int& insInt)
             cur = cur->right;
    }
 
-   btNode newNode = new btNode;
+   btNode* newNode;
    newNode->data  = insInt;
    newNode->left  = 0;
    newNode->right = 0;
@@ -78,7 +78,7 @@ bool bst_insert(btNode* bst_root, const int& insInt)
       bst_root = newNode;
    else                                                  // Otherwise, insert as appropriate cur child.
       insertLeft ? (newNode = cur->left) : (newNode = cur->right);
-
+   return true;
 }
 // write definition for bst_remove here
 bool bst_remove(btNode* bst_root, const int& remInt)
@@ -94,15 +94,34 @@ bool bst_remove(btNode* bst_root, const int& remInt)
       if (bst_root->left == 0 || bst_root->right == 0)   // one or no children present
       {
          // TODO: remove node with one or no children
+         btNode* temp = bst_root;
+         if (bst_root->left != 0)                        // there is a left child
+            bst_root = bst_root->left;
+         if (bst_root->right != 0)                       // there is a right child
+            bst_root = bst_root->right;
+         else                                            // there are no children
+            bst_root = 0;
+
+         delete temp;
       }
       else                                               // node to remove has 2 children
       {
          // TODO: remove node with 2 children
+         bst_remove_max(bst_root->left, bst_root->data);
       }
    }
 }
 // write definition for bst_remove_max here
 void bst_remove_max(btNode*& bst_root, int& removed)
 {
-
+   if (bst_root->right == 0)
+   {
+      btNode* temp = bst_root;
+      removed = bst_root->data;
+      bst_root = bst_root->left;
+      delete temp;
+      return;
+   }
+   else
+      bst_remove_max(bst_root->right, removed);
 }
