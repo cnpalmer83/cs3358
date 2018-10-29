@@ -45,7 +45,6 @@ void bst_insert(btNode*& bst_root, const int& insInt)
    else
    {
       btNode* cur = bst_root;
-      //bool searching = true;
       while (true)
       {
          if (insInt < cur->data)
@@ -85,7 +84,7 @@ void bst_insert(btNode*& bst_root, const int& insInt)
    }
 }
 // write definition for bst_remove here
-bool bst_remove(btNode* bst_root, const int& remInt)
+bool bst_remove(btNode*& bst_root, const int& remInt)
 {
    if (bst_root == 0)
       return false;
@@ -95,9 +94,26 @@ bool bst_remove(btNode* bst_root, const int& remInt)
       bst_remove(bst_root->right, remInt);
    else                                                  // remInt == bst_root->data
    {
+      /*
+      if (bst_root->left != 0 && bst_root->right != 0)
+         bst_remove_max(bst_root->left, bst_root);
+      else
+      {
+         btNode* temp = bst_root;
+         if (bst_root->left == 0)   // there is a right child
+            bst_root = bst_root->right;
+         if (bst_root->right == 0)  // there is a left child
+            bst_root = bst_root->left;
+         else
+            bst_root = 0;
+         delete temp;
+      }
+      return true;
+   */
+
       if (bst_root->left == 0 || bst_root->right == 0)   // one or no children present
       {
-         // TODO: remove node with one or no children
+         // NOTE: remove node with one or no children
          btNode* temp = bst_root;
          if (bst_root->left != 0)                        // there is a left child
             bst_root = bst_root->left;
@@ -111,21 +127,32 @@ bool bst_remove(btNode* bst_root, const int& remInt)
       }
       else                                               // node to remove has 2 children
       {
-         // TODO: remove node with 2 children
+         // NOTE: remove node with 2 children
          bst_remove_max(bst_root->left, bst_root->data);
          return true;
       }
    }
+   //return true;
+
 }
 // write definition for bst_remove_max here
 void bst_remove_max(btNode*& bst_root, int& removed)
 {
    if (bst_root->right == 0)
    {
-      btNode* temp = bst_root;
-      removed = bst_root->data;
-      bst_root = bst_root->left;
-      delete temp;
+      if (bst_root->left != 0)
+      {
+         btNode* temp = bst_root;
+         removed = bst_root->data;
+         bst_root = bst_root->left;
+         delete temp;
+      }
+      else
+      {
+         removed = bst_root->data;
+         delete bst_root;
+         bst_root = 0;
+      }
       return;
    }
    else

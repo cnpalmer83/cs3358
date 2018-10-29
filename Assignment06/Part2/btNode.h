@@ -46,7 +46,7 @@ void bst_insert(btNode*& bst_root, const int& insInt);
 //       and the function returns true. Otherwise, if remInt was not in the
 //       tree, then the tree is unchanged, and the function returns false.
 // write prototype for bst_remove here
-bool bst_remove(btNode* bst_root, const int& remInt);
+bool bst_remove(btNode*& bst_root, const int& remInt);
 
 // pre:  bst_root is root pointer of a non-empty binary search tree
 // post: The largest item in the binary search tree has been removed, and
