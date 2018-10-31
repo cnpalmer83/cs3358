@@ -30,7 +30,6 @@ int bst_size(btNode* bst_root)
    return 1 + bst_size(bst_root->left) + bst_size(bst_root->right);
 }
 
-// write definition for bst_insert here
 void bst_insert(btNode*& bst_root, const int& insInt)
 {
    if (bst_root == 0)                                       // Condition 1: Tree is empty, insInt
