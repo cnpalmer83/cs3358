@@ -83,59 +83,35 @@ void bst_insert(btNode*& bst_root, const int& insInt)
       }
    }
 }
-// write definition for bst_remove here
+
 bool bst_remove(btNode*& bst_root, const int& remInt)
 {
    if (bst_root == 0)
       return false;
    else if (remInt < bst_root->data)
-      bst_remove(bst_root->left, remInt);
+      return bst_remove(bst_root->left, remInt);
    else if (remInt > bst_root->data)
-      bst_remove(bst_root->right, remInt);
-   else                                                  // remInt == bst_root->data
+      return bst_remove(bst_root->right, remInt);
+   else if (bst_root->left == 0 || bst_root->right == 0)
    {
-      /*
-      if (bst_root->left != 0 && bst_root->right != 0)
-         bst_remove_max(bst_root->left, bst_root);
+      btNode* temp = bst_root;
+      if (bst_root->left != 0)
+         bst_root = bst_root->left;
+      else if (bst_root->right != 0)
+         bst_root = bst_root->right;
       else
-      {
-         btNode* temp = bst_root;
-         if (bst_root->left == 0)   // there is a right child
-            bst_root = bst_root->right;
-         if (bst_root->right == 0)  // there is a left child
-            bst_root = bst_root->left;
-         else
-            bst_root = 0;
-         delete temp;
-      }
+         bst_root = 0;
+
+      delete temp;
       return true;
-   */
-
-      if (bst_root->left == 0 || bst_root->right == 0)   // one or no children present
-      {
-         // NOTE: remove node with one or no children
-         btNode* temp = bst_root;
-         if (bst_root->left != 0)                        // there is a left child
-            bst_root = bst_root->left;
-         else if (bst_root->right != 0)                       // there is a right child
-            bst_root = bst_root->right;
-         else                                            // there are no children
-            bst_root = 0;
-
-         delete temp;
-         return true;
-      }
-      else                                               // node to remove has 2 children
-      {
-         // NOTE: remove node with 2 children
-         bst_remove_max(bst_root->left, bst_root->data);
-         return true;
-      }
    }
-   //return true;
-
+   else
+   {
+      bst_remove_max(bst_root->left, bst_root->data);
+      return true;
+   }
 }
-// write definition for bst_remove_max here
+
 void bst_remove_max(btNode*& bst_root, int& removed)
 {
    if (bst_root->right == 0)
