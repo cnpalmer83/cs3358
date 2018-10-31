@@ -75,7 +75,7 @@ void bst_insert(btNode*& bst_root, const int& insInt)
                cur = cur->right;
          }
 
-         else //(insInt == cur->data)                       // insInt == data implied
+         else                                               // insInt == data implied
          {
             cur->data = insInt;                             // Overwrite existing data with insInt.
             return;
