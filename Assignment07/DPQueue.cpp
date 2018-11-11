@@ -95,13 +95,13 @@ namespace CS3358_FA2018_A7
    }
 
    p_queue::p_queue(const p_queue& src)
-      : capacity(src.initial_capacity), used(src.used)
+      : capacity(src.capacity), used(src.used)
    {
       heap = new ItemType[src.capacity];
       for (size_type i = 0; i < used; ++i)
       {
-         heap[i].data = src[i].data;
-         heap[i].priority = src[i].priority;
+         heap[i].data = src.heap[i].data;
+         heap[i].priority = src.heap[i].priority;
       }
    }
 
