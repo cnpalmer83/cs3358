@@ -87,24 +87,41 @@ namespace CS3358_FA2018_A7
    // CONSTRUCTORS AND DESTRUCTOR
 
    p_queue::p_queue(size_type initial_capacity)
+      : capacity(initial_capacity), used(0)
    {
-      cerr << "p_queue() not implemented yet" << endl;
+      if (initial_capacity <= 0)
+         initial_capacity = DEFAULT_CAPACITY;
+      heap = new ItemType[capacity];
    }
 
    p_queue::p_queue(const p_queue& src)
+      : capacity(src.initial_capacity), used(src.used)
    {
-      cerr << "p_queue(const p_queue&) not implemented yet" << endl;
+      heap = new ItemType[src.capacity];
+      for (size_type i = 0; i < used; ++i)
+      {
+         heap[i].data = src[i].data;
+         heap[i].priority = src[i].priority;
+      }
    }
 
    p_queue::~p_queue()
    {
-      cerr << "~p_queue() not implemented yet" << endl;
+      delete [] heap;
    }
 
    // MODIFICATION MEMBER FUNCTIONS
    p_queue& p_queue::operator=(const p_queue& rhs)
    {
-      cerr << "operator=(const p_queue&) not implemented yet" << endl;
+      if (this != &rhs)
+      {
+         ItemType* newHeap = new ItemType[rhs.capacity];
+         for (size_type i = 0; i < rhs.used; ++i)
+         {
+            newHeap[i].data = rhs[i].data;
+            newHeap[i].priority = rhs[i].priority;
+         }
+      }
       return *this;
    }
 
