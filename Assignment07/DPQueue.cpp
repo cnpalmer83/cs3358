@@ -118,8 +118,8 @@ namespace CS3358_FA2018_A7
          ItemType* newHeap = new ItemType[rhs.capacity];
          for (size_type i = 0; i < rhs.used; ++i)
          {
-            newHeap[i].data = rhs[i].data;
-            newHeap[i].priority = rhs[i].priority;
+            newHeap[i].data = rhs.heap[i].data;
+            newHeap[i].priority = rhs.heap[i].priority;
          }
       }
       return *this;
