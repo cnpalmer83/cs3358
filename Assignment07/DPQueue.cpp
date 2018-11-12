@@ -180,8 +180,8 @@ namespace CS3358_FA2018_A7
    // Post: If the item at heap[i] has no children, true has been
    //       returned, otherwise false has been returned.
    {
-      cerr << "is_leaf(size_type) not implemented yet" << endl;
-      return false; // dummy return value
+      assert (i < used);
+      return ((2*i + 1) <= used || (2*i + 2) <= used);
    }
 
    p_queue::size_type
