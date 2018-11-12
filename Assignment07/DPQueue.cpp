@@ -139,14 +139,12 @@ namespace CS3358_FA2018_A7
 
    p_queue::size_type p_queue::size() const
    {
-      cerr << "size() not implemented yet" << endl;
-      return 0; // dummy return value
+      return used;
    }
 
    bool p_queue::empty() const
    {
-      cerr << "empty() not implemented yet" << endl;
-      return false; // dummy return value
+      return (used == 0);
    }
 
    p_queue::value_type p_queue::front() const
@@ -165,7 +163,16 @@ namespace CS3358_FA2018_A7
    //       NOTE: All existing items in the p_queue are preserved and
    //             used remains unchanged.
    {
-      cerr << "resize(size_type) not implemented yet" << endl;
+      if (new_capacity < 1)
+         new_capacity = 1;
+      if (new_capacity < used)
+         new_capacity = used;
+      capacity = new_capacity;
+      ItemType* newHeap = new ItemType[capacity];
+      for (size_type i = 0; i < used; ++i)
+         newHeap[i] = heap[i];
+      delete [] heap;
+      heap = newHeap;
    }
 
    bool p_queue::is_leaf(size_type i) const
