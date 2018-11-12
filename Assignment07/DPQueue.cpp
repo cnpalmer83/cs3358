@@ -200,8 +200,9 @@ namespace CS3358_FA2018_A7
    // Post: The priority of "the parent of the item at heap[i]" has
    //       been returned.
    {
-      cerr << "parent_priority(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
+      assert ((i > 0) && (i < used));
+      size_type parentIndex = ((i-1) / 2);
+      return heap[parentIndex].priority;
    }
 
    p_queue::size_type
