@@ -190,8 +190,8 @@ namespace CS3358_FA2018_A7
    // Post: The index of "the parent of the item at heap[i]" has
    //       been returned.
    {
-      cerr << "parent_index(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
+      assert ((i > 0) && (i < used));
+      return ((i-1) / 2);
    }
 
    p_queue::size_type
@@ -213,8 +213,8 @@ namespace CS3358_FA2018_A7
    //       (The bigger child is the one whose priority is no smaller
    //       than that of the other child, if there is one.)
    {
-      cerr << "big_child_index(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
+      assert (is_leaf(i) == false);
+      return ((i*2) + 2);
    }
 
    p_queue::size_type
@@ -225,14 +225,17 @@ namespace CS3358_FA2018_A7
    //       (The bigger child is the one whose priority is no smaller
    //       than that of the other child, if there is one.)
    {
-      cerr << "big_child_priority(size_type) not implemented yet" << endl;
-      return 0; // dummy return value
+      assert (is_leaf(i) == false);
+      return (heap[(i*2) + 2].priority);
    }
 
    void p_queue::swap_with_parent(size_type i)
    // Pre:  (i > 0) && (i < used)
    // Post: The item at heap[i] has been swapped with its parent.
    {
-      cerr << "swap_with_parent(size_type) not implemented yet" << endl;
+      assert ((i > 0) && (i < used));
+      ItemType temp = heap[i];
+      heap[i] = heap[(i-1) / 2];
+      heap[(i-1) / 2] = temp;
    }
 }
