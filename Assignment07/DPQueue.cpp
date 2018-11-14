@@ -127,12 +127,39 @@ namespace CS3358_FA2018_A7
 
    void p_queue::push(const value_type& entry, size_type priority)
    {
-      cerr << "push(const value_type&, size_type) not implemented yet" << endl;
+      if (used == capacity)
+         resize(capacity * 2);
+      ItemType newItem;
+      newItem.data = entry;
+      newItem.priority = priority;
+      heap[used] = newItem;
+      ++used;
+      size_type index = used - 1;
+      if (used > 1)
+      {
+         while (index > 0 && priority > parent_priority(index))
+         {
+            swap_with_parent(index);
+            index = parent_index(index);
+         }
+      }
    }
 
    void p_queue::pop()
    {
-      cerr << "pop() not implemented yet" << endl;
+      heap[0] = heap[used - 1];
+      --used;
+
+      size_type index = 0;
+      size_type priority = heap[0].priority;
+      size_type child_priority = big_child_priority(0);
+
+      while (index < used && priority < child_priority)
+      {
+         swap_with_parent(big_child_index(index));
+         index = big_child_index(index);
+         child_priority = big_child_priority(index);
+      }
    }
 
    // CONSTANT MEMBER FUNCTIONS
@@ -149,8 +176,8 @@ namespace CS3358_FA2018_A7
 
    p_queue::value_type p_queue::front() const
    {
-      cerr << "front() not implemented yet" << endl;
-      return value_type(); // dummy return value
+      assert (size() > 0);
+      return heap[0].data;
    }
 
    // PRIVATE HELPER FUNCTIONS
@@ -181,7 +208,7 @@ namespace CS3358_FA2018_A7
    //       returned, otherwise false has been returned.
    {
       assert (i < used);
-      return ((2*i + 1) <= used || (2*i + 2) <= used);
+      return ((2 * i + 1) > used && (2 * i + 2) > used);
    }
 
    p_queue::size_type
@@ -191,7 +218,7 @@ namespace CS3358_FA2018_A7
    //       been returned.
    {
       assert ((i > 0) && (i < used));
-      return ((i-1) / 2);
+      return ((i - 1) / 2);
    }
 
    p_queue::size_type
@@ -201,7 +228,7 @@ namespace CS3358_FA2018_A7
    //       been returned.
    {
       assert ((i > 0) && (i < used));
-      size_type parentIndex = ((i-1) / 2);
+      size_type parentIndex = ((i - 1) / 2);
       return heap[parentIndex].priority;
    }
 
@@ -214,7 +241,10 @@ namespace CS3358_FA2018_A7
    //       than that of the other child, if there is one.)
    {
       assert (is_leaf(i) == false);
-      return ((i*2) + 2);
+      size_type left  = (i * 2) + 1;
+      size_type right = (i * 2) + 2;
+      return (heap[left].priority >
+             heap[right].priority) ? left : right;
    }
 
    p_queue::size_type
@@ -226,7 +256,7 @@ namespace CS3358_FA2018_A7
    //       than that of the other child, if there is one.)
    {
       assert (is_leaf(i) == false);
-      return (heap[(i*2) + 2].priority);
+      return (heap[big_child_index(i)].priority);
    }
 
    void p_queue::swap_with_parent(size_type i)
@@ -235,7 +265,7 @@ namespace CS3358_FA2018_A7
    {
       assert ((i > 0) && (i < used));
       ItemType temp = heap[i];
-      heap[i] = heap[(i-1) / 2];
-      heap[(i-1) / 2] = temp;
+      heap[i] = heap[(i - 1) / 2];
+      heap[(i - 1) / 2] = temp;
    }
 }
