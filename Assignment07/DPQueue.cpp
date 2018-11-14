@@ -147,18 +147,28 @@ namespace CS3358_FA2018_A7
 
    void p_queue::pop()
    {
-      heap[0] = heap[used - 1];
-      --used;
-
-      size_type index = 0;
-      size_type priority = heap[0].priority;
-      size_type child_priority = big_child_priority(0);
-
-      while (index < used && priority < child_priority)
+      if (used == 1)
+         --used;
+      else
       {
-         swap_with_parent(big_child_index(index));
-         index = big_child_index(index);
-         child_priority = big_child_priority(index);
+         heap[0] = heap[used - 1];
+         --used;
+
+         size_type index = 0;
+         size_type next = 0;
+         size_type priority = heap[0].priority;
+         size_type child_priority = big_child_priority(0);
+
+         while (index < used && priority < child_priority)
+         {
+            next = big_child_index(index);
+            swap_with_parent(next);
+            index = next;
+            if (!is_leaf(index))
+               child_priority = big_child_priority(index);
+            else
+               index = used + 1;
+         }
       }
    }
 
@@ -243,8 +253,11 @@ namespace CS3358_FA2018_A7
       assert (is_leaf(i) == false);
       size_type left  = (i * 2) + 1;
       size_type right = (i * 2) + 2;
-      return (heap[left].priority >
-             heap[right].priority) ? left : right;
+      if (right > used)
+         return left;
+      else
+         return (heap[left].priority >
+                heap[right].priority) ? left : right;
    }
 
    p_queue::size_type
