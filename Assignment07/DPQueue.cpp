@@ -116,9 +116,9 @@ namespace CS3358_FA2018_A7
       if (this != &rhs)
       {
          ItemType* newHeap = new ItemType[rhs.capacity];
-         for (size_type i = 0; i < rhs.used; ++i)
-         {
-            newHeap[i].data = rhs.heap[i].data;
+         for (size_type i = 0; i < rhs.used; ++i)                    // Allocate new heap and fill with
+         {                                                           // elements in rhs heap. Point
+            newHeap[i].data = rhs.heap[i].data;                      // *heap to new heap.
             newHeap[i].priority = rhs.heap[i].priority;
          }
       }
@@ -127,21 +127,21 @@ namespace CS3358_FA2018_A7
 
    void p_queue::push(const value_type& entry, size_type priority)
    {
-      if (used == capacity)
-         resize(capacity * 2);
+      if (used == capacity)                                          // If heap is full, resize it to
+         resize(capacity * 2);                                       // 100% of its original size.
       ItemType newItem;
       newItem.data = entry;
       newItem.priority = priority;
-      heap[used] = newItem;
-      ++used;
-      size_type index = used - 1;
+      heap[used] = newItem;                                          // Create new item with specified
+      ++used;                                                        // data and insert at last index
+      size_type index = used - 1;                                    // to maintain heap shape rule
       if (used > 1)
       {
          while (index > 0 && priority > parent_priority(index))
          {
-            swap_with_parent(index);
-            index = parent_index(index);
-         }
+            swap_with_parent(index);                                 // Swap new item with parent node
+            index = parent_index(index);                             // until heap storage rule has
+         }                                                           // been satisfied.
       }
    }
 
@@ -151,23 +151,23 @@ namespace CS3358_FA2018_A7
          --used;
       else
       {
-         heap[0] = heap[used - 1];
-         --used;
-
-         size_type index = 0;
+         heap[0] = heap[used - 1];                                   // If more than two nodes exist,
+         --used;                                                     // swap root with last node and
+                                                                     // decrement used to "pop" item
+         size_type index = 0;                                        // out of scope.
          size_type next = 0;
          size_type priority = heap[0].priority;
          size_type child_priority = big_child_priority(0);
 
-         while (index < used && priority < child_priority)
-         {
-            next = big_child_index(index);
-            swap_with_parent(next);
+         while (index < used && priority < child_priority)           // Then swap new root with largest
+         {                                                           // child node (if applicable) until
+            next = big_child_index(index);                           // heap storage rule satisfied.
+            swap_with_parent(next);                                  // i.e. "reheapification downwards"
             index = next;
             if (!is_leaf(index))
-               child_priority = big_child_priority(index);
-            else
-               index = used + 1;
+               child_priority = big_child_priority(index);           // If node becomes a leaf, set
+            else                                                     // index > used to end the
+               index = used + 1;                                     // reheapification loop.
          }
       }
    }
