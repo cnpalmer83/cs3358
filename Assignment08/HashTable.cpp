@@ -42,7 +42,11 @@ double HashTable::load_factor() const
 // (2nd page of Lecture Note 324s02AdditionalNotesOnHashFunctions)
 HashTable::size_type HashTable::hash(const char* word) const
 {
-   // to be implemented as part of Assignment 8
+   size_type hash = 5381;
+   int c;
+   while (c = *word++)
+      ((hash << 5) + hash) + c;                                      // hash*33 + c
+   return hash;
 }
 
 // constructs an empty initial hash table
