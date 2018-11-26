@@ -44,7 +44,7 @@ HashTable::size_type HashTable::hash(const char* word) const
 {
    size_type hash = 5381;
    int c;
-   while (c = *word++)
+   while ((c = *word++))
       ((hash << 5) + hash) + c;                                      // hash*33 + c
    return hash;
 }
@@ -125,6 +125,26 @@ void HashTable::grading_helper_print(ostream& out) const
 void HashTable::insert(const char* cStr)
 {
    // to be implemented as part of Assignment 8
+
+   // Determine initial hash value (loc) for table placement
+   size_type i = hash(cStr) % capacity;
+   bool posFound = (data[i].word == "");
+   // Until new item is inserted...
+   while (!posFound)
+   {
+      // implement quadratic probing to assign new hash
+      // value to loc and try again.
+      i += (((i * i) + 1) % capacity);
+      posFound = (data[i].word == "");
+   }
+   // Insert new item into the table at data[loc]
+   strcpy(data[i].word, cStr);
+   ++used;
+
+   // If load capacity exceeds 0.45, rehash.
+   if (load_factor() > 0.45)
+      rehash();
+   return;
 }
 
 // adaption of : http://stackoverflow.com/questions/4475996
