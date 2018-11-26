@@ -37,6 +37,7 @@ int main()
    fin >> ws;
    while ( ! fin.eof() )
    {
+      hTab.scat_plot(cout);                                 // REMOVE WHEN FINISHED!!!!!
       fin >> oneWord;
       if ( ! hTab.exists(oneWord) ) hTab.insert(oneWord);
       fin >> ws;

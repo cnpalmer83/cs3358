@@ -20,11 +20,11 @@ void HashTable::rehash()
 
    while (temp_used != 0)
    {
-      if (data[i] == "")
+      if (data[i].word == "")
          ++i;
       else
       {
-         temp.insert(data[i]);
+         temp.insert(data[i].word);
          --temp_used;
       }
    }
@@ -51,18 +51,18 @@ bool HashTable::search(const char* cStr) const
 {
    // to be implemented as part of Assignment 8
    size_type i = hash(cStr) % capacity;
+   size_type j = i;
    if (strncmp(data[i].word, cStr, 101) == 0)
       return true;
-   else
+
+   bool posFound = (strncmp(data[i].word, cStr, 101));
+   size_type temp = used;
+   while (!posFound && (temp != 0))
    {
-      bool posFound = (strncmp(data[i].word, cStr, 101));
-      size_type temp = used;
-      while (!posFound && (temp != 0))
-      {
-         i += (((i * i) + 1) % capacity);
-         posFound = (strncmp(data[i].word, cStr, 101));
-         --temp;
-      }
+      //i += (((i * i) + 1) % capacity);
+      i = (j + (i * 3)) % capacity;
+      posFound = (strncmp(data[i].word, cStr, 101));
+      --temp;
    }
    return posFound;
 }
@@ -157,19 +157,26 @@ void HashTable::grading_helper_print(ostream& out) const
 // rehash is called to bring down the load-factor)
 void HashTable::insert(const char* cStr)
 {
+   cout << "ENTERING INSERT\n";
    // to be implemented as part of Assignment 8
 
    // Determine initial hash value (loc) for table placement
    size_type i = hash(cStr) % capacity;
+   size_type j = i;
+   //bool posFound = (strncmp(data[i].word, "", 101));
    bool posFound = (data[i].word == "");
    // Until new item is inserted...
    while (!posFound)
    {
+      cout << "while. . .\n";
       // implement quadratic probing to assign new hash
       // value to loc and try again.
-      i += (((i * i) + 1) % capacity);
+      //i += (((i * i) + j) % capacity);
+      i = (j + (i * 3)) % capacity;
+      //posFound = (strncmp(data[i].word, "", 101));
       posFound = (data[i].word == "");
    }
+   cout << "AFTER while. . .\n";
    // Insert new item into the table at data[loc]
    strcpy(data[i].word, cStr);
    ++used;
