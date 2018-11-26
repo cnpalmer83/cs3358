@@ -13,6 +13,24 @@ using namespace std;
 void HashTable::rehash()
 {
    // to be implemented as part of Assignment 8
+   size_type i = 0;
+   size_type new_capacity = next_prime(capacity * 2);
+   size_type temp_used = used;
+   HashTable temp(new_capacity);
+
+   while (temp_used != 0)
+   {
+      if (data[i] == "")
+         ++i;
+      else
+      {
+         temp.insert(data[i]);
+         --temp_used;
+      }
+   }
+   delete data;
+   data = temp.data;
+   return;
 }
 
 // returns true if cStr already exists in the hash table,
@@ -32,6 +50,21 @@ bool HashTable::exists(const char* cStr) const
 bool HashTable::search(const char* cStr) const
 {
    // to be implemented as part of Assignment 8
+   size_type i = hash(cStr) % capacity;
+   if (strncmp(data[i].word, cStr, 101) == 0)
+      return true;
+   else
+   {
+      bool posFound = (strncmp(data[i].word, cStr, 101));
+      size_type temp = used;
+      while (!posFound && (temp != 0))
+      {
+         i += (((i * i) + 1) % capacity);
+         posFound = (strncmp(data[i].word, cStr, 101));
+         --temp;
+      }
+   }
+   return posFound;
 }
 
 // returns load-factor calculated as a fraction
