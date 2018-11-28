@@ -13,6 +13,31 @@ using namespace std;
 void HashTable::rehash()
 {
    // to be implemented as part of Assignment 8
+   size_type new_cap = next_prime(capacity * 2);
+   size_type copied = 0;
+   HashTable newTable(new_cap);
+   cout << "USED ::::::::::: " << this->used << endl;
+   while (copied != this->used)
+   {
+      //cout << "this->used :::::::::::::::::::: " << this->used << endl;
+      //cout << "this->capacity :::::::::::::::::::: " << this->capacity << endl;
+      //cout << "copied :::::::::::::::::::: " << copied << endl;
+      for (size_type i = 0; i < this->capacity; ++i)
+      {
+         if (this->data[i].word[0] != '\0')
+         {
+            newTable.insert(this->data[i].word);
+            ++copied;
+            cout << "copied = " << copied << endl;
+         }
+      }
+   }
+   delete this->data;
+   this->data = newTable.data;
+   this->capacity = new_cap;
+   return;
+
+   /*
    size_type i = 0;
    size_type new_capacity = next_prime(capacity * 2);
    size_type temp_used = used;
@@ -20,17 +45,26 @@ void HashTable::rehash()
 
    while (temp_used != 0)
    {
-      if (data[i].word == "")
+      //if (data[i].word == "")
+      if (data[i].word[0] == '\0' && i < capacity)
          ++i;
       else
       {
          temp.insert(data[i].word);
          --temp_used;
       }
+   cout << "temp_used = " << temp_used << endl;
+      if (temp_used == 47) // DEBUGGING ONLY
+      {
+         cout << "i = " << i << endl;
+         cout << "new_capacity = " << new_capacity << endl;
+         cout << "data[i].word = " << data[i].word << endl;
+      }
    }
    delete data;
    data = temp.data;
    return;
+   */
 }
 
 // returns true if cStr already exists in the hash table,
@@ -49,22 +83,22 @@ bool HashTable::exists(const char* cStr) const
 // CAUTION: major penalty if not using hashing technique
 bool HashTable::search(const char* cStr) const
 {
-   // to be implemented as part of Assignment 8
    size_type i = hash(cStr) % capacity;
    size_type j = i;
-   if (strncmp(data[i].word, cStr, 101) == 0)
+   bool posFound = (strcmp(data[i].word, cStr) == 0);
+   if (posFound)
       return true;
-
-   bool posFound = (strncmp(data[i].word, cStr, 101));
-   size_type temp = used;
-   while (!posFound && (temp != 0))
+   else
    {
-      //i += (((i * i) + 1) % capacity);
-      i = (j + (i * 3)) % capacity;
-      posFound = (strncmp(data[i].word, cStr, 101));
-      --temp;
+      size_type temp = used;
+      while (!posFound && (temp != 0))
+      {
+         i = (j + (i * 3) + 3) % capacity;
+         posFound = (strcmp(data[i].word, cStr) == 0);
+         --temp;
+      }
+      return posFound;
    }
-   return posFound;
 }
 
 // returns load-factor calculated as a fraction
@@ -73,12 +107,17 @@ double HashTable::load_factor() const
 
 // returns hash value computed using the djb2 hash algorithm
 // (2nd page of Lecture Note 324s02AdditionalNotesOnHashFunctions)
-HashTable::size_type HashTable::hash(const char* word) const
+HashTable::size_type HashTable::hash(const char* word) const         // CLEAN UP NEEDED
 {
    size_type hash = 5381;
    int c;
    while ((c = *word++))
-      ((hash << 5) + hash) + c;                                      // hash*33 + c
+   {
+      hash = ((hash << 5) + hash) + c;                                      // hash*33 + c
+      //cout << c << " - ";
+   }
+   //cout << endl;
+   //cout << "hash = " << hash << endl;
    return hash;
 }
 
@@ -158,28 +197,42 @@ void HashTable::grading_helper_print(ostream& out) const
 void HashTable::insert(const char* cStr)
 {
    cout << "ENTERING INSERT\n";
+   cout << "cStr: " << cStr << endl;
    // to be implemented as part of Assignment 8
 
    // Determine initial hash value (loc) for table placement
    size_type i = hash(cStr) % capacity;
+   cout << "cStr (" << cStr << ") hashed to: " << i << endl;
    size_type j = i;
    //bool posFound = (strncmp(data[i].word, "", 101));
-   bool posFound = (data[i].word == "");
+   //bool posFound = (data[i].word == "");
+   //bool posFound = (strlen(data[i].word) == 0);
+   bool posFound = (data[i].word[0] == '\0');
    // Until new item is inserted...
    while (!posFound)
    {
-      cout << "while. . .\n";
+      cout << "collision at " << i << "!" << endl;
       // implement quadratic probing to assign new hash
       // value to loc and try again.
       //i += (((i * i) + j) % capacity);
-      i = (j + (i * 3)) % capacity;
+      i = (j + (i * 3) + 3) % capacity;
+      cout << "i rehashed to " << i << endl;
       //posFound = (strncmp(data[i].word, "", 101));
-      posFound = (data[i].word == "");
+      //posFound = (data[i].word == "");
+      //posFound = (strlen(data[i].word) == 0);
+      posFound = (data[i].word[0] == '\0');
    }
-   cout << "AFTER while. . .\n";
+   //scat_plot(cout);
+   //cout << endl;
    // Insert new item into the table at data[loc]
    strcpy(data[i].word, cStr);
-   ++used;
+   if (strcmp(data[i].word, cStr) == 0)
+   {
+      cout << data[i].word << " successfully inserted at i = " << i << endl;
+      ++used;
+   }
+   else
+      cout << "failed to insert " << data[i].word << endl;
 
    // If load capacity exceeds 0.45, rehash.
    if (load_factor() > 0.45)
