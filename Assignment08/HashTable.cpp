@@ -35,6 +35,7 @@ void HashTable::rehash()
    delete this->data;
    this->data = newTable.data;
    this->capacity = new_cap;
+   newTable.data = 0;
    return;
 
    /*
