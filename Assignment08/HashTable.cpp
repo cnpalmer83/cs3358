@@ -112,6 +112,7 @@ HashTable::size_type HashTable::hash(const char* word) const         // CLEAN UP
 {
    size_type hash = 5381;
    int c;
+   cout << word << endl;
    while ((c = *word++))
    {
       hash = ((hash << 5) + hash) + c;                                      // hash*33 + c
@@ -212,15 +213,13 @@ void HashTable::insert(const char* cStr)
    // Until new item is inserted...
    while (!posFound)
    {
+      cout << cStr << endl;
       cout << "collision at " << i << "!" << endl;
       // implement quadratic probing to assign new hash
       // value to loc and try again.
       //i += (((i * i) + j) % capacity);
       i = (j + (i * 3) + 3) % capacity;
       cout << "i rehashed to " << i << endl;
-      //posFound = (strncmp(data[i].word, "", 101));
-      //posFound = (data[i].word == "");
-      //posFound = (strlen(data[i].word) == 0);
       posFound = (data[i].word[0] == '\0');
    }
    //scat_plot(cout);
