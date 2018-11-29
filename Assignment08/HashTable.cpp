@@ -86,6 +86,7 @@ bool HashTable::search(const char* cStr) const
 {
    size_type i = hash(cStr) % capacity;
    size_type j = i;
+   size_type probeCount = 1;
    bool posFound = (strcmp(data[i].word, cStr) == 0);
    if (posFound)
       return true;
@@ -94,9 +95,11 @@ bool HashTable::search(const char* cStr) const
       size_type temp = used;
       while (!posFound && (temp != 0))
       {
-         i = (j + (i * 3) + 3) % capacity;
+         //i = (j + (i * 3) + 3) % capacity;
+         i = (j + (probeCount * 3)) % capacity;
          posFound = (strcmp(data[i].word, cStr) == 0);
          --temp;
+         ++probeCount;
       }
       return posFound;
    }
@@ -206,6 +209,7 @@ void HashTable::insert(const char* cStr)
    size_type i = hash(cStr) % capacity;
    cout << "cStr (" << cStr << ") hashed to: " << i << endl;
    size_type j = i;
+   size_type probeCount = 1;
    //bool posFound = (strncmp(data[i].word, "", 101));
    //bool posFound = (data[i].word == "");
    //bool posFound = (strlen(data[i].word) == 0);
@@ -218,7 +222,9 @@ void HashTable::insert(const char* cStr)
       // implement quadratic probing to assign new hash
       // value to loc and try again.
       //i += (((i * i) + j) % capacity);
-      i = (j + (i * 3) + 3) % capacity;
+      //i = (j + (i * 3) + 3) % capacity;
+      i = (j + (probeCount * 3)) % capacity;
+      ++probeCount;
       cout << "i rehashed to " << i << endl;
       posFound = (data[i].word[0] == '\0');
    }
