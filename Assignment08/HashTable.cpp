@@ -12,23 +12,17 @@ using namespace std;
 // (HINT: put next_prime and insert to good use)
 void HashTable::rehash()
 {
-   // to be implemented as part of Assignment 8
    size_type new_cap = next_prime(capacity * 2);
    size_type copied = 0;
    HashTable newTable(new_cap);
-   cout << "USED ::::::::::: " << this->used << endl;
    while (copied != this->used)
    {
-      //cout << "this->used :::::::::::::::::::: " << this->used << endl;
-      //cout << "this->capacity :::::::::::::::::::: " << this->capacity << endl;
-      //cout << "copied :::::::::::::::::::: " << copied << endl;
       for (size_type i = 0; i < this->capacity; ++i)
       {
          if (this->data[i].word[0] != '\0')
          {
             newTable.insert(this->data[i].word);
             ++copied;
-            cout << "copied = " << copied << endl;
          }
       }
    }
@@ -37,35 +31,6 @@ void HashTable::rehash()
    this->capacity = new_cap;
    newTable.data = 0;
    return;
-
-   /*
-   size_type i = 0;
-   size_type new_capacity = next_prime(capacity * 2);
-   size_type temp_used = used;
-   HashTable temp(new_capacity);
-
-   while (temp_used != 0)
-   {
-      //if (data[i].word == "")
-      if (data[i].word[0] == '\0' && i < capacity)
-         ++i;
-      else
-      {
-         temp.insert(data[i].word);
-         --temp_used;
-      }
-   cout << "temp_used = " << temp_used << endl;
-      if (temp_used == 47) // DEBUGGING ONLY
-      {
-         cout << "i = " << i << endl;
-         cout << "new_capacity = " << new_capacity << endl;
-         cout << "data[i].word = " << data[i].word << endl;
-      }
-   }
-   delete data;
-   data = temp.data;
-   return;
-   */
 }
 
 // returns true if cStr already exists in the hash table,
@@ -95,8 +60,7 @@ bool HashTable::search(const char* cStr) const
       size_type temp = used;
       while (!posFound && (temp != 0))
       {
-         //i = (j + (i * 3) + 3) % capacity;
-         i = (j + (probeCount * 3)) % capacity;
+         i = (j + probeCount * probeCount) % capacity;
          posFound = (strcmp(data[i].word, cStr) == 0);
          --temp;
          ++probeCount;
@@ -115,14 +79,8 @@ HashTable::size_type HashTable::hash(const char* word) const         // CLEAN UP
 {
    size_type hash = 5381;
    int c;
-   cout << word << endl;
    while ((c = *word++))
-   {
       hash = ((hash << 5) + hash) + c;                                      // hash*33 + c
-      //cout << c << " - ";
-   }
-   //cout << endl;
-   //cout << "hash = " << hash << endl;
    return hash;
 }
 
@@ -201,48 +159,30 @@ void HashTable::grading_helper_print(ostream& out) const
 // rehash is called to bring down the load-factor)
 void HashTable::insert(const char* cStr)
 {
-   cout << "ENTERING INSERT\n";
-   cout << "cStr: " << cStr << endl;
-   // to be implemented as part of Assignment 8
-
    // Determine initial hash value (loc) for table placement
    size_type i = hash(cStr) % capacity;
-   cout << "cStr (" << cStr << ") hashed to: " << i << endl;
    size_type j = i;
    size_type probeCount = 1;
-   //bool posFound = (strncmp(data[i].word, "", 101));
-   //bool posFound = (data[i].word == "");
-   //bool posFound = (strlen(data[i].word) == 0);
    bool posFound = (data[i].word[0] == '\0');
+
    // Until new item is inserted...
    while (!posFound)
    {
-      cout << cStr << endl;
-      cout << "collision at " << i << "!" << endl;
       // implement quadratic probing to assign new hash
       // value to loc and try again.
-      //i += (((i * i) + j) % capacity);
-      //i = (j + (i * 3) + 3) % capacity;
-      i = (j + (probeCount * 3)) % capacity;
+      i = (j + probeCount * probeCount) % capacity;
       ++probeCount;
-      cout << "i rehashed to " << i << endl;
       posFound = (data[i].word[0] == '\0');
    }
-   //scat_plot(cout);
-   //cout << endl;
+
    // Insert new item into the table at data[loc]
    strcpy(data[i].word, cStr);
-   if (strcmp(data[i].word, cStr) == 0)
-   {
-      cout << data[i].word << " successfully inserted at i = " << i << endl;
-      ++used;
-   }
-   else
-      cout << "failed to insert " << data[i].word << endl;
+   ++used;
 
    // If load capacity exceeds 0.45, rehash.
    if (load_factor() > 0.45)
       rehash();
+
    return;
 }
 
