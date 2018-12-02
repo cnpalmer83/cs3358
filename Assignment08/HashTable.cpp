@@ -12,6 +12,58 @@ using namespace std;
 // (HINT: put next_prime and insert to good use)
 void HashTable::rehash()
 {
+   cout << typeid(data[0].word).name() << endl;
+   size_type new_cap = next_prime(capacity * 2);
+   Item* newTable = new Item[new_cap];
+   Item* temp = new Item[used];
+   size_type copy = 0;
+
+   for (size_type i = 0; i < capacity; ++i)
+   {
+      if (data[i].word[0] != '\0')
+      {
+         cout << data[i].word << endl;
+         ++copy;
+      }
+   }
+   cout << copy << endl;
+   cout << used << endl;
+   cout << load_factor() << endl;
+   cin.get();
+   copy = 0;
+   size_type i = 0;
+   cout << "Transferring data to temp array. . ." << endl;
+   while (copy < used)
+   {
+      if (data[i].word[0] != '\0')
+      {
+         //char* cStr = data[i].word;
+         strcpy(temp[copy].word, data[i].word);
+         cout << temp[copy].word << " copied to temp[" << copy << "].word" << endl;
+         ++copy;
+
+      }
+      ++i;
+   }
+   cout << typeid(temp[0].word).name();
+   cout << "data transferred to temp array, inserting to new table. . ." << endl;
+   copy = 0;
+   cin.get();
+   delete [] data;
+   data = newTable;
+   copy = used;
+   used = 0;
+   newTable = 0;
+
+   for (size_type i = 0; i < used; ++i)
+      //cout << temp[i].word << endl;
+      insert(temp[i].word);
+   cout << "Press key to view data in new table. . ." << endl;
+   cin.get();
+   for (size_type i = 0; i < new_cap; ++i)
+      cout << data[i].word << endl;
+   cin.get();
+   /*
    size_type new_cap = next_prime(capacity * 2);
    size_type copied = 0;
    HashTable newTable(new_cap);
@@ -30,6 +82,8 @@ void HashTable::rehash()
    this->data = newTable.data;
    this->capacity = new_cap;
    newTable.data = 0;
+   */
+
    return;
 }
 
