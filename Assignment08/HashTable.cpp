@@ -15,32 +15,32 @@ void HashTable::rehash()
    size_type new_cap = next_prime(capacity * 2),
                 copy = 0,
                 next = 0;
-   Item* newTable    = new Item[new_cap];
-   Item* temp        = new Item[used];
-
+   Item* newTable    = new Item[new_cap];                            // new table (empty)
+   Item* temp        = new Item[used];                               // temp array to hold elements
+                                                                     // in existing table.
    while (copy < used)
    {
-      if (data[next].word[0] != '\0')
-      {
+      if (data[next].word[0] != '\0')                                // A word has been found, copy
+      {                                                              // it to the temp array.
          strcpy(temp[copy].word, data[next].word);
          ++copy;
       }
       ++next;
    }
-   delete [] data;
-   data = newTable;
-   copy = used;
-   used = 0;
-   capacity = new_cap;
+   delete [] data;                                                   // Data is now preserved in temp,
+   data = newTable;                                                  // delete original hash table
+   copy = used;                                                      // and re-direct data* to the
+   used = 0;                                                         // new table.  Then update table
+   capacity = new_cap;                                               // used & capacity variables.
 
    for (next = 0; next < copy; ++next)
    {
-      insert(temp[next].word);
-      temp[next].word[0] = '\0';
-   }
+      insert(temp[next].word);                                       // insert() can now be used to
+      temp[next].word[0] = '\0';                                     // add preserved data in temp
+   }                                                                 // to new table at 'data'
    delete [] temp;
-   temp = 0;
-   return;
+   temp = 0;                                                         // Delete temp array when data
+   return;                                                           // has been moved over.
 }
 
 // returns true if cStr already exists in the hash table,
@@ -59,23 +59,23 @@ bool HashTable::exists(const char* cStr) const
 // CAUTION: major penalty if not using hashing technique
 bool HashTable::search(const char* cStr) const
 {
-   size_type loc_0 = hash(cStr) % capacity;
-   bool wordFound  = (strcmp(data[loc_0].word, cStr) == 0);
+   size_type loc_0 = hash(cStr) % capacity;                          // Initial index to search
+   bool wordFound  = (strcmp(data[loc_0].word, cStr) == 0);          // cStr compared to word at loc_0
 
    if (wordFound)
       return true;
    else
    {
-      size_type local_used = used,
-                  stepSize = 1,
+      //size_type local_used = used,
+        size_type         stepSize = 1,
                      loc_n = loc_0;
-
-      while (!wordFound && local_used != 0)
-      {
-         loc_n = (loc_0 + stepSize * stepSize) % capacity;
-         wordFound = (strcmp(data[loc_n].word, cStr) == 0);
+      while (!wordFound)
+      //while (!wordFound && local_used != 0)                          // if cStr != to word at loc_0,
+      {                                                              // use quadratic probing starting
+         loc_n = (loc_0 + stepSize * stepSize) % capacity;           // from loc_0 to find next index
+         wordFound = (strcmp(data[loc_n].word, cStr) == 0);          // for comparison until...
          ++stepSize;
-         --local_used;
+         //--local_used;
       }
       return wordFound;
    }
@@ -92,7 +92,7 @@ HashTable::size_type HashTable::hash(const char* word) const
    size_type hash = 5381;
    int c;
    while ((c = *word++))
-      hash = ((hash << 5) + hash) + c;                                      // hash*33 + c
+      hash = ((hash << 5) + hash) + c;                               // hash*33 + c
    return hash;
 }
 
@@ -174,13 +174,13 @@ void HashTable::insert(const char* cStr)
    size_type stepSize = 1,
                 loc_0 = hash(cStr) % capacity,
                 loc_n = loc_0;
-   bool      locFound = (data[loc_0].word[0] == '\0');
-   
-   while (!locFound)
+   //bool      locFound = (data[loc_0].word[0] == '\0');
+   while (!data[loc_n].word[0] == '\0')
+   //while (!locFound)
    {
       loc_n = (loc_0 + stepSize * stepSize) % capacity;
       ++stepSize;
-      locFound = (data[loc_n].word[0] == '\0');
+      //locFound = (data[loc_n].word[0] == '\0');
    }
    strcpy(data[loc_n].word, cStr);
    ++used;
