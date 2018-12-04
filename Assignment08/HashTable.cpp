@@ -12,78 +12,34 @@ using namespace std;
 // (HINT: put next_prime and insert to good use)
 void HashTable::rehash()
 {
-   cout << typeid(data[0].word).name() << endl;
-   size_type new_cap = next_prime(capacity * 2);
-   Item* newTable = new Item[new_cap];
-   Item* temp = new Item[used];
-   size_type copy = 0;
+   size_type new_cap = next_prime(capacity * 2),
+                copy = 0,
+                next = 0;
+   Item* newTable    = new Item[new_cap];
+   Item* temp        = new Item[used];
 
-   for (size_type i = 0; i < capacity; ++i)
-   {
-      if (data[i].word[0] != '\0')
-      {
-         cout << data[i].word << endl;
-         ++copy;
-      }
-   }
-   cout << copy << endl;
-   cout << used << endl;
-   cout << load_factor() << endl;
-   cin.get();
-   copy = 0;
-   size_type i = 0;
-   cout << "Transferring data to temp array. . ." << endl;
    while (copy < used)
    {
-      if (data[i].word[0] != '\0')
+      if (data[next].word[0] != '\0')
       {
-         //char* cStr = data[i].word;
-         strcpy(temp[copy].word, data[i].word);
-         cout << temp[copy].word << " copied to temp[" << copy << "].word" << endl;
+         strcpy(temp[copy].word, data[next].word);
          ++copy;
-
       }
-      ++i;
+      ++next;
    }
-   cout << typeid(temp[0].word).name();
-   cout << "data transferred to temp array, inserting to new table. . ." << endl;
-   copy = 0;
-   cin.get();
    delete [] data;
    data = newTable;
    copy = used;
    used = 0;
-   newTable = 0;
+   capacity = new_cap;
 
-   for (size_type i = 0; i < used; ++i)
-      //cout << temp[i].word << endl;
-      insert(temp[i].word);
-   cout << "Press key to view data in new table. . ." << endl;
-   cin.get();
-   for (size_type i = 0; i < new_cap; ++i)
-      cout << data[i].word << endl;
-   cin.get();
-   /*
-   size_type new_cap = next_prime(capacity * 2);
-   size_type copied = 0;
-   HashTable newTable(new_cap);
-   while (copied != this->used)
+   for (next = 0; next < copy; ++next)
    {
-      for (size_type i = 0; i < this->capacity; ++i)
-      {
-         if (this->data[i].word[0] != '\0')
-         {
-            newTable.insert(this->data[i].word);
-            ++copied;
-         }
-      }
+      insert(temp[next].word);
+      temp[next].word[0] = '\0';
    }
-   delete this->data;
-   this->data = newTable.data;
-   this->capacity = new_cap;
-   newTable.data = 0;
-   */
-
+   delete [] temp;
+   temp = 0;
    return;
 }
 
@@ -103,23 +59,25 @@ bool HashTable::exists(const char* cStr) const
 // CAUTION: major penalty if not using hashing technique
 bool HashTable::search(const char* cStr) const
 {
-   size_type i = hash(cStr) % capacity;
-   size_type j = i;
-   size_type probeCount = 1;
-   bool posFound = (strcmp(data[i].word, cStr) == 0);
-   if (posFound)
+   size_type loc_0 = hash(cStr) % capacity;
+   bool wordFound  = (strcmp(data[loc_0].word, cStr) == 0);
+
+   if (wordFound)
       return true;
    else
    {
-      size_type temp = used;
-      while (!posFound && (temp != 0))
+      size_type local_used = used,
+                  stepSize = 1,
+                     loc_n = loc_0;
+
+      while (!wordFound && local_used != 0)
       {
-         i = (j + probeCount * probeCount) % capacity;
-         posFound = (strcmp(data[i].word, cStr) == 0);
-         --temp;
-         ++probeCount;
+         loc_n = (loc_0 + stepSize * stepSize) % capacity;
+         wordFound = (strcmp(data[loc_n].word, cStr) == 0);
+         ++stepSize;
+         --local_used;
       }
-      return posFound;
+      return wordFound;
    }
 }
 
@@ -129,7 +87,7 @@ double HashTable::load_factor() const
 
 // returns hash value computed using the djb2 hash algorithm
 // (2nd page of Lecture Note 324s02AdditionalNotesOnHashFunctions)
-HashTable::size_type HashTable::hash(const char* word) const         // CLEAN UP NEEDED
+HashTable::size_type HashTable::hash(const char* word) const
 {
    size_type hash = 5381;
    int c;
@@ -213,30 +171,22 @@ void HashTable::grading_helper_print(ostream& out) const
 // rehash is called to bring down the load-factor)
 void HashTable::insert(const char* cStr)
 {
-   // Determine initial hash value (loc) for table placement
-   size_type i = hash(cStr) % capacity;
-   size_type j = i;
-   size_type probeCount = 1;
-   bool posFound = (data[i].word[0] == '\0');
-
-   // Until new item is inserted...
-   while (!posFound)
+   size_type stepSize = 1,
+                loc_0 = hash(cStr) % capacity,
+                loc_n = loc_0;
+   bool      locFound = (data[loc_0].word[0] == '\0');
+   
+   while (!locFound)
    {
-      // implement quadratic probing to assign new hash
-      // value to loc and try again.
-      i = (j + probeCount * probeCount) % capacity;
-      ++probeCount;
-      posFound = (data[i].word[0] == '\0');
+      loc_n = (loc_0 + stepSize * stepSize) % capacity;
+      ++stepSize;
+      locFound = (data[loc_n].word[0] == '\0');
    }
-
-   // Insert new item into the table at data[loc]
-   strcpy(data[i].word, cStr);
+   strcpy(data[loc_n].word, cStr);
    ++used;
 
-   // If load capacity exceeds 0.45, rehash.
    if (load_factor() > 0.45)
       rehash();
-
    return;
 }
 

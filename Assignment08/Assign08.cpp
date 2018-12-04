@@ -19,8 +19,8 @@ int main()
    cin.ignore(9999, '\n');
    ifstream fin;
    if (dictOption == 's' || dictOption == 'S')
-      fin.open("dict0.txt", ios::in);
-      //fin.open("temp.txt", ios::in);
+      //fin.open("dict0.txt", ios::in);
+      fin.open("temp.txt", ios::in);
    else
       fin.open("dict1.txt", ios::in);
    if ( fin.fail() )
