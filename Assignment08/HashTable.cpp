@@ -32,6 +32,7 @@ void HashTable::rehash()
    copy = used;                                                      // and re-direct data* to the
    used = 0;                                                         // new table.  Then update table
    capacity = new_cap;                                               // used & capacity variables.
+   newTable = 0;
 
    for (next = 0; next < copy; ++next)
    {
