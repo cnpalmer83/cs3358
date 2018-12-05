@@ -66,16 +66,16 @@ bool HashTable::search(const char* cStr) const
       return true;
    else
    {
-      //size_type local_used = used,
-        size_type         stepSize = 1,
+      size_type local_used = used,
+                  stepSize = 1,
                      loc_n = loc_0;
-      while (!wordFound)
-      //while (!wordFound && local_used != 0)                          // if cStr != to word at loc_0,
+
+      while (!wordFound && local_used != 0)                          // if cStr != to word at loc_0,
       {                                                              // use quadratic probing starting
          loc_n = (loc_0 + stepSize * stepSize) % capacity;           // from loc_0 to find next index
-         wordFound = (strcmp(data[loc_n].word, cStr) == 0);          // for comparison until...
-         ++stepSize;
-         //--local_used;
+         wordFound = (strcmp(data[loc_n].word, cStr) == 0);          // for comparison up to 'used'
+         ++stepSize;                                                 // iterations.
+         --local_used;
       }
       return wordFound;
    }
@@ -172,21 +172,18 @@ void HashTable::grading_helper_print(ostream& out) const
 void HashTable::insert(const char* cStr)
 {
    size_type stepSize = 1,
-                loc_0 = hash(cStr) % capacity,
-                loc_n = loc_0;
-   //bool      locFound = (data[loc_0].word[0] == '\0');
-   while (!data[loc_n].word[0] == '\0')
-   //while (!locFound)
-   {
-      loc_n = (loc_0 + stepSize * stepSize) % capacity;
-      ++stepSize;
-      //locFound = (data[loc_n].word[0] == '\0');
+                loc_0 = hash(cStr) % capacity,                       // Initial index value
+                loc_n = loc_0;                                       // New index values (if needed)
+   while (data[loc_n].word[0] != '\0')
+   {                                                                 // Search for vacant index to store
+      loc_n = (loc_0 + stepSize * stepSize) % capacity;              // cStr if initial index has data
+      ++stepSize;                                                    // using quadratic probing.
    }
-   strcpy(data[loc_n].word, cStr);
-   ++used;
+   strcpy(data[loc_n].word, cStr);                                   // Insert cStr when vacant index is
+   ++used;                                                           // found and increment used.
 
-   if (load_factor() > 0.45)
-      rehash();
+   if (load_factor() > 0.45)                                         // rehash if insert results in a
+      rehash();                                                      // load factor greater than 45%.
    return;
 }
 
